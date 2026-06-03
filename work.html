@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CYMEDIA - Our Work</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #050914;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+}
+
+.work-section {
+  min-height: 100vh;
+  padding: 110px 7%;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(93, 67, 255, .22), transparent 30%),
+    radial-gradient(circle at 85% 60%, rgba(255, 79, 195, .18), transparent 28%),
+    #050914;
+  overflow: hidden;
+}
+
+.work-header {
+  margin-bottom: 55px;
+}
+
+.eyebrow {
+  color: #ff4fc3;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 3px;
+  font-weight: 800;
+}
+
+.work-header h2 {
+  font-size: clamp(36px, 5vw, 68px);
+  line-height: 1.05;
+  margin-top: 18px;
+  max-width: 760px;
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.work-card {
+  position: relative;
+  min-height: 380px;
+  border-radius: 24px;
+  overflow: hidden;
+  padding: 28px;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid rgba(255, 255, 255, .09);
+  box-shadow: 0 30px 80px rgba(0,0,0,.35);
+  transform: translateY(45px);
+  opacity: 0;
+  transition: .75s ease;
+}
+
+.work-card.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.work-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(5,9,20,.98), rgba(5,9,20,.4), transparent);
+  z-index: 1;
+}
+
+.work-card::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,79,195,.28), transparent 35%);
+  opacity: 0;
+  transition: .3s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.work-card:hover::after {
+  opacity: 1;
+}
+
+.work-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .55;
+  transition: .6s ease;
+}
+
+.work-card:hover img {
+  transform: scale(1.08);
+  opacity: .75;
+}
+
+.card-content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tag {
+  align-self: flex-start;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(255, 79, 195, .14);
+  color: #ff7ed3;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 1px;
+  border: 1px solid rgba(255, 79, 195, .25);
+}
+
+.project-info {
+  margin-top: auto;
+}
+
+.project-info h3 {
+  font-size: 30px;
+  margin-bottom: 14px;
+}
+
+.main-result {
+  font-size: 54px;
+  font-weight: 900;
+  color: #ff69cd;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.result-label {
+  color: #c7cce0;
+  font-size: 14px;
+  margin-bottom: 22px;
+}
+
+.metrics {
+  display: flex;
+  gap: 28px;
+}
+
+.metric strong {
+  display: block;
+  font-size: 25px;
+}
+
+.metric span {
+  color: #9fa6c2;
+  font-size: 13px;
+}
+
+.work-cta {
+  text-align: center;
+  margin-top: 55px;
+}
+
+.work-btn {
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+  padding: 17px 30px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6d5cff, #ff4fc3);
+  box-shadow: 0 12px 40px rgba(255, 79, 195, .25);
+  transition: .3s ease;
+}
+
+.work-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 60px rgba(255, 79, 195, .45);
+}
+
+@media(max-width: 1000px) {
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .work-card {
+    min-height: 420px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="work-section">
+  <div class="work-header">
+    <span class="eyebrow">● Our Work</span>
+    <h2>Real Results. Real Brands.</h2>
+  </div>
+
+  <div class="work-grid">
+    <article class="work-card">
+      <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=1000&q=80" alt="">
+      <div class="card-content">
+        <span class="tag">E-commerce</span>
+        <div class="project-info">
+          <h3>Virelo</h3>
+          <div class="main-result">+320%</div>
+          <p class="result-label">Engagement growth</p>
+
+          <div class="metrics">
+            <div class="metric">
+              <strong>2.1M</strong>
+              <span>Views Generated</span>
+            </div>
+            <div class="metric">
+              <strong>8.7x</strong>
+              <span>ROAS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="work-card">
+      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1000&q=80" alt="">
+      <div class="card-content">
+        <span class="tag">Coaching</span>
+        <div class="project-info">
+          <h3>Mindset Pro</h3>
+          <div class="main-result">+185%</div>
+          <p class="result-label">Qualified leads</p>
+
+          <div class="metrics">
+            <div class="metric">
+              <strong>980K</strong>
+              <span>Views Generated</span>
+            </div>
+            <div class="metric">
+              <strong>6.3x</strong>
+              <span>ROAS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="work-card">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80" alt="">
+      <div class="card-content">
+        <span class="tag">SaaS</span>
+        <div class="project-info">
+          <h3>Taskly</h3>
+          <div class="main-result">+210%</div>
+          <p class="result-label">Signup growth</p>
+
+          <div class="metrics">
+            <div class="metric">
+              <strong>1.4M</strong>
+              <span>Views Generated</span>
+            </div>
+            <div class="metric">
+              <strong>7.2x</strong>
+              <span>ROAS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="work-cta">
+    <button class="work-btn">View More Case Studies →</button>
+  </div>
+</section>
+
+<script>
+const cards = document.querySelectorAll(".work-card");
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add("show");
+      }, index * 160);
+    }
+  });
+}, { threshold: 0.25 });
+
+cards.forEach(card => observer.observe(card));
+
+cards.forEach(card => {
+  card.addEventListener("mousemove", e => {
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty("--x", `${e.clientX - rect.left}px`);
+    card.style.setProperty("--y", `${e.clientY - rect.top}px`);
+  });
+});
+</script>
+
+</body>
+</html>
