@@ -9,17 +9,17 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #07060f;
-      --surface:   #0e0c1e;
+      --bg:        #ffffff;
+      --surface:   #f4f6fb;
       --pink:      #e0368c;
       --pink-glow: rgba(224, 54, 140, 0.35);
       --purple:    #7b3fe4;
       --purple-glow: rgba(123, 63, 228, 0.25);
       --cyan:      #2af5e0;
-      --text:      #f0eeff;
-      --muted:     rgba(240, 238, 255, 0.5);
-      --card-bg:   rgba(255,255,255,0.04);
-      --card-border: rgba(255,255,255,0.08);
+      --text:      #0f1a3a;
+      --muted:     rgba(15, 26, 58, 0.5);
+      --card-bg:   rgba(0,0,0,0.03);
+      --card-border: rgba(0,0,0,0.08);
     }
 
     html { scroll-behavior: smooth; }
@@ -40,7 +40,7 @@
       align-items: center;
       padding: 18px 8%;
       backdrop-filter: blur(18px);
-      background: rgba(7,6,15,0.7);
+      background: rgba(7,6,15,0);
       border-bottom: 1px solid var(--card-border);
     }
     nav > .nav-cta {
@@ -954,7 +954,190 @@
       footer { padding: 30px 24px; flex-direction: column; align-items: flex-start; }
     }
 
-  </style>
+        
+    /* GLOW */
+
+    .hero-visual::before{
+        content:"";
+
+        position:absolute;
+
+        width:700px;
+        height:700px;
+
+        border-radius:50%;
+
+        background:
+        radial-gradient(
+            circle,
+            rgba(255,79,195,.16),
+            transparent 60%
+        );
+
+        filter:blur(40px);
+
+        z-index:0;
+    }
+
+    /* PHONE IMAGE */
+
+    .phone-image{
+        position:relative;
+
+        width:420px;
+
+        z-index:2;
+
+        animation:float 5s ease-in-out infinite;
+
+        filter:
+        drop-shadow(0 50px 90px rgba(0,0,0,.5))
+        drop-shadow(0 0 45px rgba(255,79,195,.16));
+    }
+
+    /* FLOATING CARDS */
+
+    .floating-card{
+        position:absolute;
+
+        padding:18px 22px;
+
+        border-radius:22px;
+
+        background:rgba(255,255,255,.06);
+
+        border:1px solid rgba(255,255,255,.08);
+
+        backdrop-filter:blur(14px);
+
+        box-shadow:
+        0 25px 70px rgba(0,0,0,.35);
+
+        z-index:3;
+
+        animation:floatCard 4s ease-in-out infinite;
+    }
+
+    .floating-card strong{
+        display:block;
+
+        font-size:32px;
+
+        margin-bottom:6px;
+    }
+
+    .floating-card span{
+        color:#b8bfd8;
+
+        font-size:14px;
+    }
+
+    /* CARD POSITIONS */
+
+    .card-one{
+        top:120px;
+        left:0;
+
+        animation-delay:0s;
+    }
+
+    .card-two{
+        right:0;
+        top:230px;
+
+        animation-delay:1s;
+    }
+
+    .card-three{
+        left:40px;
+        bottom:130px;
+
+        animation-delay:2s;
+    }
+
+    .card-four{
+        right:40px;
+        bottom:100px;
+
+        animation-delay:1.5s;
+    }
+
+    /* ANIMATIONS */
+
+    @keyframes float{
+
+        0%,100%{
+            transform:translateY(0px);
+        }
+
+        50%{
+            transform:translateY(-20px);
+        }
+
+    }
+
+    @keyframes floatCard{
+
+        0%,100%{
+            transform:translateY(0px);
+        }
+
+        50%{
+            transform:translateY(-12px);
+        }
+
+    }
+
+    /* RESPONSIVE */
+
+@media(max-width:1100px){
+
+    .hero-section{
+        grid-template-columns:1fr;
+    }
+
+    .hero-visual{
+        min-height:700px;
+    }
+
+}
+
+@media(max-width:700px){
+
+    .hero-content h1{
+        font-size:58px;
+    }
+
+    .phone-image{
+        width:300px;
+    }
+
+    .floating-card{
+        transform:scale(.85);
+    }
+
+    .card-one{
+        top:60px;
+        left:-10px;
+    }
+
+    .card-two{
+        right:-10px;
+        top:180px;
+    }
+
+    .card-three{
+        left:0;
+        bottom:100px;
+    }
+
+    .card-four{
+        right:0;
+        bottom:80px;
+    }
+  }
+
+</style>
 </head>
 <body>
 
@@ -973,6 +1156,7 @@
       <li><a href="#">About</a></li>
       <li><a href="#">Pricing</a></li>
       <li><a href="#">Blog</a></li>
+      <li><a href="index.html">V1</a></li>
       <li><a href="v2.html">V2</a></li>
       <li><a href="v3.html">V2</a></li>
     </ul>
@@ -1030,109 +1214,35 @@
     <div class="hero-right">
 
       <!-- Arc glow -->
-      <div class="arc-line"></div>
+        <div class="hero-visual">
 
-      <div class="phone-wrap">
+            <img
+                src="./images/cymedia-phone.png"
+                alt=""
+                class="phone-image"
+            >
 
-        <!-- Floating card: Script / Hook -->
-        <div class="float-card fc-script">
-          <div class="fc-script-inner">
-            <span class="fc-script-tag">Script</span>
-            <span class="fc-hook">Hook</span>
-            <span class="fc-hook-sub">The first 3 seconds<br>decide everything.</span>
-          </div>
-        </div>
-
-        <!-- Phone body -->
-        <div class="phone">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-
-            <div class="phone-video-thumb">
-              <div class="phone-play-btn">▶</div>
-              <div class="phone-brand-text">Your brand<br><span>Their story</span></div>
+            <div class="floating-card card-one">
+                <strong>+320%</strong>
+                <span>Engagement Growth</span>
             </div>
 
-            <div class="phone-stats-row">
-              <div class="phone-stat">
-                <div class="stat-label">Views</div>
-                <div class="stat-val">4.2M</div>
-              </div>
-              <div class="phone-stat">
-                <div class="stat-label">Likes</div>
-                <div class="stat-val">98K</div>
-              </div>
-              <div class="phone-stat">
-                <div class="stat-label">ROAS</div>
-                <div class="stat-val">8.7x</div>
-              </div>
+            <div class="floating-card card-two">
+                <strong>Scripts</strong>
+                <span>Hook-driven content</span>
             </div>
 
-            <div class="phone-waveform">
-              <div class="wave-bar" style="animation-delay:.0s"></div>
-              <div class="wave-bar" style="animation-delay:.05s"></div>
-              <div class="wave-bar" style="animation-delay:.1s"></div>
-              <div class="wave-bar" style="animation-delay:.15s"></div>
-              <div class="wave-bar" style="animation-delay:.2s"></div>
-              <div class="wave-bar" style="animation-delay:.25s"></div>
-              <div class="wave-bar" style="animation-delay:.3s"></div>
-              <div class="wave-bar" style="animation-delay:.35s"></div>
-              <div class="wave-bar" style="animation-delay:.4s"></div>
-              <div class="wave-bar" style="animation-delay:.45s"></div>
-              <div class="wave-bar" style="animation-delay:.5s"></div>
-              <div class="wave-bar" style="animation-delay:.55s"></div>
-              <div class="wave-bar" style="animation-delay:.6s"></div>
-              <div class="wave-bar" style="animation-delay:.65s"></div>
-              <div class="wave-bar" style="animation-delay:.7s"></div>
-              <div class="wave-bar" style="animation-delay:.75s"></div>
-              <div class="wave-bar" style="animation-delay:.8s"></div>
-              <div class="wave-bar" style="animation-delay:.85s"></div>
+            <div class="floating-card card-three">
+                <strong>2.4M</strong>
+                <span>Views Generated</span>
             </div>
 
-            <div class="phone-tabs">
-              <div class="phone-tab active"></div>
-              <div class="phone-tab"></div>
-              <div class="phone-tab"></div>
-              <div class="phone-tab"></div>
+            <div class="floating-card card-four">
+                <strong>12x</strong>
+                <span>ROAS Performance</span>
             </div>
 
-          </div>
         </div>
-
-        <!-- Floating card: Engagement -->
-        <div class="float-card fc-engagement">
-          <div class="fc-label">Engagement</div>
-          <div class="fc-value green">+320%</div>
-          <div class="mini-chart">
-            <div class="mini-bar" style="height:40%"></div>
-            <div class="mini-bar" style="height:55%"></div>
-            <div class="mini-bar" style="height:45%"></div>
-            <div class="mini-bar" style="height:70%"></div>
-            <div class="mini-bar" style="height:60%"></div>
-            <div class="mini-bar" style="height:85%"></div>
-            <div class="mini-bar" style="height:75%"></div>
-            <div class="mini-bar" style="height:100%"></div>
-          </div>
-        </div>
-
-        <!-- Floating card: Views -->
-        <div class="float-card fc-views">
-          <div class="fc-label">Views</div>
-          <div class="fc-value pink">4.2M</div>
-          <div class="fc-sub">Last 30 days</div>
-          <div class="mini-chart">
-            <div class="mini-bar" style="height:30%; background: var(--pink)"></div>
-            <div class="mini-bar" style="height:50%; background: var(--pink)"></div>
-            <div class="mini-bar" style="height:40%; background: var(--pink)"></div>
-            <div class="mini-bar" style="height:65%; background: var(--pink)"></div>
-            <div class="mini-bar" style="height:55%; background: var(--pink)"></div>
-            <div class="mini-bar" style="height:90%; background: var(--pink)"></div>
-            <div class="mini-bar" style="height:80%; background: var(--pink)"></div>
-            <div class="mini-bar" style="height:100%; background: var(--pink)"></div>
-          </div>
-        </div>
-
-      </div><!-- /phone-wrap -->
 
     </div><!-- /hero-right -->
 
