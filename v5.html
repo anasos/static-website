@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CYMEDIA — We Turn Attention Into Revenue</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Background glow -->
+  <div class="bg-glow"></div>
+  <div class="bg-grid"></div>
+
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="logo" data-testid="logo-link">
+        <span class="logo-mark">
+          <span class="logo-c"></span>
+          <span class="logo-dot"></span>
+        </span>
+        <span class="logo-text">
+          <span class="logo-title">CYMEDIA</span>
+          <span class="logo-sub">MARKETING AGENCY</span>
+        </span>
+      </a>
+      <nav class="nav-links" data-testid="primary-nav">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#blog">Blog</a>
+      </nav>
+      <button class="btn btn-primary nav-cta" type="button" data-testid="nav-book-call-btn">
+        Book a Strategy Call <i class="fa-solid fa-arrow-right"></i>
+      </button>
+      <button class="menu-toggle" type="button" data-testid="menu-toggle" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="dot"></span> YOUR GROWTH PARTNER</span>
+        <h1 class="hero-title">
+          We Turn<br />
+          Attention Into<br />
+          <span class="grad-text">Revenue.</span>
+        </h1>
+        <p class="hero-sub">
+          Video scripting, social media strategy, branding, ads,
+          content systems and digital growth — built for
+          modern brands.
+        </p>
+        <div class="hero-ctas">
+          <button class="btn btn-primary" type="button" data-testid="hero-start-brand-btn">
+            Start Your Brand <i class="fa-solid fa-arrow-right"></i>
+          </button>
+          <button class="btn btn-ghost" type="button" data-testid="hero-showreel-btn">
+            <span class="play-circle"><i class="fa-solid fa-play"></i></span>
+            Watch Showreel
+          </button>
+        </div>
+        <div class="trusted">
+          <p class="trusted-label">Trusted by ambitious brands</p>
+          <div class="brand-row">
+            <span class="brand"><i class="fa-solid fa-circle-notch"></i> VELOX</span>
+            <span class="brand"><i class="fa-solid fa-comment-dots"></i> NEXORA</span>
+            <span class="brand"><i class="fa-solid fa-wave-square"></i> FLOW</span>
+            <span class="brand"><i class="fa-regular fa-circle"></i> NOVA</span>
+            <span class="brand"><i class="fa-solid fa-bolt"></i> ZENITH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone mock -->
+      <div class="hero-visual" data-testid="hero-visual">
+        <div class="orbit"></div>
+        <div class="orbit orbit-2"></div>
+
+        <div class="floating-card card-video">
+          <div class="thumb">
+            <i class="fa-solid fa-play"></i>
+          </div>
+        </div>
+
+        <div class="floating-card card-script" data-testid="script-card">
+          <p class="card-label">Script</p>
+          <p class="card-title">Hook</p>
+          <p class="card-desc">The first 3 seconds<br/>decide everything.</p>
+          <svg class="waveform" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true">
+            <g fill="url(#wgrad)">
+              <rect x="2"  y="14" width="3" height="12" rx="1.5"/>
+              <rect x="10" y="10" width="3" height="20" rx="1.5"/>
+              <rect x="18" y="4"  width="3" height="32" rx="1.5"/>
+              <rect x="26" y="12" width="3" height="16" rx="1.5"/>
+              <rect x="34" y="8"  width="3" height="24" rx="1.5"/>
+              <rect x="42" y="2"  width="3" height="36" rx="1.5"/>
+              <rect x="50" y="10" width="3" height="20" rx="1.5"/>
+              <rect x="58" y="14" width="3" height="12" rx="1.5"/>
+              <rect x="66" y="6"  width="3" height="28" rx="1.5"/>
+              <rect x="74" y="12" width="3" height="16" rx="1.5"/>
+              <rect x="82" y="8"  width="3" height="24" rx="1.5"/>
+              <rect x="90" y="14" width="3" height="12" rx="1.5"/>
+              <rect x="98" y="4"  width="3" height="32" rx="1.5"/>
+              <rect x="106" y="10" width="3" height="20" rx="1.5"/>
+              <rect x="114" y="12" width="3" height="16" rx="1.5"/>
+              <rect x="122" y="6"  width="3" height="28" rx="1.5"/>
+              <rect x="130" y="14" width="3" height="12" rx="1.5"/>
+              <rect x="138" y="8"  width="3" height="24" rx="1.5"/>
+              <rect x="146" y="12" width="3" height="16" rx="1.5"/>
+              <rect x="154" y="4"  width="3" height="32" rx="1.5"/>
+              <rect x="162" y="14" width="3" height="12" rx="1.5"/>
+              <rect x="170" y="10" width="3" height="20" rx="1.5"/>
+              <rect x="178" y="14" width="3" height="12" rx="1.5"/>
+              <rect x="186" y="8"  width="3" height="24" rx="1.5"/>
+              <rect x="194" y="14" width="3" height="12" rx="1.5"/>
+            </g>
+            <defs>
+              <linearGradient id="wgrad" x1="0" x2="1">
+                <stop offset="0%" stop-color="#8b5cf6"/>
+                <stop offset="100%" stop-color="#ec4899"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <div class="phone" data-testid="phone-mock">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-status">
+              <span>20:01</span>
+              <span class="status-icons">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-three-quarters"></i>
+              </span>
+            </div>
+            <div class="phone-poster">
+              <div class="poster-overlay"></div>
+              <div class="poster-text">
+                Your brand<br/>
+                <em>Their</em> <span class="story-tag">story</span>
+              </div>
+              <div class="poster-actions">
+                <span><i class="fa-solid fa-heart"></i><b>12.4k</b></span>
+                <span><i class="fa-solid fa-comment"></i><b>8.3k</b></span>
+                <span><i class="fa-solid fa-share"></i><b>2.1k</b></span>
+              </div>
+            </div>
+            <div class="phone-tabbar">
+              <i class="fa-solid fa-house"></i>
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span class="tab-plus"><i class="fa-solid fa-plus"></i></span>
+              <i class="fa-solid fa-envelope"></i>
+              <i class="fa-solid fa-user"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-card card-engagement" data-testid="engagement-card">
+          <p class="card-label">Engagement</p>
+          <p class="card-stat grad-text">+320%</p>
+          <svg viewBox="0 0 120 40" class="mini-chart" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 32 L20 28 L40 22 L60 18 L80 10 L100 8 L120 2" stroke="url(#cgrad)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="cgrad" x1="0" x2="1">
+                <stop offset="0%" stop-color="#8b5cf6"/>
+                <stop offset="100%" stop-color="#ec4899"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <div class="floating-card card-views" data-testid="views-card">
+          <p class="card-label">Views</p>
+          <p class="card-stat grad-text">4.2M</p>
+          <p class="card-sub">Last 30 days</p>
+          <div class="bars">
+            <span style="--h:30%"></span>
+            <span style="--h:55%"></span>
+            <span style="--h:42%"></span>
+            <span style="--h:70%"></span>
+            <span style="--h:48%"></span>
+            <span style="--h:82%"></span>
+            <span style="--h:65%"></span>
+            <span style="--h:95%"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span> WHAT WE DO</span>
+      <h2 class="section-title">Everything Your Brand Needs<br/>to Grow Online</h2>
+
+      <div class="services-grid">
+        <article class="service-card" data-testid="service-card-1">
+          <span class="service-icon"><i class="fa-solid fa-pen-nib"></i></span>
+          <h3>Video Script<br/>Writing</h3>
+          <p>High-converting scripts that hook, engage and sell.</p>
+          <a class="arrow-link" href="#" aria-label="Learn more"><i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card" data-testid="service-card-2">
+          <span class="service-icon"><i class="fa-regular fa-comment-dots"></i></span>
+          <h3>Social Media<br/>Management</h3>
+          <p>Content, community and consistency that builds authority.</p>
+          <a class="arrow-link" href="#" aria-label="Learn more"><i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card" data-testid="service-card-3">
+          <span class="service-icon"><i class="fa-solid fa-palette"></i></span>
+          <h3>Branding &amp;<br/>Identity</h3>
+          <p>From logo to voice, we create brands people remember.</p>
+          <a class="arrow-link" href="#" aria-label="Learn more"><i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card" data-testid="service-card-4">
+          <span class="service-icon"><i class="fa-solid fa-bullseye"></i></span>
+          <h3>Paid Ads<br/>Management</h3>
+          <p>Targeted ads that generate leads and max ROI.</p>
+          <a class="arrow-link" href="#" aria-label="Learn more"><i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card" data-testid="service-card-5">
+          <span class="service-icon"><i class="fa-regular fa-calendar"></i></span>
+          <h3>Content<br/>Strategy</h3>
+          <p>Data-driven content plans that attract and convert.</p>
+          <a class="arrow-link" href="#" aria-label="Learn more"><i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card" data-testid="service-card-6">
+          <span class="service-icon"><i class="fa-solid fa-circle-play"></i></span>
+          <h3>Reels &amp; Short<br/>Form Content</h3>
+          <p>Scroll-stopping videos made for today's platforms.</p>
+          <a class="arrow-link" href="#" aria-label="Learn more"><i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card" data-testid="service-card-7">
+          <span class="service-icon"><i class="fa-solid fa-code"></i></span>
+          <h3>Web Design &amp;<br/>Development</h3>
+          <p>Fast, modern and conversion-focused websites.</p>
+          <a class="arrow-link" href="#" aria-label="Learn more"><i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card" data-testid="service-card-8">
+          <span class="service-icon"><i class="fa-solid fa-chart-line"></i></span>
+          <h3>Growth<br/>Consulting</h3>
+          <p>Strategy sessions that scale your business.</p>
+          <a class="arrow-link" href="#" aria-label="Learn more"><i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="about" class="section">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span> OUR PROCESS</span>
+      <h2 class="section-title">A Simple Process.<br/>Powerful Results.</h2>
+
+      <div class="process">
+        <svg class="process-curve" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 80 130 C 250 30, 400 200, 600 80 S 950 200, 1120 80"
+                stroke="url(#pgrad)" stroke-width="2" fill="none" stroke-dasharray="6 6"/>
+          <defs>
+            <linearGradient id="pgrad" x1="0" x2="1">
+              <stop offset="0%" stop-color="#8b5cf6"/>
+              <stop offset="100%" stop-color="#ec4899"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div class="step">
+          <span class="step-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <p class="step-num">STEP 01</p>
+          <h4>Research &amp;<br/>Positioning</h4>
+          <p class="step-desc">We analyze your market, audience and competitors to find your edge.</p>
+        </div>
+        <div class="step">
+          <span class="step-icon"><i class="fa-solid fa-pen"></i></span>
+          <p class="step-num">STEP 02</p>
+          <h4>Content &amp;<br/>Scripting</h4>
+          <p class="step-desc">We craft powerful scripts and content that communicate and sell.</p>
+        </div>
+        <div class="step">
+          <span class="step-icon"><i class="fa-solid fa-play"></i></span>
+          <p class="step-num">STEP 03</p>
+          <h4>Production &amp;<br/><span class="grad-text">Launch</span></h4>
+          <p class="step-desc">We produce, edit and launch high-quality content that stands out.</p>
+        </div>
+        <div class="step">
+          <span class="step-icon"><i class="fa-solid fa-chart-line"></i></span>
+          <p class="step-num">STEP 04</p>
+          <h4>Analytics &amp;<br/>Scaling</h4>
+          <p class="step-desc">We track performance, optimize and scale what actually works.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" class="section">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span> OUR WORK</span>
+      <h2 class="section-title">Real Results. Real Brands.</h2>
+
+      <div class="work-grid">
+        <article class="work-card" data-testid="work-card-virelo">
+          <span class="tag">E-COMMERCE</span>
+          <div class="work-body">
+            <div>
+              <h3>Virelo</h3>
+              <p class="big-stat grad-text">+320%</p>
+              <p class="stat-label">Engagement</p>
+              <div class="dual-stats">
+                <div><p class="num">2.1M</p><p class="lbl">Views Generated</p></div>
+                <div><p class="num">8.7x</p><p class="lbl">ROAS</p></div>
+              </div>
+            </div>
+            <div class="work-visual virelo">
+              <div class="bottle">
+                <div class="bottle-cap"></div>
+                <div class="bottle-body">virelo.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="work-card" data-testid="work-card-mindset">
+          <span class="tag">COACHING</span>
+          <div class="work-body">
+            <div>
+              <h3>Mindset Pro</h3>
+              <p class="big-stat grad-text">+185%</p>
+              <p class="stat-label">Leads</p>
+              <div class="dual-stats">
+                <div><p class="num">980K</p><p class="lbl">Views Generated</p></div>
+                <div><p class="num">6.3x</p><p class="lbl">ROAS</p></div>
+              </div>
+            </div>
+            <div class="work-visual mindset">
+              <div class="avatar"><i class="fa-solid fa-user"></i></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="work-card" data-testid="work-card-taskly">
+          <span class="tag">SAAS</span>
+          <div class="work-body">
+            <div>
+              <h3>Taskly</h3>
+              <p class="big-stat grad-text">+210%</p>
+              <p class="stat-label">Signups</p>
+              <div class="dual-stats">
+                <div><p class="num">1.4M</p><p class="lbl">Views Generated</p></div>
+                <div><p class="num">7.2x</p><p class="lbl">ROAS</p></div>
+              </div>
+            </div>
+            <div class="work-visual taskly">
+              <div class="dash-bars">
+                <span style="--h:35%"></span>
+                <span style="--h:60%"></span>
+                <span style="--h:48%"></span>
+                <span style="--h:78%"></span>
+                <span style="--h:55%"></span>
+                <span style="--h:90%"></span>
+                <span style="--h:70%"></span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="center-cta">
+        <button class="btn btn-primary" type="button" data-testid="view-cases-btn">
+          View More Case Studies <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CYMEDIA -->
+  <section class="section why-section">
+    <div class="container why-grid">
+      <div class="why-logo">
+        <div class="big-cy">
+          <span class="big-c"></span>
+          <span class="big-dot"></span>
+          <span class="big-y">y</span>
+        </div>
+      </div>
+      <div class="why-content">
+        <span class="eyebrow"><span class="dot"></span> WHY CYMEDIA</span>
+        <h2 class="section-title">
+          We don't just make content.<br/>
+          We engineer <span class="grad-text">attention.</span>
+        </h2>
+
+        <div class="why-features">
+          <div class="why-feat">
+            <span class="why-icon"><i class="fa-solid fa-lightbulb"></i></span>
+            <h4>Creative &amp; Strategic</h4>
+            <p>Creativity with a strategy. Not just ideas.</p>
+          </div>
+          <div class="why-feat">
+            <span class="why-icon"><i class="fa-solid fa-chart-simple"></i></span>
+            <h4>Data-Driven</h4>
+            <p>Everything we do is measurable and optimized.</p>
+          </div>
+          <div class="why-feat">
+            <span class="why-icon"><i class="fa-solid fa-bullseye"></i></span>
+            <h4>Results-Focused</h4>
+            <p>Your growth is our only goal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIG CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-banner" data-testid="cta-banner">
+        <div>
+          <h3>Ready to grow<br/>your brand?</h3>
+        </div>
+        <p class="cta-desc">Book a free strategy call and let's<br/>build your growth engine.</p>
+        <button class="btn btn-primary" type="button" data-testid="cta-book-call-btn">
+          Book a Strategy Call <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="#" class="logo">
+        <span class="logo-mark">
+          <span class="logo-c"></span>
+          <span class="logo-dot"></span>
+        </span>
+        <span class="logo-text">
+          <span class="logo-title">CYMEDIA</span>
+          <span class="logo-sub">MARKETING AGENCY</span>
+        </span>
+      </a>
+      <nav class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="socials">
+        <a href="#" aria-label="Instagram" data-testid="social-instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="TikTok" data-testid="social-tiktok"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#" aria-label="LinkedIn" data-testid="social-linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#" aria-label="YouTube" data-testid="social-youtube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050505" />
+    <meta
+      name="description"
+      content="CYMEDIA — Agence de croissance premium. Stratégie, performance marketing, branding, IA, et systèmes d'acquisition pour les marques ambitieuses."
+    />
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@900,800,700,500,400,300&f[]=satoshi@900,700,500,400,300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="site.css" />
+    <title>CYMEDIA — Agence de croissance premium</title>
+    <script>
+      window.addEventListener(
+        "error",
+        function (e) {
+          if (
+            e.error instanceof DOMException &&
+            e.error.name === "DataCloneError" &&
+            e.message &&
+            e.message.includes("PerformanceServerTiming")
+          ) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+          }
+        },
+        true,
+      );
+    </script>
+    <script src="https://assets.emergent.sh/scripts/emergent-main.js"></script>
+  </head>
+  <body class="grain">
+    <noscript>Activez JavaScript pour profiter pleinement de l'expérience.</noscript>
+
+    <!-- Global growth pulse -->
+    <div id="progress-bar" class="progress-bar" aria-hidden="true"></div>
+    <div class="pulse-rail" aria-hidden="true">
+      <div id="pulse-orb" class="pulse-orb"></div>
+    </div>
+
+    <!-- ============ NAVBAR ============ -->
+    <header id="navbar" class="navbar">
+      <div class="navbar-inner">
+        <a href="#top" class="logo">
+          <span class="logo-dot"><span></span></span>
+          <span class="logo-text">CYMEDIA</span>
+        </a>
+        <nav class="nav-links">
+          <a href="#services">Services</a>
+          <a href="#manifeste">Manifeste</a>
+          <a href="#process">Méthode</a>
+          <a href="#cas">Cas clients</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="btn-glass open-dialog" data-source="nav">
+            <span class="dot-pulse"></span>
+            Réserver un appel
+          </button>
+          <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+            <span></span><span></span>
+          </button>
+        </div>
+      </div>
+      <div id="mobilePanel" class="mobile-panel">
+        <a href="#services">Services</a>
+        <a href="#manifeste">Manifeste</a>
+        <a href="#process">Méthode</a>
+        <a href="#cas">Cas clients</a>
+        <a href="#contact">Contact</a>
+        <button class="btn-light open-dialog">Réserver un appel</button>
+      </div>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section id="top" class="hero">
+      <canvas id="particles" class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="blob blob-a"></div>
+      <div class="blob blob-b"></div>
+      <div class="hero-fade"></div>
+
+      <div class="hero-inner reveal">
+        <div class="badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.39 6.62L21 11l-6.61 2.38L12 20l-2.39-6.62L3 11l6.61-2.38z"/></svg>
+          <span>Paris · Agence de croissance · 2026</span>
+        </div>
+
+        <h1 class="hero-title">
+          Votre croissance mérite<br />
+          <em>mieux que du marketing.</em>
+        </h1>
+
+        <p class="hero-sub">
+          CYMEDIA conçoit des stratégies digitales, des marques et des systèmes
+          d'acquisition qui transforment l'attention en résultats — mesurables,
+          durables, et taillés pour scaler.
+        </p>
+
+        <div class="hero-ctas">
+          <button class="btn-light sheen open-dialog">
+            Réserver un appel
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </button>
+          <a href="#services" class="btn-glass">
+            Découvrir nos services
+            <span class="micro-dot"></span>
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-v">+540%</div><div class="stat-l">ROAS moyen</div></div>
+          <div class="stat"><div class="stat-v">+320%</div><div class="stat-l">Leads qualifiés</div></div>
+          <div class="stat"><div class="stat-v">48</div><div class="stat-l">Marques scalées</div></div>
+          <div class="stat"><div class="stat-v">€38M</div><div class="stat-l">Revenus générés</div></div>
+        </div>
+
+        <div class="scroll-cue"><span class="line"></span>Scroll</div>
+      </div>
+    </section>
+
+    <!-- ============ SOCIAL PROOF ============ -->
+    <section class="section social">
+      <div class="container center">
+        <p class="eyebrow reveal">— Confiance</p>
+        <h2 class="h-md reveal">Ils nous confient leur croissance.</h2>
+      </div>
+      <div class="marquee">
+        <div class="marquee-track">
+          <span>MAISON LUMIÈRE</span><span>ORÉOS</span><span>AETHER</span>
+          <span>VOLTAGE</span><span>NOIR &amp; CO.</span><span>STELLA</span>
+          <span>MERIDIEN</span><span>CARRÉ D'OR</span><span>HAUSSMANN</span>
+          <span>ATELIER 9</span><span>OBSIDIENNE</span><span>NORDIQUE</span>
+          <span>MAISON LUMIÈRE</span><span>ORÉOS</span><span>AETHER</span>
+          <span>VOLTAGE</span><span>NOIR &amp; CO.</span><span>STELLA</span>
+          <span>MERIDIEN</span><span>CARRÉ D'OR</span><span>HAUSSMANN</span>
+          <span>ATELIER 9</span><span>OBSIDIENNE</span><span>NORDIQUE</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MANIFESTO ============ -->
+    <section id="manifeste" class="section manifesto">
+      <div class="blob blob-c"></div>
+      <div class="container grid-12">
+        <aside class="col-3 sticky-col">
+          <p class="eyebrow">— Manifeste</p>
+          <p class="muted reveal">Notre conviction. Notre méthode. Notre obsession.</p>
+          <div class="hairline"></div>
+          <p class="chapter">Chapitre 01</p>
+        </aside>
+        <div class="col-9">
+          <h2 class="h-xl reveal">
+            La majorité du marketing<br />
+            <span class="dim">échoue parce qu'il commence</span><br />
+            <em class="glow">par la mauvaise question.</em>
+          </h2>
+          <div class="pillars">
+            <div class="pillar reveal">
+              <div class="pillar-head"><span class="k">01</span><span class="rule"></span></div>
+              <h3>La stratégie précède l'exécution.</h3>
+              <p>Avant la moindre publicité, nous cartographions vos leviers de valeur, votre marché, et la mécanique fine de votre acquisition.</p>
+            </div>
+            <div class="pillar reveal">
+              <div class="pillar-head"><span class="k">02</span><span class="rule"></span></div>
+              <h3>La créativité sert la performance.</h3>
+              <p>Chaque visuel, chaque mot, chaque pixel est conçu pour convertir — sans jamais sacrifier l'élégance de votre marque.</p>
+            </div>
+            <div class="pillar reveal">
+              <div class="pillar-head"><span class="k">03</span><span class="rule"></span></div>
+              <h3>La donnée ne ment jamais.</h3>
+              <p>Nous bâtissons des systèmes d'attribution clairs, des tableaux de bord exécutifs, des décisions basées sur la preuve.</p>
+            </div>
+            <div class="pillar reveal">
+              <div class="pillar-head"><span class="k">04</span><span class="rule"></span></div>
+              <h3>L'intelligence devient infrastructure.</h3>
+              <p>L'IA n'est pas un gadget : c'est le moteur silencieux qui industrialise votre croissance, 24/7.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
+    <section id="services" class="section services">
+      <div class="container">
+        <div class="services-head">
+          <div>
+            <p class="eyebrow">— Services</p>
+            <h2 class="h-xl reveal">
+              Un studio complet,<br />
+              <span class="dim">pensé comme une équipe</span><br />
+              <em>augmentée par l'intelligence.</em>
+            </h2>
+          </div>
+          <p class="muted right">Sept disciplines. Une seule équipe. Une intention obsessionnelle : la croissance qui dure.</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="card span-2 reveal" data-accent="blue">
+            <header><span class="tag">/ 01</span><span class="arrow">↗</span></header>
+            <div class="icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2l2.39 6.62L21 11l-6.61 2.38L12 20l-2.39-6.62L3 11l6.61-2.38z"/></svg></div>
+            <h3>Branding</h3>
+            <p class="sub">Identité — Naming — Direction artistique</p>
+            <p class="desc">Une marque qui n'a pas besoin d'expliquer pourquoi elle vaut plus cher.</p>
+          </article>
+          <article class="card reveal" data-accent="violet">
+            <header><span class="tag">/ 02</span><span class="arrow">↗</span></header>
+            <div class="icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg></div>
+            <h3>Marketing Digital</h3>
+            <p class="sub">Stratégie 360°</p>
+            <p class="desc">Un plan d'acquisition holistique, pensé pour la marge.</p>
+          </article>
+          <article class="card reveal" data-accent="blue">
+            <header><span class="tag">/ 03</span><span class="arrow">↗</span></header>
+            <div class="icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 11l18-8-3 18-7-7-8-3z"/></svg></div>
+            <h3>Publicité Meta &amp; Google</h3>
+            <p class="sub">Performance Ads</p>
+            <p class="desc">Scaling rentable, audiences chirurgicales, créa qui convertit.</p>
+          </article>
+          <article class="card span-2 reveal" data-accent="violet">
+            <header><span class="tag">/ 04</span><span class="arrow">↗</span></header>
+            <div class="icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/></svg></div>
+            <h3>Création de contenu</h3>
+            <p class="sub">Vidéo · Photo · UGC</p>
+            <p class="desc">Du contenu pensé pour les algorithmes, sublimé pour la marque.</p>
+          </article>
+          <article class="card reveal" data-accent="blue">
+            <header><span class="tag">/ 05</span><span class="arrow">↗</span></header>
+            <div class="icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg></div>
+            <h3>SEO</h3>
+            <p class="sub">Technique · Sémantique · Autorité</p>
+            <p class="desc">Du trafic organique qualifié, durable, défendable.</p>
+          </article>
+          <article class="card reveal" data-accent="violet">
+            <header><span class="tag">/ 06</span><span class="arrow">↗</span></header>
+            <div class="icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="5" y="7" width="14" height="12" rx="2"/><path d="M9 7V4M15 7V4M9 13h.01M15 13h.01M9 17h6"/></svg></div>
+            <h3>Automatisation &amp; IA</h3>
+            <p class="sub">Workflows · Agents · Data</p>
+            <p class="desc">Des systèmes intelligents qui travaillent quand vous dormez.</p>
+          </article>
+          <article class="card span-2 reveal" data-accent="blue">
+            <header><span class="tag">/ 07</span><span class="arrow">↗</span></header>
+            <div class="icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg></div>
+            <h3>Sites web performants</h3>
+            <p class="sub">Design · Dev · Conversion</p>
+            <p class="desc">Des expériences digitales pensées pour vendre, pas seulement plaire.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROCESS ============ -->
+    <section id="process" class="section process">
+      <div class="container">
+        <div class="max-3xl">
+          <p class="eyebrow">— Méthode</p>
+          <h2 class="h-xl reveal">
+            Quatre temps.<br />
+            <span class="dim">Une seule trajectoire :</span><br />
+            <em>la traction.</em>
+          </h2>
+        </div>
+        <div class="timeline">
+          <div class="rail"></div>
+          <div class="rail-glow" id="railGlow"></div>
+
+          <div class="step reveal">
+            <div class="node"></div>
+            <div class="step-title">
+              <span class="kicker">ÉTAPE 01</span>
+              <h3>Analyse</h3>
+              <p class="muted">Comprendre avant d'agir.</p>
+            </div>
+            <div class="step-card glass">
+              <p>Audit complet de votre marque, vos canaux, vos données, votre marché. Nous identifions les véritables leviers — pas les évidences.</p>
+              <div class="pills"><span>Audit 360°</span><span>Benchmark concurrentiel</span><span>Modèle d'attribution</span></div>
+            </div>
+          </div>
+
+          <div class="step reverse reveal">
+            <div class="node"></div>
+            <div class="step-title">
+              <span class="kicker">ÉTAPE 02</span>
+              <h3>Stratégie</h3>
+              <p class="muted">Définir ce qui mérite d'être exécuté.</p>
+            </div>
+            <div class="step-card glass">
+              <p>Roadmap claire, prioritisation impitoyable, hypothèses chiffrées. Un cap, des KPIs, et des décisions documentées.</p>
+              <div class="pills"><span>Roadmap 90j / 12m</span><span>Funnel &amp; messaging</span><span>KPIs exécutifs</span></div>
+            </div>
+          </div>
+
+          <div class="step reveal">
+            <div class="node"></div>
+            <div class="step-title">
+              <span class="kicker">ÉTAPE 03</span>
+              <h3>Exécution</h3>
+              <p class="muted">Faire — proprement, vite, bien.</p>
+            </div>
+            <div class="step-card glass">
+              <p>Création, médias, contenu, web, IA : un studio en ordre de marche, des sprints hebdomadaires, des livrables irréprochables.</p>
+              <div class="pills"><span>Sprints créatifs</span><span>Médias performance</span><span>Automatisations</span></div>
+            </div>
+          </div>
+
+          <div class="step reverse reveal">
+            <div class="node"></div>
+            <div class="step-title">
+              <span class="kicker">ÉTAPE 04</span>
+              <h3>Croissance</h3>
+              <p class="muted">Itérer jusqu'à la traction durable.</p>
+            </div>
+            <div class="step-card glass">
+              <p>Mesure, itération, optimisation. Nous transformons l'apprentissage en avantage compétitif composé.</p>
+              <div class="pills"><span>Dashboards live</span><span>A/B systémique</span><span>Revue stratégique mensuelle</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CASE STUDIES ============ -->
+    <section id="cas" class="section cases">
+      <div class="container">
+        <div class="services-head">
+          <div>
+            <p class="eyebrow">— Cas clients</p>
+            <h2 class="h-xl reveal">
+              Les chiffres<br /><span class="dim">avant les discours.</span>
+            </h2>
+          </div>
+          <p class="muted right small">Données vérifiées · Q1—Q4 2025 · 12 industries</p>
+        </div>
+        <div class="cases-grid">
+          <article class="case reveal" data-accent="blue" style="--bg: url('https://images.unsplash.com/photo-1644088379091-d574269d422f?crop=entropy&cs=srgb&fm=jpg&q=85')">
+            <div class="case-head"><span>Luxe / Beauté</span><span>CASE / 01</span></div>
+            <div class="case-body">
+              <p class="brand">Maison Lumière</p>
+              <h3>Du DTC confidentiel au scale international.</h3>
+              <div class="big-metric">+540% ROAS</div>
+              <div class="sub-metrics">
+                <div><div class="v">−63%</div><div class="l">CPA</div></div>
+                <div><div class="v">+38%</div><div class="l">AOV</div></div>
+                <div><div class="v">12</div><div class="l">Marchés</div></div>
+              </div>
+            </div>
+          </article>
+          <article class="case reveal" data-accent="violet" style="--bg: url('https://images.unsplash.com/photo-1534156039819-c89418369a4f?crop=entropy&cs=srgb&fm=jpg&q=85')">
+            <div class="case-head"><span>B2B SaaS</span><span>CASE / 02</span></div>
+            <div class="case-body">
+              <p class="brand">Oréos</p>
+              <h3>Un pipeline de leads qualifiés, prévisible.</h3>
+              <div class="big-metric">+320% leads</div>
+              <div class="sub-metrics">
+                <div><div class="v">×4,1</div><div class="l">SQL</div></div>
+                <div><div class="v">−27j</div><div class="l">Cycle</div></div>
+                <div><div class="v">−41%</div><div class="l">CAC</div></div>
+              </div>
+            </div>
+          </article>
+          <article class="case reveal" data-accent="blue" style="--bg: url('https://images.unsplash.com/photo-1518770660439-4636190af475?crop=entropy&cs=srgb&fm=jpg&q=85')">
+            <div class="case-head"><span>Fashion / E-commerce</span><span>CASE / 03</span></div>
+            <div class="case-body">
+              <p class="brand">Aether Studio</p>
+              <h3>Une marque, mille touchpoints, une exécution.</h3>
+              <div class="big-metric">+180% trafic</div>
+              <div class="sub-metrics">
+                <div><div class="v">2,1M</div><div class="l">Sessions</div></div>
+                <div><div class="v">+28%</div><div class="l">CR</div></div>
+                <div><div class="v">€8,4M</div><div class="l">Revenu</div></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TECHNOLOGY ============ -->
+    <section class="section technology">
+      <div class="tech-bg" aria-hidden="true"></div>
+      <div class="container grid-12">
+        <div class="col-5">
+          <p class="eyebrow">— Intelligence</p>
+          <h2 class="h-xl reveal">
+            Un moteur silencieux.<br /><span class="dim">Une croissance composée.</span>
+          </h2>
+          <p class="muted lg-mt">Derrière chaque campagne, un système : capture des données, modèles propriétaires, agents IA, et un orchestrateur d'arbitrages budgétaires en temps réel.</p>
+          <div class="pill-live">
+            <span class="dot-pulse"></span>
+            <span>Système actif · 24 / 7</span>
+          </div>
+        </div>
+        <div class="col-7">
+          <div class="glass tech-card">
+            <div class="tech-glow"></div>
+            <svg viewBox="0 0 400 200" class="tech-svg" fill="none">
+              <defs>
+                <linearGradient id="lg" x1="0" x2="1">
+                  <stop offset="0" stop-color="#3377FF"/>
+                  <stop offset="1" stop-color="#a78bfa"/>
+                </linearGradient>
+              </defs>
+              <path class="tech-path" d="M40,160 Q120,40 200,100" stroke="url(#lg)" stroke-width="0.8" stroke-opacity="0.8"/>
+              <path class="tech-path" d="M200,100 Q260,30 360,80" stroke="url(#lg)" stroke-width="0.8" stroke-opacity="0.8"/>
+              <path class="tech-path" d="M40,160 Q200,180 360,80" stroke="url(#lg)" stroke-width="0.8" stroke-opacity="0.8"/>
+              <path class="tech-path" d="M200,100 Q180,160 280,170" stroke="url(#lg)" stroke-width="0.8" stroke-opacity="0.8"/>
+              <path class="tech-path" d="M280,170 Q330,150 360,80" stroke="url(#lg)" stroke-width="0.8" stroke-opacity="0.8"/>
+              <g><circle cx="40" cy="160" r="6" fill="rgba(51,119,255,0.15)"/><circle cx="40" cy="160" r="2.5" fill="#fff"/></g>
+              <g><circle cx="200" cy="100" r="6" fill="rgba(51,119,255,0.15)"/><circle cx="200" cy="100" r="2.5" fill="#fff"/></g>
+              <g><circle cx="360" cy="80" r="6" fill="rgba(51,119,255,0.15)"/><circle cx="360" cy="80" r="2.5" fill="#fff"/></g>
+              <g><circle cx="280" cy="170" r="6" fill="rgba(51,119,255,0.15)"/><circle cx="280" cy="170" r="2.5" fill="#fff"/></g>
+              <g><circle cx="120" cy="60" r="6" fill="rgba(51,119,255,0.15)"/><circle cx="120" cy="60" r="2.5" fill="#fff"/></g>
+            </svg>
+            <div class="tech-pillars">
+              <div class="tech-pillar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a9c3ff" stroke-width="1.4"><path d="M12 2a4 4 0 014 4v0a4 4 0 014 4v0a4 4 0 01-2 3.46V18a4 4 0 01-4 4h-4a4 4 0 01-4-4v-4.54A4 4 0 014 10v0a4 4 0 014-4v0a4 4 0 014-4z"/></svg>
+                <h4>Décisions data-driven</h4>
+                <p>Modèles d'attribution multi-touch, cohortes, LTV en temps réel.</p>
+              </div>
+              <div class="tech-pillar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a9c3ff" stroke-width="1.4"><path d="M13 2L3 14h8l-1 8 10-12h-8z"/></svg>
+                <h4>Systèmes IA propriétaires</h4>
+                <p>Agents d'enrichissement, génération créative à l'échelle, scoring prédictif.</p>
+              </div>
+              <div class="tech-pillar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a9c3ff" stroke-width="1.4"><path d="M3 21V3M3 21h18M7 17v-6M12 17V8M17 17v-3"/></svg>
+                <h4>Analytics avancés</h4>
+                <p>Data-warehouse, dashboards exécutifs, signaux faibles capturés.</p>
+              </div>
+              <div class="tech-pillar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a9c3ff" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 12l4-4"/></svg>
+                <h4>Conversion optimization</h4>
+                <p>A/B testing systémique, friction map, micro-itérations continues.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS ============ -->
+    <section class="section testimonials">
+      <div class="container">
+        <div class="max-3xl">
+          <p class="eyebrow">— Témoignages</p>
+          <h2 class="h-xl reveal">
+            <em>Confiance.</em><br /><span class="dim">Transformation.</span><br />Résultats.
+          </h2>
+        </div>
+        <div class="testimonials-grid">
+          <figure class="testimonial reveal">
+            <svg class="quote" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M7 7h4v4H7zM7 11c0 4-2 6-2 6M13 7h4v4h-4zM13 11c0 4-2 6-2 6"/></svg>
+            <blockquote>« CYMEDIA n'a pas remplacé notre équipe — ils l'ont augmentée. Nous sommes passés d'un trafic d'opportunité à une croissance industrielle. »</blockquote>
+            <figcaption>
+              <img loading="lazy" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=srgb&fm=jpg&w=400&q=85" alt="Camille Auriol" />
+              <div><div class="name">Camille Auriol</div><div class="role">CMO, Maison Lumière</div></div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial reveal">
+            <svg class="quote" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M7 7h4v4H7zM7 11c0 4-2 6-2 6M13 7h4v4h-4zM13 11c0 4-2 6-2 6"/></svg>
+            <blockquote>« Pour la première fois, nos décisions marketing reposent sur des données que je peux défendre en comité exécutif. Le ROAS a parlé pour nous. »</blockquote>
+            <figcaption>
+              <img loading="lazy" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=srgb&fm=jpg&w=400&q=85" alt="Léa Marchetti" />
+              <div><div class="name">Léa Marchetti</div><div class="role">Founder, Oréos</div></div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial reveal">
+            <svg class="quote" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M7 7h4v4H7zM7 11c0 4-2 6-2 6M13 7h4v4h-4zM13 11c0 4-2 6-2 6"/></svg>
+            <blockquote>« Stratégie. Créativité. Performance. CYMEDIA orchestre les trois sans jamais sacrifier l'élégance — un standard rare à Paris. »</blockquote>
+            <figcaption>
+              <img loading="lazy" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=srgb&fm=jpg&w=400&q=85" alt="Antoine Verlaine" />
+              <div><div class="name">Antoine Verlaine</div><div class="role">CEO, Aether Studio</div></div>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section id="contact" class="section final-cta">
+      <div class="blob blob-d"></div>
+      <div class="horizon"></div>
+      <div class="container center">
+        <p class="eyebrow reveal">— Chapitre suivant</p>
+        <h2 class="h-2xl reveal">
+          Le prochain chapitre<br /><em>de votre croissance</em><br /><span class="dim">commence ici.</span>
+        </h2>
+        <p class="muted lg-mt reveal">Un appel. 30 minutes. Un diagnostic franc, une vision claire, et peut-être le début d'un partenariat décisif.</p>
+        <div class="hero-ctas center-flex reveal">
+          <button class="btn-light sheen open-dialog">
+            Réserver un appel
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </button>
+          <a href="mailto:hello@cymedia.fr" class="btn-glass">hello@cymedia.fr</a>
+        </div>
+        <div class="pill-live mt-xl reveal">
+          <span class="dot-pulse"></span>
+          <span>Disponible · 3 nouveaux clients ce trimestre</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="container">
+        <div class="grid-12 footer-top">
+          <div class="col-5">
+            <p class="eyebrow">— Paris · Europe</p>
+            <p class="muted lg-mt max-sm">CYMEDIA est un studio de croissance basé à Paris. Nous travaillons avec des marques ambitieuses qui veulent transformer l'attention en résultats durables.</p>
+            <p class="contact-line"><a href="mailto:hello@cymedia.fr">hello@cymedia.fr</a> · <a href="tel:+33102030405">+33 1 02 03 04 05</a></p>
+          </div>
+          <div class="col-7 footer-cols">
+            <div>
+              <p class="eyebrow">Studio</p>
+              <ul><li><a href="#services">Branding</a></li><li><a href="#services">Marketing Digital</a></li><li><a href="#services">Publicité Meta &amp; Google</a></li><li><a href="#services">SEO</a></li></ul>
+            </div>
+            <div>
+              <p class="eyebrow">Croissance</p>
+              <ul><li><a href="#process">Stratégie</a></li><li><a href="#services">Automatisation &amp; IA</a></li><li><a href="#services">Création de contenu</a></li><li><a href="#services">Sites web</a></li></ul>
+            </div>
+            <div>
+              <p class="eyebrow">Agence</p>
+              <ul><li><a href="#manifeste">Manifeste</a></li><li><a href="#cas">Cas clients</a></li><li><a href="#contact">Carrières</a></li><li><a href="#contact">Contact</a></li></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="wordmark">CYMEDIA</div>
+
+        <div class="hairline"></div>
+        <div class="footer-bottom">
+          <p>© 2026 CYMEDIA · Tous droits réservés</p>
+          <div>
+            <a href="#">Mentions légales</a>
+            <a href="#">Confidentialité</a>
+            <a href="#">Linkedin ↗</a>
+            <a href="#">Instagram ↗</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============ BOOKING DIALOG ============ -->
+    <div id="dialog" class="dialog" aria-hidden="true">
+      <div class="dialog-backdrop" data-close></div>
+      <div class="dialog-panel glass">
+        <button class="dialog-close" data-close aria-label="Fermer">×</button>
+        <div id="dialogContent">
+          <h3 class="dialog-title">Réserver un appel stratégique</h3>
+          <p class="dialog-sub">30 minutes. Sans engagement. Un diagnostic clair de votre croissance.</p>
+          <form id="bookForm" class="dialog-form" novalidate>
+            <div class="row">
+              <input required name="name" placeholder="Prénom &amp; nom" />
+              <input required name="company" placeholder="Entreprise" />
+            </div>
+            <input required type="email" name="email" placeholder="Email professionnel" />
+            <select name="budget">
+              <option>Moins de 20k €</option>
+              <option selected>20k—50k €</option>
+              <option>50k—150k €</option>
+              <option>150k € et plus</option>
+            </select>
+            <textarea name="message" rows="3" placeholder="Parlez-nous brièvement de votre projet…"></textarea>
+            <button type="submit" class="btn-light sheen w-full" id="submitBtn">Envoyer ma demande</button>
+            <p class="dialog-fineprint">Réponse personnelle garantie sous 24h ouvrées.</p>
+          </form>
+        </div>
+        <div id="dialogSuccess" class="dialog-success" hidden>
+          <div class="check">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <p class="dialog-title">Demande reçue.</p>
+          <p class="dialog-sub">Nous revenons vers vous sous 24h ouvrées.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- Empty React root (kept so CRA dev server doesn't error). React App is disabled. -->
+    <div id="root"></div>
+
+    <!-- Emergent badge -->
+    <a
+      id="emergent-badge"
+      target="_blank"
+      href="https://app.emergent.sh/?utm_source=emergent-badge"
+      style="
+        display: inline-flex !important;
+        box-sizing: border-box;
+        width: 178px;
+        height: 40px;
+        padding: 8px 12px 8px 12px;
+        align-items: center !important;
+        gap: 8px;
+        border-radius: 50px !important;
+        background: #000 !important;
+        position: fixed !important;
+        bottom: 16px;
+        right: 16px;
+        text-decoration: none;
+        font-family: -apple-system, BlinkMacSystemFont,
+            'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+            'Open Sans', 'Helvetica Neue',
+            sans-serif !important;
+        font-size: 12px !important;
+        z-index: 9999 !important;
+      "
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M15.5702 8.13142C15.7729 8.0412 16.0007 8.18878 15.9892 8.4103C15.8374 11.3192 14.0965 14.0405 11.2531 15.3065C8.40964 16.5725 5.2224 16.0453 2.95912 14.2117C2.78676 14.072 2.82955 13.804 3.03219 13.7137L4.95677 12.8568C5.04866 12.8159 5.15446 12.823 5.24204 12.8725C6.73377 13.7153 8.59176 13.8649 10.2772 13.1145C11.9626 12.3641 13.0947 10.8833 13.4665 9.21075C13.4883 9.11256 13.5539 9.02918 13.6457 8.98827L15.5702 8.13142Z" fill="white"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.3066 4.74698L15.5067 5.19653C15.5759 5.35178 15.5061 5.53366 15.3508 5.60278L1.29992 11.8586C1.14467 11.9278 0.962794 11.8579 0.893675 11.7027L0.701732 11.2716L0.693457 11.2531C-1.10317 7.21778 0.711626 2.49007 4.74692 0.693443C8.78221 -1.10318 13.51 0.711693 15.3066 4.74698ZM2.82356 8.55367C2.63552 8.63739 2.41991 8.51617 2.40853 8.31065C2.28373 6.05724 3.53858 3.85787 5.72286 2.88536C7.90715 1.91286 10.3813 2.45199 11.9724 4.05256C12.1175 4.19854 12.0633 4.43988 11.8753 4.5236L2.82356 8.55367Z" fill="white"/>
+      </svg>
+      <p style="color:#FFF !important;font-family:'Inter',sans-serif !important;font-size:13px !important;font-weight:600 !important;margin:0 !important;white-space:nowrap !important;">Contact Us</p>
+    </a>
+
+    <script src="site.js"></script>
+  </body>
+</html>
