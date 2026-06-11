@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réalisations — CyMedia (design éditorial)</title>
+<meta name="description" content="L'index des projets CyMedia : huit études de cas, des résultats mesurables.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#0B0B1E;
+  --texte:#F0F0FB;
+  --sourdine:#8E8FBB;
+  --ligne:rgba(255,255,255,.1);
+  --rose:#FF2E9C;
+  --violet:#7C5CFF;
+  --grad:linear-gradient(90deg,#FF2E9C,#7C5CFF);
+  --display:'Space Grotesk',sans-serif;
+  --corps:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--fond);color:var(--texte);font-family:var(--corps);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}
+.conteneur{max-width:1240px;margin:0 auto;padding:0 28px}
+
+/* grain + grille de fond façon studio */
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:
+  linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px) 0 0/100% 25vh,
+  linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px) 0 0/25% 100%}
+body::after{content:"";position:fixed;inset:-50%;z-index:-1;pointer-events:none;opacity:.5;background:
+  radial-gradient(600px 400px at 85% 10%,rgba(124,92,255,.16),transparent 60%),
+  radial-gradient(700px 500px at 10% 90%,rgba(255,46,156,.12),transparent 60%)}
+
+/* ---------- nav minimale ---------- */
+.nav{position:sticky;top:0;z-index:60;background:rgba(11,11,30,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--ligne)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+.marque{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700}
+.marque .glyphe{width:34px;height:34px}
+.marque .nom{font-size:1rem;line-height:1}
+.marque .nom small{display:block;font-size:.48rem;font-weight:500;letter-spacing:.4em;color:var(--sourdine)}
+.nav-droite{display:flex;align-items:center;gap:26px;font-size:.88rem}
+.nav-droite a{color:var(--sourdine);font-weight:500;transition:color .2s}
+.nav-droite a:hover{color:#fff}
+.lien-souligne{position:relative}
+.lien-souligne::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.lien-souligne:hover::after{transform:scaleX(1)}
+.btn-contact{font-weight:600;color:#fff!important;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:9px 20px;transition:border-color .25s,box-shadow .25s}
+.btn-contact:hover{border-color:var(--rose);box-shadow:0 0 20px rgba(255,46,156,.35)}
+
+/* ---------- entête éditoriale ---------- */
+.entete{padding:90px 0 30px;border-bottom:1px solid var(--ligne)}
+.sur-titre{display:flex;justify-content:space-between;align-items:baseline;font-size:.74rem;letter-spacing:.26em;text-transform:uppercase;color:var(--sourdine);margin-bottom:26px}
+.sur-titre b{color:var(--rose);font-weight:700}
+.titre-geant{font-family:var(--display);font-weight:700;font-size:clamp(3rem,9.5vw,7.5rem);line-height:.98;letter-spacing:-.02em;text-transform:uppercase}
+.titre-geant .ligne2{display:flex;align-items:center;gap:26px}
+.titre-geant .txt-grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.titre-geant .trait{flex:1;height:3px;background:var(--grad);border-radius:3px;min-width:60px;box-shadow:0 0 18px rgba(255,46,156,.5)}
+.entete .intro{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-top:30px;flex-wrap:wrap}
+.entete .intro p{max-width:440px;color:var(--sourdine);font-size:1rem}
+.compteur-projets{font-family:var(--display);font-size:.85rem;color:var(--sourdine)}
+.compteur-projets b{font-size:2.4rem;color:#fff;display:block;line-height:1}
+
+/* ---------- bandeau défilant ---------- */
+.marquee{overflow:hidden;border-bottom:1px solid var(--ligne);padding:16px 0;white-space:nowrap}
+.marquee-piste{display:inline-flex;gap:46px;animation:defiler 26s linear infinite;font-family:var(--display);font-weight:600;font-size:.92rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sourdine)}
+.marquee-piste i{font-style:normal;color:var(--rose)}
+@keyframes defiler{to{transform:translateX(-50%)}}
+
+/* ---------- filtres texte ---------- */
+.filtres{display:flex;gap:30px;flex-wrap:wrap;padding:26px 0;border-bottom:1px solid var(--ligne);font-family:var(--display)}
+.filtre{background:none;border:none;cursor:pointer;color:var(--sourdine);font-size:.95rem;font-weight:600;letter-spacing:.04em;position:relative;padding:2px 0;transition:color .25s}
+.filtre sup{font-size:.62rem;color:var(--rose);margin-left:4px}
+.filtre:hover{color:#fff}
+.filtre.actif{color:#fff}
+.filtre.actif::after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:2px;background:var(--grad);box-shadow:0 0 12px rgba(255,46,156,.5)}
+
+/* ---------- index des projets ---------- */
+.index{list-style:none}
+.rang{border-bottom:1px solid var(--ligne);transition:opacity .4s,max-height .4s}
+.rang.masque{display:none}
+.rang-tete{display:grid;grid-template-columns:70px 1.4fr 1fr .8fr auto;align-items:center;gap:20px;padding:30px 8px;cursor:pointer;position:relative;transition:padding .3s}
+.rang-tete::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,46,156,.1),rgba(124,92,255,.08));opacity:0;transition:opacity .3s;pointer-events:none}
+.rang-tete:hover::before,.rang.ouvert .rang-tete::before{opacity:1}
+.rang .num{font-family:var(--display);font-size:.95rem;color:var(--sourdine)}
+.rang .nom{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,3.4vw,2.4rem);line-height:1.1;letter-spacing:-.01em;transition:transform .3s,color .3s}
+.rang-tete:hover .nom{transform:translateX(12px)}
+.rang.ouvert .nom{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rang .cat{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sourdine)}
+.rang .resultat-cle{font-family:var(--display);font-weight:700;font-size:1.15rem}
+.rang .resultat-cle b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rang .resultat-cle span{display:block;font-size:.68rem;font-weight:500;color:var(--sourdine);letter-spacing:.06em}
+.rang .plus{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;transition:transform .35s,background .3s,border-color .3s;flex:none}
+.rang-tete:hover .plus{border-color:var(--rose)}
+.rang.ouvert .plus{transform:rotate(45deg);background:var(--grad);border-color:transparent}
+
+/* détail accordéon */
+.rang-detail{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.22,.8,.26,1)}
+.rang.ouvert .rang-detail{max-height:760px}
+.detail-grille{display:grid;grid-template-columns:1.05fr 1fr;gap:34px;padding:6px 8px 42px}
+.detail-grille .photo{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.12);min-height:300px}
+.detail-grille .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.detail-grille .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,46,156,.14),rgba(124,92,255,.14))}
+.detail-grille .infos p{color:var(--sourdine);font-size:.95rem;margin-bottom:22px}
+.detail-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ligne);border:1px solid var(--ligne);border-radius:14px;overflow:hidden;margin-bottom:22px}
+.detail-stats div{background:var(--fond);padding:14px 12px;text-align:center}
+.detail-stats b{font-family:var(--display);font-size:1.3rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block}
+.detail-stats span{font-size:.68rem;color:var(--sourdine)}
+.detail-tags{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:24px}
+.detail-tags span{font-size:.72rem;font-weight:600;color:var(--sourdine);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:5px 13px}
+.lien-cas{font-family:var(--display);font-weight:700;font-size:.95rem;display:inline-flex;align-items:center;gap:10px;color:#fff}
+.lien-cas i{font-style:normal;transition:transform .25s}
+.lien-cas:hover i{transform:translateX(6px)}
+.lien-cas:hover{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* aperçu image qui suit le curseur */
+.apercu{position:fixed;z-index:80;width:300px;height:200px;border-radius:16px;overflow:hidden;pointer-events:none;opacity:0;transform:scale(.85) rotate(-3deg);transition:opacity .25s,transform .25s;border:1px solid rgba(255,255,255,.25);box-shadow:0 30px 60px rgba(0,0,0,.6),0 0 50px rgba(124,92,255,.3)}
+.apercu img{width:100%;height:100%;object-fit:cover}
+.apercu.visible{opacity:1;transform:scale(1) rotate(-3deg)}
+
+/* ---------- CTA final ---------- */
+.cta{padding:110px 0;text-align:center;border-top:1px solid var(--ligne);margin-top:60px;position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:560px;height:560px;background:radial-gradient(circle,rgba(255,46,156,.16),transparent 65%);pointer-events:none}
+.cta h2{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.05;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:18px;position:relative}
+.cta h2 .txt-grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cta p{color:var(--sourdine);max-width:460px;margin:0 auto 36px;position:relative}
+.btn-grad{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:1rem;padding:15px 32px;border-radius:999px;background:var(--grad);color:#fff;box-shadow:0 0 28px rgba(255,46,156,.4);transition:transform .2s,box-shadow .2s;position:relative}
+.btn-grad:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(255,46,156,.6)}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--ligne);padding:30px 0}
+.pied{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.85rem;color:var(--sourdine)}
+.pied ul{display:flex;gap:24px;list-style:none}
+.pied ul a:hover{color:#fff}
+
+/* révélation */
+.reveler{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveler.visible{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media(max-width:900px){
+  .rang-tete{grid-template-columns:46px 1fr auto;gap:14px}
+  .rang .cat,.rang .resultat-cle{display:none}
+  .detail-grille{grid-template-columns:1fr;gap:22px}
+  .detail-grille .photo{min-height:220px}
+  .apercu{display:none}
+}
+@media(max-width:600px){
+  .nav-droite a:not(.btn-contact){display:none}
+  .detail-stats{grid-template-columns:1fr 1fr}
+  .titre-geant .trait{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.001s!important}
+  .reveler{opacity:1;transform:none}
+  .marquee-piste{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Nav ===== -->
+<header class="nav">
+  <div class="conteneur nav-inner">
+    <a href="cymedia-dark.html" class="marque" aria-label="CyMedia — Accueil">
+      <svg class="glyphe" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+      </svg>
+      <span class="nom">CYMEDIA<small>MARKETING AGENCY</small></span>
+    </a>
+    <div class="nav-droite">
+      <a href="cymedia-dark.html" class="lien-souligne">Accueil</a>
+      <a href="cymedia-dark.html#services" class="lien-souligne">Services</a>
+      <a href="cymedia-dark.html#contact" class="btn-contact">Réserver un appel</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Entête ===== -->
+<div class="entete conteneur">
+  <div class="sur-titre"><span><b>●</b>&nbsp; Index des projets</span><span>2019 — 2026</span></div>
+  <h1 class="titre-geant">
+    Nos<br>
+    <span class="ligne2"><span class="txt-grad">réalisations</span><span class="trait" aria-hidden="true"></span></span>
+  </h1>
+  <div class="intro">
+    <p>Huit marques, huit systèmes de croissance. Survolez un projet pour l'apercevoir, cliquez pour lire l'étude de cas complète.</p>
+    <div class="compteur-projets"><b id="compteur">08</b>projets affichés</div>
+  </div>
+</div>
+
+<!-- ===== Marquee ===== -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-piste" id="piste">
+    <span>Études de cas <i>✦</i> Résultats mesurables <i>✦</i> E-commerce <i>✦</i> Coaching <i>✦</i> SaaS <i>✦</i> Restauration <i>✦</i> Immobilier <i>✦</i>&nbsp;</span>
+  </div>
+</div>
+
+<!-- ===== Filtres ===== -->
+<div class="conteneur">
+  <div class="filtres" role="tablist" aria-label="Filtrer les projets">
+    <button class="filtre actif" data-cat="tous">Tous<sup>08</sup></button>
+    <button class="filtre" data-cat="ecommerce">E-commerce<sup>02</sup></button>
+    <button class="filtre" data-cat="coaching">Coaching<sup>02</sup></button>
+    <button class="filtre" data-cat="saas">SaaS<sup>02</sup></button>
+    <button class="filtre" data-cat="restauration">Restauration<sup>01</sup></button>
+    <button class="filtre" data-cat="immobilier">Immobilier<sup>01</sup></button>
+  </div>
+
+  <!-- ===== Index ===== -->
+  <ul class="index" id="index"></ul>
+</div>
+
+<!-- aperçu flottant -->
+<div class="apercu" id="apercu" aria-hidden="true"><img id="apercu-img" src="" alt=""></div>
+
+<!-- ===== CTA ===== -->
+<div class="cta">
+  <div class="conteneur">
+    <h2>Et si le prochain<br>projet était <span class="txt-grad">le vôtre&nbsp;?</span></h2>
+    <p>Un appel découverte de 30 minutes suffit pour savoir si nous pouvons faire grandir votre marque.</p>
+    <a class="btn-grad" href="mailto:contact@cymedia.ma?subject=Nouveau%20projet">Démarrer un projet&nbsp;→</a>
+  </div>
+</div>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="conteneur pied">
+    <span>© 2026 CyMedia — Agence marketing</span>
+    <ul>
+      <li><a href="cymedia-dark.html">Accueil</a></li>
+      <li><a href="cymedia-dark.html#services">Services</a></li>
+      <li><a href="cymedia-dark.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+const CATS={ecommerce:'E-commerce',coaching:'Coaching',saas:'SaaS',restauration:'Restauration',immobilier:'Immobilier'};
+const PROJETS=[
+ {cat:'ecommerce',nom:'Virelo',seed:'virelo7',annee:'2025',cle:['8,7×','ROAS'],
+  desc:'Une marque de cosmétiques qui stagnait malgré un bon produit. Nous avons reconstruit tout le tunnel : contenus courts en haut de l\'entonnoir, retargeting créatif au milieu, offres et preuves sociales en bas. Un système de vente qui tourne 24h/24.',
+  stats:[['+320\u00a0%','Engagement'],['8,7×','ROAS'],['×2,4','C.A. en 6 mois']],
+  tags:['Publicité Meta','Reels & UGC','Stratégie de contenu','Email marketing']},
+ {cat:'coaching',nom:'Mindset Pro',seed:'mindset3',annee:'2025',cle:['6,3×','Chiffre d\'affaires'],
+  desc:'Un coach avec une vraie expertise mais une audience dispersée. Nous avons construit un écosystème complet : vidéos longues sur YouTube, extraits viraux, newsletter et communauté privée. Chaque canal nourrit le suivant.',
+  stats:[['+185\u00a0%','Prospects'],['6,3×','Chiffre d\'affaires'],['12k','Membres']],
+  tags:['Scripts vidéo','YouTube & Shorts','Newsletter','Communauté']},
+ {cat:'saas',nom:'Taskly',seed:'taskly9',annee:'2024',cle:['+210\u00a0%','Inscriptions'],
+  desc:'Un SaaS de gestion de tâches face à des géants. Nous avons misé sur le product-led growth : contenus comparatifs, démos vidéo, programme de parrainage et onboarding optimisé pour transformer chaque essai gratuit en abonné.',
+  stats:[['+210\u00a0%','Inscriptions'],['7,2×','Rétention'],['−31\u00a0%','Coût d\'acquisition']],
+  tags:['SEO & contenu','Démos produit','Growth consulting','Ads Google']},
+ {cat:'restauration',nom:'Maison Safran',seed:'safran5',annee:'2025',cle:['+140\u00a0%','Réservations'],
+  desc:'Un restaurant gastronomique à Marrakech avec une cuisine d\'exception mais peu de visibilité digitale. Identité visuelle appétissante, réels food viraux et parcours de réservation fluide depuis Instagram.',
+  stats:[['+140\u00a0%','Réservations'],['×4','Abonnés Instagram'],['2,1\u00a0M','Vues de réels']],
+  tags:['Branding','Réels food','Shooting photo','Instagram Ads']},
+ {cat:'immobilier',nom:'Atlas Habitat',seed:'atlas2',annee:'2024',cle:['−38\u00a0%','Coût / lead'],
+  desc:'Un promoteur immobilier qui dépendait du bouche-à-oreille. Campagnes ciblées avec visites virtuelles, landing pages par programme et qualification automatique des prospects avant transmission aux commerciaux.',
+  stats:[['+95\u00a0%','Leads qualifiés'],['−38\u00a0%','Coût par lead'],['34\u00a0%','Taux de RDV']],
+  tags:['Génération de leads','Landing pages','Visites virtuelles','CRM']},
+ {cat:'ecommerce',nom:'Noor Bijoux',seed:'noor4',annee:'2026',cle:['5,4×','ROAS'],
+  desc:'Une créatrice de bijoux artisanaux partie de zéro. Storytelling autour de l\'artisanat, contenus de fabrication en coulisses et collaborations micro-influenceurs : rentabilité atteinte dès le troisième mois.',
+  stats:[['0→45k','Abonnés en 8 mois'],['5,4×','ROAS'],['68\u00a0%','Ventes via Instagram']],
+  tags:['Lancement de marque','Influence','Contenu coulisses','E-boutique']},
+ {cat:'coaching',nom:'FitSphere',seed:'fitsphere1',annee:'2026',cle:['×5','Revenu mensuel'],
+  desc:'Une coach sportive qui vendait des séances individuelles. Nous l\'avons aidée à packager un programme en ligne, à construire une audience par les formats courts et à automatiser les ventes par un tunnel evergreen.',
+  stats:[['+260\u00a0%','Ventes'],['18k','Nouvelles abonnées'],['×5','Revenu mensuel']],
+  tags:['Tunnel de vente','TikTok & Reels','Webinaires','Email automation']},
+ {cat:'saas',nom:'Facturio',seed:'facturio8',annee:'2025',cle:['+175\u00a0%','Trafic organique'],
+  desc:'Un outil de facturation pour indépendants, inconnu du marché. Comparatifs SEO, partenariats avec des créateurs finance et essai gratuit repensé : la croissance organique a dépassé la croissance payante en 5 mois.',
+  stats:[['+175\u00a0%','Trafic organique'],['3,8×','Essai → payant'],['41\u00a0%','Part de l\'organique']],
+  tags:['SEO','Partenariats créateurs','Onboarding','Contenu comparatif']}
+];
+
+/* ----- duplication du marquee pour la boucle ----- */
+const piste=document.getElementById('piste');
+piste.innerHTML=piste.innerHTML+piste.innerHTML;
+
+/* ----- rendu de l'index ----- */
+const index=document.getElementById('index');
+PROJETS.forEach((p,i)=>{
+  const li=document.createElement('li');
+  li.className='rang reveler';
+  li.dataset.cat=p.cat;
+  li.dataset.seed=p.seed;
+  li.innerHTML=`
+    <div class="rang-tete" role="button" tabindex="0" aria-expanded="false">
+      <span class="num">/${String(i+1).padStart(2,'0')}</span>
+      <span class="nom">${p.nom}</span>
+      <span class="cat">${CATS[p.cat]} — ${p.annee}</span>
+      <span class="resultat-cle"><b>${p.cle[0]}</b><span>${p.cle[1]}</span></span>
+      <span class="plus" aria-hidden="true">+</span>
+    </div>
+    <div class="rang-detail">
+      <div class="detail-grille">
+        <div class="photo"><img data-src="https://picsum.photos/seed/${p.seed}/900/620" alt="Projet ${p.nom}"></div>
+        <div class="infos">
+          <p>${p.desc}</p>
+          <div class="detail-stats">${p.stats.map(s=>`<div><b>${s[0]}</b><span>${s[1]}</span></div>`).join('')}</div>
+          <div class="detail-tags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+          <a class="lien-cas" href="mailto:contact@cymedia.ma?subject=Projet%20${encodeURIComponent(p.nom)}">Discuter d'un projet similaire <i>→</i></a>
+        </div>
+      </div>
+    </div>`;
+  index.appendChild(li);
+});
+
+/* ----- accordéon ----- */
+document.querySelectorAll('.rang-tete').forEach(t=>{
+  const basculer=()=>{
+    const rang=t.parentElement;
+    const dejaOuvert=rang.classList.contains('ouvert');
+    document.querySelectorAll('.rang.ouvert').forEach(r=>{r.classList.remove('ouvert');r.querySelector('.rang-tete').setAttribute('aria-expanded','false')});
+    if(!dejaOuvert){
+      rang.classList.add('ouvert');
+      t.setAttribute('aria-expanded','true');
+      const img=rang.querySelector('img[data-src]');
+      if(img){img.src=img.dataset.src;img.removeAttribute('data-src')}
+    }
+  };
+  t.addEventListener('click',basculer);
+  t.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();basculer()}});
+});
+
+/* ----- aperçu qui suit le curseur ----- */
+const apercu=document.getElementById('apercu');
+const apercuImg=document.getElementById('apercu-img');
+const fin=matchMedia('(pointer:fine)').matches;
+if(fin){
+  document.querySelectorAll('.rang-tete').forEach(t=>{
+    t.addEventListener('mouseenter',()=>{
+      if(t.parentElement.classList.contains('ouvert'))return;
+      apercuImg.src='https://picsum.photos/seed/'+t.parentElement.dataset.seed+'/600/400';
+      apercu.classList.add('visible');
+    });
+    t.addEventListener('mouseleave',()=>apercu.classList.remove('visible'));
+    t.addEventListener('click',()=>apercu.classList.remove('visible'));
+  });
+  document.addEventListener('mousemove',e=>{
+    apercu.style.left=(e.clientX+26)+'px';
+    apercu.style.top=(e.clientY-110)+'px';
+  });
+}
+
+/* ----- filtres ----- */
+const compteur=document.getElementById('compteur');
+document.querySelectorAll('.filtre').forEach(f=>{
+  f.addEventListener('click',()=>{
+    document.querySelectorAll('.filtre').forEach(x=>x.classList.remove('actif'));
+    f.classList.add('actif');
+    const cat=f.dataset.cat;let n=0;
+    document.querySelectorAll('.rang').forEach(r=>{
+      const cache=cat!=='tous'&&r.dataset.cat!==cat;
+      r.classList.toggle('masque',cache);
+      if(!cache)n++;
+      if(cache&&r.classList.contains('ouvert')){r.classList.remove('ouvert')}
+    });
+    compteur.textContent=String(n).padStart(2,'0');
+  });
+});
+
+/* ----- révélation ----- */
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}})},{threshold:.08});
+document.querySelectorAll('.reveler').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

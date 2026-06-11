@@ -93,6 +93,59 @@
       background: rgba(7,6,15,0.95);
     }
 
+    .nav{position:sticky;top:0;z-index:60;background:rgba(10,10,28,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav-inner{max-width:1180px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:72px}
+    .marque{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:700}
+    .marque svg{width:36px;height:36px}
+    .marque .nom{font-size:1rem;line-height:1}
+    .marque .nom small{display:block;font-size:.48rem;font-weight:500;letter-spacing:.4em;color:var(--sourdine)}
+
+    .nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+    .nav-links>li{position:relative}
+    .nav-links>li>a,.nav-links>li>button{display:flex;align-items:center;gap:6px;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:500;color:var(--sourdine);background:none;border:none;cursor:pointer;padding:10px 14px;border-radius:10px;transition:color .2s,background .2s}
+    .nav-links>li>a:hover,.nav-links>li>button:hover,.nav-links>li.ouvert>button{color:#fff;background:rgba(255,255,255,.06)}
+
+    /* chevron */
+    .chevron{width:9px;height:9px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex:none}
+    li.ouvert .chevron{transform:rotate(225deg) translateY(-1px)}
+
+    /* ----- sous-menu ----- */
+    .sous-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);min-width:210px;background:linear-gradient(168deg,rgba(30,26,60,.95),rgba(16,14,38,.97));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:8px;list-style:none;box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(124,92,255,.15),inset 0 1px 0 rgba(255,255,255,.12);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s}
+    .sous-menu::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:rgba(30,26,60,.95);border-left:1px solid rgba(255,255,255,.14);border-top:1px solid rgba(255,255,255,.14)}
+    li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    /* survol bureau : ouverture automatique */
+    @media(hover:hover) and (min-width:861px){
+      .nav-links>li:hover .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+      .nav-links>li:hover>button{color:#fff;background:rgba(255,255,255,.06)}
+      .nav-links>li:hover .chevron{transform:rotate(225deg) translateY(-1px)}
+    }
+    .sous-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.88rem;color:var(--sourdine);transition:color .2s,background .2s}
+    .sous-menu a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.18),rgba(124,92,255,.14))}
+    .sous-menu a i{font-style:normal;width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none;opacity:0;transition:opacity .2s}
+    .sous-menu a:hover i{opacity:1}
+    .sous-menu .titre-groupe{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(156,157,198,.7);padding:8px 14px 4px}
+    .sous-menu .separe{height:1px;background:rgba(255,255,255,.08);margin:6px 8px}
+
+    /* CTA */
+    .btn-cta{font-weight:600;font-size:.85rem;color:#fff!important;background:var(--grad);border-radius:999px;padding:10px 20px!important;box-shadow:0 0 22px rgba(255,46,156,.35);transition:transform .2s,box-shadow .2s}
+    .btn-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(255,46,156,.5);background:var(--grad)!important}
+
+    /* ----- burger / mobile ----- */
+    .burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+    .burger span{display:block;width:22px;height:2px;background:#fff;margin:5px 0;border-radius:2px;transition:.3s}
+
+    @media(max-width:860px){
+      .burger{display:block}
+      .nav-links{position:fixed;inset:72px 0 auto 0;max-height:calc(100vh - 72px);overflow:auto;background:rgba(13,13,36,.97);backdrop-filter:blur(20px);flex-direction:column;align-items:stretch;gap:0;padding:10px 18px 26px;border-bottom:1px solid rgba(255,255,255,.1);display:none}
+      .nav-links.ouvert{display:flex}
+      .nav-links>li>a,.nav-links>li>button{width:100%;justify-content:space-between;padding:14px 10px;font-size:.95rem}
+      .sous-menu{position:static;transform:none;min-width:0;opacity:1;visibility:visible;box-shadow:none;border:none;background:rgba(255,255,255,.03);border-radius:12px;margin:0 6px 8px;display:none;padding:6px}
+      .sous-menu::before{display:none}
+      li.ouvert .sous-menu{display:block}
+      .btn-cta{text-align:center;justify-content:center;margin-top:10px}
+    }
+
+
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
@@ -967,22 +1020,48 @@
         <span class="logo-sub">Marketing Agency</span>
       </div>
     </div>
-    <ul class="nav-links">
+    <ul class="nav-links" id="nav-links">
       <li><a href="preview.html">Services</a></li>
-      <li><a href="work.html">Portfolio</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Pricing</a></li>
+
+      <li class="a-sous-menu">
+        <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Portfolio <span class="chevron"></span></button>
+        <ul class="sous-menu">
+          <li><a href="work.html"><i></i>Portfolio — grille</a></li>
+          <li><a href="cymedia-portfolio.html"><i></i>Portfolio — cartes verre</a></li>
+          <li><a href="cymedia-portfolio-v2.html"><i></i>Portfolio — index éditorial</a></li>
+          <li><a href="cymedia-portfolio-v3.html"><i></i>Portfolio panel</a></li>
+          <li><a href="cymedia-portfolio-v4.html"><i></i>Portfolio Mosaic</a></li>
+        </ul>
+      </li>
+
+      <li class="a-sous-menu">
+        <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Versions <span class="chevron"></span></button>
+        <ul class="sous-menu">
+          <li class="titre-groupe">Pages d'accueil</li>
+          <li><a href="index.html"><i></i>Version 1</a></li>
+          <li><a href="v2.html"><i></i>Version 2</a></li>
+          <li><a href="v3.html"><i></i>Version 3</a></li>
+          <li><a href="v4.html"><i></i>Version 4</a></li>
+          <li><a href="v5.html"><i></i>Version 5</a></li>
+          <li class="separe" aria-hidden="true"></li>
+          <li><a href="clear_fab.html"><i></i>Version claire</a></li>
+        </ul>
+      </li>
+
+      <li class="a-sous-menu">
+        <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Carrousels <span class="chevron"></span></button>
+        <ul class="sous-menu">
+          <li><a href="carousel_1.html"><i></i>Carrousel V1</a></li>
+          <li><a href="carousel_2.html"><i></i>Carrousel V2</a></li>
+        </ul>
+      </li>
+
+      <li><a href="#">À propos</a></li>
+      <li><a href="#">Tarifs</a></li>
       <li><a href="#">Blog</a></li>
-      <li><a href="index.html">V1</a></li>
-      <li><a href="v2.html">V2</a></li>
-      <li><a href="v3.html">V3</a></li>
-      <li><a href="v4.html">V4</a></li>
-      <li><a href="v5.html">V5</a></li>
-      <li><a href="carousel_1.html">carousel V1</a></li>
-      <li><a href="carousel_2.html">carousel V2</a></li>
-      <li><a href="clear_fab.html">Clear V</a></li>
-      <li><a href="cymedia-portfolio.html">Portfolio</a></li>
+      <li><a href="#contact" class="btn-cta">Réserver un appel</a></li>
     </ul>
+
     <button class="nav-cta">Book a Strategy Call <span class="arrow">→</span></button>
   </nav>
 

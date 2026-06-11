@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réalisations — CyMedia (design cinématique)</title>
+<meta name="description" content="Les études de cas CyMedia en plein écran : faites défiler, les projets s'empilent.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#08081A;
+  --texte:#F0F0FB;
+  --sourdine:#9C9DC6;
+  --rose:#FF2E9C;
+  --violet:#7C5CFF;
+  --grad:linear-gradient(90deg,#FF2E9C,#7C5CFF);
+  --display:'Space Grotesk',sans-serif;
+  --corps:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--fond);color:var(--texte);font-family:var(--corps);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}
+.conteneur{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(8,8,26,.6);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+.marque{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700}
+.marque svg{width:34px;height:34px}
+.marque .nom{font-size:1rem;line-height:1}
+.marque .nom small{display:block;font-size:.48rem;font-weight:500;letter-spacing:.4em;color:var(--sourdine)}
+.nav-droite{display:flex;align-items:center;gap:24px;font-size:.88rem}
+.nav-droite a{color:var(--sourdine);font-weight:500;transition:color .2s}
+.nav-droite a:hover{color:#fff}
+.btn-cta{font-weight:600;color:#fff!important;background:var(--grad);border-radius:999px;padding:9px 20px;box-shadow:0 0 20px rgba(255,46,156,.35)}
+
+/* ---------- intro ---------- */
+.intro{min-height:92vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding-top:70px}
+.intro::before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(124,92,255,.22),transparent 65%);top:-180px;right:-160px;pointer-events:none}
+.intro::after{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(255,46,156,.16),transparent 65%);bottom:-160px;left:-140px;pointer-events:none}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--rose);margin-bottom:20px}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--rose);box-shadow:0 0 10px var(--rose)}
+.intro h1{font-family:var(--display);font-weight:700;font-size:clamp(2.8rem,7vw,5.4rem);line-height:1.04;letter-spacing:-.02em;max-width:14ch}
+.txt-grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.intro p{color:var(--sourdine);max-width:480px;margin-top:24px;font-size:1.05rem}
+.indice-scroll{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--sourdine);font-size:.7rem;letter-spacing:.24em;text-transform:uppercase}
+.indice-scroll .fil{width:1px;height:46px;background:linear-gradient(180deg,var(--rose),transparent);position:relative;overflow:hidden}
+.indice-scroll .fil::after{content:"";position:absolute;top:-12px;left:0;width:1px;height:12px;background:#fff;animation:descendre 1.8s ease-in-out infinite}
+@keyframes descendre{to{top:58px}}
+
+/* ---------- progression latérale ---------- */
+.progression{position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:14px;opacity:0;transition:opacity .4s}
+.progression.visible{opacity:1}
+.progression a{display:flex;align-items:center;gap:10px;justify-content:flex-end}
+.progression .pt{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.22);transition:background .3s,box-shadow .3s,transform .3s}
+.progression .lbl{font-family:var(--display);font-size:.68rem;font-weight:600;color:var(--sourdine);opacity:0;transform:translateX(6px);transition:opacity .3s,transform .3s;white-space:nowrap}
+.progression a:hover .lbl{opacity:1;transform:none}
+.progression a.actif .pt{background:var(--grad);box-shadow:0 0 12px rgba(255,46,156,.6);transform:scale(1.35)}
+.progression a.actif .lbl{opacity:1;transform:none;color:#fff}
+
+/* ---------- pile de projets ---------- */
+.pile{position:relative}
+.panneau{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:34px 34px 0 0;transform-origin:center top;transition:transform .2s linear,filter .2s linear}
+.panneau .fond-img{position:absolute;inset:0;z-index:0}
+.panneau .fond-img img{width:100%;height:100%;object-fit:cover;transform:scale(1.06)}
+.panneau .fond-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,26,.55) 0%,rgba(8,8,26,.25) 35%,rgba(8,8,26,.82) 100%),linear-gradient(115deg,rgba(255,46,156,.14),rgba(124,92,255,.16))}
+.panneau .num-geant{position:absolute;top:8vh;right:4vw;z-index:1;font-family:var(--display);font-weight:700;font-size:clamp(6rem,18vw,15rem);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.16);user-select:none}
+.panneau .contenu{position:relative;z-index:2;width:min(1180px,100%);padding:0 24px;display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+.badge{font-size:.64rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#FFD9EE;background:rgba(255,46,156,.16);border:1px solid rgba(255,46,156,.5);border-radius:999px;padding:6px 14px;backdrop-filter:blur(8px)}
+.panneau h2{font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,6vw,4.6rem);line-height:1.02;letter-spacing:-.015em}
+.panneau .desc{max-width:520px;color:#D9D9F2;font-size:1rem;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+/* rangée de stats en verre */
+.stats-verre{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
+.stat-v{background:rgba(255,255,255,.09);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:14px 22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.stat-v b{font-family:var(--display);font-size:1.6rem;line-height:1.1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block}
+.stat-v span{font-size:.72rem;color:#D5D6EE}
+.panneau .lien{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:.95rem;color:#fff;margin-top:10px;padding-bottom:4px;border-bottom:2px solid var(--rose)}
+.panneau .lien i{font-style:normal;transition:transform .25s}
+.panneau .lien:hover i{transform:translateX(6px)}
+.panneau .tags{display:flex;gap:9px;flex-wrap:wrap}
+.panneau .tags span{font-size:.7rem;font-weight:600;color:#E9E9FB;background:rgba(8,8,26,.4);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:5px 13px;backdrop-filter:blur(8px)}
+
+/* ---------- final ---------- */
+.final{position:relative;z-index:5;background:var(--fond);padding:110px 0;text-align:center;border-top:1px solid rgba(255,255,255,.07)}
+.final::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:560px;height:560px;background:radial-gradient(circle,rgba(255,46,156,.15),transparent 65%);pointer-events:none}
+.bande-chiffres{display:flex;justify-content:center;gap:54px;flex-wrap:wrap;margin-bottom:64px}
+.chiffre b{font-family:var(--display);font-size:2.6rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block;line-height:1.1}
+.chiffre span{font-size:.85rem;color:var(--sourdine)}
+.final h2{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5vw,3.6rem);line-height:1.08;margin-bottom:16px;position:relative}
+.final p{color:var(--sourdine);max-width:460px;margin:0 auto 34px;position:relative}
+.btn-grad{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:1rem;padding:15px 32px;border-radius:999px;background:var(--grad);color:#fff;box-shadow:0 0 28px rgba(255,46,156,.4);transition:transform .2s,box-shadow .2s;position:relative}
+.btn-grad:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(255,46,156,.6)}
+footer{border-top:1px solid rgba(255,255,255,.06);padding:30px 0;background:var(--fond);position:relative;z-index:5}
+.pied{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.85rem;color:var(--sourdine)}
+.pied ul{display:flex;gap:24px;list-style:none}
+.pied ul a:hover{color:#fff}
+
+/* ---------- responsive ---------- */
+@media(max-width:760px){
+  .nav-droite a:not(.btn-cta){display:none}
+  .progression{right:12px}
+  .progression .lbl{display:none}
+  .panneau .num-geant{top:11vh;right:2vw}
+  .stat-v{padding:11px 16px}
+  .stat-v b{font-size:1.25rem}
+  .panneau h2{font-size:clamp(2rem,9vw,3rem)}
+  .panneau .contenu{gap:14px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.001s!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Nav ===== -->
+<header class="nav">
+  <div class="conteneur nav-inner">
+    <a href="index.html" class="marque" aria-label="CyMedia — Accueil">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+      </svg>
+      <span class="nom">CYMEDIA<small>MARKETING AGENCY</small></span>
+    </a>
+    <div class="nav-droite">
+      <a href="index.html">Accueil</a>
+      <a href="preview.html">Services</a>
+      <li><a href="cymedia-portfolio-v2.html"><i></i>Portfolio</a></li>
+      <a href="#contact" class="btn-cta">Réserver un appel</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Intro ===== -->
+<section class="intro">
+  <div class="conteneur">
+    <p class="eyebrow">Nos réalisations</p>
+    <h1>Des projets qui se vivent en <span class="txt-grad">plein écran.</span></h1>
+    <p>Faites défiler : chaque étude de cas occupe tout l'écran et s'empile sur la précédente, comme un deck de présentation.</p>
+  </div>
+  <div class="indice-scroll" aria-hidden="true"><span class="fil"></span>Défiler</div>
+</section>
+
+<!-- ===== Progression latérale ===== -->
+<nav class="progression" id="progression" aria-label="Projets"></nav>
+
+<!-- ===== Pile de projets ===== -->
+<div class="pile" id="pile"></div>
+
+<!-- ===== Final ===== -->
+<section class="final" id="contact">
+  <div class="conteneur">
+    <div class="bande-chiffres">
+      <div class="chiffre"><b>120+</b><span>projets livrés</span></div>
+      <div class="chiffre"><b>×3,2</b><span>ROAS moyen</span></div>
+      <div class="chiffre"><b>48&nbsp;M</b><span>de vues générées</span></div>
+      <div class="chiffre"><b>96&nbsp;%</b><span>de clients satisfaits</span></div>
+    </div>
+    <h2>Le prochain écran pourrait être <span class="txt-grad">le vôtre.</span></h2>
+    <p>Réservez un appel découverte gratuit : nous analysons votre marque et repartons avec trois pistes concrètes.</p>
+    <a class="btn-grad" href="mailto:contact@cymedia.ma?subject=Nouveau%20projet">Démarrer un projet&nbsp;→</a>
+  </div>
+</section>
+
+<footer>
+  <div class="conteneur pied">
+    <span>© 2026 CyMedia — Agence marketing</span>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="preview.html">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+const PROJETS=[
+ {nom:'Virelo',cat:'E-commerce',seed:'virelo7',
+  desc:'Une marque de cosmétiques qui stagnait malgré un bon produit. Tunnel reconstruit de bout en bout : contenus courts, retargeting créatif, preuves sociales. Un système de vente qui tourne 24h/24.',
+  stats:[['+320\u00a0%','Engagement'],['8,7×','ROAS'],['×2,4','C.A. en 6 mois']],
+  tags:['Publicité Meta','Reels & UGC','Email marketing']},
+ {nom:'Mindset Pro',cat:'Coaching',seed:'mindset3',
+  desc:'Un coach avec une vraie expertise mais une audience dispersée. Écosystème complet : vidéos longues, extraits viraux, newsletter et communauté privée. Chaque canal nourrit le suivant.',
+  stats:[['+185\u00a0%','Prospects'],['6,3×','Chiffre d\'affaires'],['12k','Membres']],
+  tags:['Scripts vidéo','YouTube & Shorts','Communauté']},
+ {nom:'Taskly',cat:'SaaS',seed:'taskly9',
+  desc:'Un SaaS de gestion de tâches face à des géants. Product-led growth : comparatifs, démos vidéo, parrainage et onboarding optimisé pour convertir chaque essai gratuit.',
+  stats:[['+210\u00a0%','Inscriptions'],['7,2×','Rétention'],['−31\u00a0%','Coût d\'acquisition']],
+  tags:['SEO & contenu','Démos produit','Ads Google']},
+ {nom:'Maison Safran',cat:'Restauration',seed:'safran5',
+  desc:'Un restaurant gastronomique à Marrakech, une cuisine d\'exception, peu de visibilité. Identité appétissante, réels food viraux et réservation fluide depuis Instagram.',
+  stats:[['+140\u00a0%','Réservations'],['×4','Abonnés'],['2,1\u00a0M','Vues de réels']],
+  tags:['Branding','Réels food','Instagram Ads']},
+ {nom:'Atlas Habitat',cat:'Immobilier',seed:'atlas2',
+  desc:'Un promoteur qui dépendait du bouche-à-oreille. Campagnes ciblées avec visites virtuelles, landing pages par programme et qualification automatique des prospects.',
+  stats:[['+95\u00a0%','Leads qualifiés'],['−38\u00a0%','Coût par lead'],['34\u00a0%','Taux de RDV']],
+  tags:['Génération de leads','Landing pages','CRM']},
+ {nom:'Noor Bijoux',cat:'E-commerce',seed:'noor4',
+  desc:'Une créatrice de bijoux artisanaux partie de zéro. Storytelling artisanal, coulisses de fabrication et micro-influence : rentabilité atteinte dès le troisième mois.',
+  stats:[['0→45k','Abonnés en 8 mois'],['5,4×','ROAS'],['68\u00a0%','Ventes via Instagram']],
+  tags:['Lancement de marque','Influence','E-boutique']}
+];
+
+/* ----- rendu des panneaux ----- */
+const pile=document.getElementById('pile');
+PROJETS.forEach((p,i)=>{
+  const s=document.createElement('section');
+  s.className='panneau';
+  s.id='projet-'+i;
+  s.innerHTML=`
+    <div class="fond-img"><img src="https://picsum.photos/seed/${p.seed}/1600/1000" alt="" ${i>1?'loading="lazy"':''}></div>
+    <span class="num-geant" aria-hidden="true">${String(i+1).padStart(2,'0')}</span>
+    <div class="contenu">
+      <span class="badge">${p.cat}</span>
+      <h2>${p.nom}</h2>
+      <p class="desc">${p.desc}</p>
+      <div class="stats-verre">${p.stats.map(x=>`<div class="stat-v"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>
+      <div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+      <a class="lien" href="mailto:contact@cymedia.ma?subject=Projet%20${encodeURIComponent(p.nom)}">Discuter d'un projet similaire <i>→</i></a>
+    </div>`;
+  pile.appendChild(s);
+});
+
+/* ----- progression latérale ----- */
+const prog=document.getElementById('progression');
+PROJETS.forEach((p,i)=>{
+  const a=document.createElement('a');
+  a.href='#projet-'+i;
+  a.innerHTML=`<span class="lbl">${p.nom}</span><span class="pt"></span>`;
+  prog.appendChild(a);
+});
+const liens=[...prog.children];
+const panneaux=[...document.querySelectorAll('.panneau')];
+
+const obsPan=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      const i=panneaux.indexOf(e.target);
+      liens.forEach((l,j)=>l.classList.toggle('actif',j===i));
+    }
+  });
+},{threshold:.55});
+panneaux.forEach(s=>obsPan.observe(s));
+
+/* afficher les points de progression uniquement dans la pile */
+const obsPile=new IntersectionObserver(es=>{
+  es.forEach(e=>prog.classList.toggle('visible',e.isIntersecting));
+},{threshold:0});
+obsPile.observe(pile);
+
+/* ----- effet d'empilement : le panneau précédent recule légèrement ----- */
+const mouvementReduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!mouvementReduit){
+  let tique=false;
+  window.addEventListener('scroll',()=>{
+    if(tique)return;tique=true;
+    requestAnimationFrame(()=>{
+      panneaux.forEach((s,i)=>{
+        const suivant=panneaux[i+1];
+        if(!suivant)return;
+        const r=suivant.getBoundingClientRect();
+        const p=Math.min(Math.max(1 - r.top/window.innerHeight,0),1);
+        s.style.transform=`scale(${1 - p*0.07}) translateY(${p*-26}px)`;
+        s.style.filter=`brightness(${1 - p*0.45})`;
+      });
+      tique=false;
+    });
+  },{passive:true});
+}
+</script>
+</body>
+</html>

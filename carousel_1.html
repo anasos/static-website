@@ -48,9 +48,33 @@ img,svg{display:block;max-width:100%}
 /* ---------- Nav ---------- */
 .nav{position:sticky;top:0;z-index:60;background:rgba(10,10,28,.8);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.05)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
-.nav ul{display:flex;align-items:center;gap:30px;list-style:none}
-.nav ul a{font-size:.9rem;font-weight:500;color:var(--sourdine);transition:color .2s}
-.nav ul a:hover{color:#fff}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a,.nav-links>li>button{display:flex;align-items:center;gap:6px;font-family:var(--corps);font-size:.9rem;font-weight:500;color:var(--sourdine);background:none;border:none;cursor:pointer;padding:10px 14px;border-radius:10px;transition:color .2s,background .2s}
+.nav-links>li>a:hover,.nav-links>li>button:hover,.nav-links>li.ouvert>button{color:#fff;background:rgba(255,255,255,.06)}
+/* chevron des sous-menus */
+.chevron{width:9px;height:9px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex:none}
+li.ouvert .chevron{transform:rotate(225deg) translateY(-1px)}
+/* panneau de sous-menu */
+.sous-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);min-width:230px;background:linear-gradient(168deg,rgba(30,26,60,.96),rgba(16,14,38,.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:8px;list-style:none;box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(124,92,255,.15),inset 0 1px 0 rgba(255,255,255,.12);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s}
+.sous-menu::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:rgba(30,26,60,.96);border-left:1px solid rgba(255,255,255,.14);border-top:1px solid rgba(255,255,255,.14)}
+li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+@media(hover:hover) and (min-width:721px){
+  .nav-links>li:hover .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .nav-links>li:hover>button{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-links>li:hover .chevron{transform:rotate(225deg) translateY(-1px)}
+}
+.sous-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.88rem;color:var(--sourdine);transition:color .2s,background .2s}
+.sous-menu a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.18),rgba(124,92,255,.14))}
+.sous-menu a i{font-style:normal;width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none;opacity:0;transition:opacity .2s}
+.sous-menu a:hover i{opacity:1}
+.sous-menu a.actif{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.22),rgba(124,92,255,.18))}
+.sous-menu a.actif i{opacity:1}
+.sous-menu .titre-groupe{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(156,157,198,.7);padding:8px 14px 4px}
+.sous-menu .separe{height:1px;background:rgba(255,255,255,.08);margin:6px 8px}
+/* bouton CTA dans la nav */
+.btn-cta{font-weight:600;font-size:.85rem;color:#fff!important;background:var(--grad);border-radius:999px;padding:10px 20px!important;box-shadow:0 0 22px rgba(255,46,156,.35);transition:transform .2s,box-shadow .2s}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(255,46,156,.5);background:var(--grad)!important}
 .burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
 .burger span{display:block;width:22px;height:2px;background:#fff;margin:5px 0;border-radius:2px}
 
@@ -214,9 +238,13 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:34px 0}
   .atouts{grid-template-columns:1fr}
 }
 @media(max-width:720px){
-  .nav ul{position:fixed;inset:72px 0 auto 0;background:var(--fond2);flex-direction:column;align-items:stretch;gap:0;padding:8px 24px 22px;border-bottom:1px solid var(--bord);display:none}
-  .nav ul.ouvert{display:flex}
-  .nav ul a{display:block;padding:13px 0}
+  .nav-links{position:fixed;inset:72px 0 auto 0;max-height:calc(100vh - 72px);overflow:auto;background:var(--fond2);flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 24px;border-bottom:1px solid var(--bord);display:none}
+  .nav-links.ouvert{display:flex}
+  .nav-links>li>a,.nav-links>li>button{width:100%;justify-content:space-between;padding:14px 10px;font-size:.95rem}
+  .sous-menu{position:static;transform:none;min-width:0;opacity:1;visibility:visible;box-shadow:none;border:none;background:rgba(255,255,255,.03);border-radius:12px;margin:0 6px 8px;display:none;padding:6px}
+  .sous-menu::before{display:none}
+  li.ouvert .sous-menu{display:block}
+  .btn-cta{justify-content:center;text-align:center;margin-top:10px}
   .burger{display:block}
   .grille-services{grid-template-columns:1fr}
   .cf-script{left:-2%}
@@ -252,16 +280,46 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:34px 0}
       <span class="nom">CYMEDIA<small>MARKETING AGENCY</small></span>
     </a>
     <nav>
-      <ul id="menu">
-        <li><a href="#services">Services</a></li>
-        <li><a href="#travaux">Réalisations</a></li>
-        <li><a href="#pourquoi">À propos</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="carousel_1.html">carousel V1</a></li>
-        <li><a href="carousel_2.html">carousel V2</a></li>
-        <li><a href="clear_fab.html">Clear V</a></li>
-        <li><a href="cymedia-portfolio.html">Portfolio</a></li>
-        <li><a href="#contact" class="btn btn-grad" style="padding:10px 20px;font-size:.85rem">Réserver un appel stratégique</a></li>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="preview.html">Services</a></li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Portfolio <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="work.html"><i></i>Portfolio — grille</a></li>
+            <li><a href="cymedia-portfolio.html"><i></i>Portfolio — cartes verre</a></li>
+            <li><a href="cymedia-portfolio-v2.html"><i></i>Portfolio — index éditorial</a></li>
+            <li><a href="cymedia-portfolio-v3.html"><i></i>Portfolio panel</a></li>
+            <li><a href="cymedia-portfolio-v4.html"><i></i>Portfolio Mosaic</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Versions <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li class="titre-groupe">Pages d'accueil</li>
+            <li><a href="index.html"><i></i>Version 1</a></li>
+            <li><a href="v2.html"><i></i>Version 2</a></li>
+            <li><a href="v3.html"><i></i>Version 3</a></li>
+            <li><a href="v4.html"><i></i>Version 4</a></li>
+            <li><a href="v5.html"><i></i>Version 5</a></li>
+            <li class="separe" aria-hidden="true"></li>
+            <li><a href="clear_fab.html"><i></i>Version claire</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Carrousels <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="carousel_1.html"><i></i>Carrousel V1</a></li>
+            <li><a href="carousel_2.html" class="actif" aria-current="page"><i></i>Carrousel V2</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Tarifs</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#contact" class="btn-cta">Réserver un appel</a></li>
       </ul>
     </nav>
     <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="basculerMenu(this)"><span></span><span></span><span></span></button>
@@ -621,12 +679,45 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:34px 0}
 </footer>
 
 <script>
+/* ----- menu mobile ----- */
 function basculerMenu(btn){
-  const m=document.getElementById('menu');
+  const m=document.getElementById('nav-links');
   const o=m.classList.toggle('ouvert');
   btn.setAttribute('aria-expanded',o);
 }
-document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>document.getElementById('menu').classList.remove('ouvert')));
+/* fermer le menu mobile après un clic sur un lien */
+document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav-links').classList.remove('ouvert')));
+
+/* ----- sous-menus : clic (mobile + clavier) ----- */
+function basculerSousMenu(btn){
+  const li=btn.parentElement;
+  const dejaOuvert=li.classList.contains('ouvert');
+  document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+    x.classList.remove('ouvert');
+    x.querySelector('button').setAttribute('aria-expanded','false');
+  });
+  if(!dejaOuvert){
+    li.classList.add('ouvert');
+    btn.setAttribute('aria-expanded','true');
+  }
+}
+/* fermer les sous-menus au clic à l'extérieur ou avec Échap */
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.a-sous-menu')){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}})},{threshold:.12});
 document.querySelectorAll('.reveler').forEach(el=>obs.observe(el));
 
