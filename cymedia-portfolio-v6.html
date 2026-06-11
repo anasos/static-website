@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réalisations — CyMedia (showreel vidéo)</title>
+<meta name="description" content="Le showreel CyMedia : survolez un projet, la vidéo change. Une agence vidéo se montre en vidéo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#07071A;
+  --fond2:#0D0D24;
+  --bord:rgba(255,255,255,.09);
+  --texte:#F0F0FB;
+  --sourdine:#9C9DC6;
+  --rose:#FF2E9C;
+  --violet:#7C5CFF;
+  --grad:linear-gradient(90deg,#FF2E9C,#7C5CFF);
+  --display:'Space Grotesk',sans-serif;
+  --corps:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--fond);color:var(--texte);font-family:var(--corps);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg,video{display:block;max-width:100%}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}
+.conteneur{max-width:1220px;margin:0 auto;padding:0 26px}
+
+/* ============================================================
+   NAV AVEC SOUS-MENUS
+   ============================================================ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(7,7,26,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.marque{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700}
+.marque .glyphe{width:36px;height:36px}
+.marque .nom{font-size:1rem;line-height:1}
+.marque .nom small{display:block;font-size:.48rem;font-weight:500;letter-spacing:.4em;color:var(--sourdine)}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a,.nav-links>li>button{display:flex;align-items:center;gap:6px;font-family:var(--corps);font-size:.9rem;font-weight:500;color:var(--sourdine);background:none;border:none;cursor:pointer;padding:10px 14px;border-radius:10px;transition:color .2s,background .2s}
+.nav-links>li>a:hover,.nav-links>li>button:hover,.nav-links>li.ouvert>button{color:#fff;background:rgba(255,255,255,.06)}
+.chevron{width:9px;height:9px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex:none}
+li.ouvert .chevron{transform:rotate(225deg) translateY(-1px)}
+.sous-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);min-width:250px;background:linear-gradient(168deg,rgba(30,26,60,.96),rgba(16,14,38,.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:8px;list-style:none;box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(124,92,255,.15),inset 0 1px 0 rgba(255,255,255,.12);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s}
+.sous-menu::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:rgba(30,26,60,.96);border-left:1px solid rgba(255,255,255,.14);border-top:1px solid rgba(255,255,255,.14)}
+li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+@media(hover:hover) and (min-width:721px){
+  .nav-links>li:hover .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .nav-links>li:hover>button{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-links>li:hover .chevron{transform:rotate(225deg) translateY(-1px)}
+}
+.sous-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.88rem;color:var(--sourdine);transition:color .2s,background .2s}
+.sous-menu a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.18),rgba(124,92,255,.14))}
+.sous-menu a i{font-style:normal;width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none;opacity:0;transition:opacity .2s}
+.sous-menu a:hover i{opacity:1}
+.sous-menu a.actif{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.22),rgba(124,92,255,.18))}
+.sous-menu a.actif i{opacity:1}
+.sous-menu .titre-groupe{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(156,157,198,.7);padding:8px 14px 4px}
+.sous-menu .separe{height:1px;background:rgba(255,255,255,.08);margin:6px 8px}
+.btn-cta{font-weight:600;font-size:.85rem;color:#fff!important;background:var(--grad);border-radius:999px;padding:10px 20px!important;box-shadow:0 0 22px rgba(255,46,156,.35);transition:transform .2s,box-shadow .2s}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(255,46,156,.5);background:var(--grad)!important}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:22px;height:2px;background:#fff;margin:5px 0;border-radius:2px}
+
+/* ============================================================
+   SCÈNE SHOWREEL
+   ============================================================ */
+.scene{position:relative;height:100vh;min-height:640px;overflow:hidden}
+.scene video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease}
+.scene video.actif{opacity:1}
+/* voiles cinéma */
+.scene .voile{position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(7,7,26,.72) 0%,rgba(7,7,26,.25) 30%,rgba(7,7,26,.3) 60%,rgba(7,7,26,.88) 100%),
+  linear-gradient(100deg,rgba(255,46,156,.1),rgba(124,92,255,.12));pointer-events:none}
+.scene .grain{position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:radial-gradient(rgba(255,255,255,.045) 1px,transparent 1px);background-size:3px 3px;mix-blend-mode:overlay}
+
+/* contenu superposé */
+.surcouche{position:relative;z-index:3;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:110px 0 46px}
+.entete-reel{margin-bottom:auto;padding-top:26px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--rose);margin-bottom:12px}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--rose);box-shadow:0 0 10px var(--rose)}
+.entete-reel h1{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,4vw,3rem);line-height:1.08;letter-spacing:-.015em;max-width:18ch;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.txt-grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* liste des projets */
+.liste-reel{list-style:none;border-top:1px solid rgba(255,255,255,.18)}
+.ligne-reel{border-bottom:1px solid rgba(255,255,255,.18)}
+.ligne-reel button{width:100%;background:none;border:none;cursor:pointer;display:grid;grid-template-columns:54px 1fr auto auto;align-items:center;gap:18px;padding:15px 6px;text-align:left;color:inherit;transition:padding .3s}
+.ligne-reel .num{font-family:var(--display);font-size:.8rem;color:var(--sourdine)}
+.ligne-reel .nom{font-family:var(--display);font-weight:600;font-size:clamp(1.25rem,2.9vw,2rem);line-height:1.05;letter-spacing:-.01em;color:rgba(255,255,255,.82);transition:color .25s,transform .3s;text-shadow:0 2px 18px rgba(0,0,0,.55)}
+.ligne-reel .cat{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sourdine)}
+.ligne-reel .cle{font-family:var(--display);font-weight:700;font-size:1rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;transform:translateX(8px);transition:opacity .3s,transform .3s}
+.ligne-reel button:hover .nom,.ligne-reel.actif .nom{color:transparent;background:var(--grad);-webkit-background-clip:text;background-clip:text;transform:translateX(10px)}
+.ligne-reel button:hover .cle,.ligne-reel.actif .cle{opacity:1;transform:none}
+.ligne-reel.actif .num{color:#fff}
+
+/* barre de contrôle vidéo */
+.controles{position:absolute;right:26px;bottom:46px;z-index:4;display:flex;gap:10px}
+.controles button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(7,7,26,.45);backdrop-filter:blur(12px);color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .25s,border-color .25s,box-shadow .25s}
+.controles button:hover{background:rgba(255,46,156,.35);border-color:rgba(255,46,156,.7);box-shadow:0 0 22px rgba(255,46,156,.4)}
+/* étiquette reel en cours */
+.tag-reel{position:absolute;left:26px;bottom:46px;z-index:4;display:flex;align-items:center;gap:10px;font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(7,7,26,.45);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:9px 16px;backdrop-filter:blur(12px)}
+.tag-reel i{font-style:normal;width:8px;height:8px;border-radius:50%;background:#FF2E4C;animation:rec 1.4s ease-in-out infinite}
+@keyframes rec{50%{opacity:.25}}
+
+/* ============================================================
+   TIROIR DÉTAIL PROJET
+   ============================================================ */
+body.fige{overflow:hidden}
+.tiroir-fond{position:fixed;inset:0;z-index:90;background:rgba(5,5,16,.6);backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+.tiroir-fond.ouvert{opacity:1;visibility:visible}
+.tiroir{position:fixed;top:0;right:0;bottom:0;z-index:95;width:min(480px,94vw);background:linear-gradient(170deg,rgba(32,27,66,.92),rgba(14,12,34,.97));backdrop-filter:blur(24px) saturate(150%);border-left:1px solid rgba(255,255,255,.16);box-shadow:-40px 0 110px rgba(0,0,0,.7),0 0 80px rgba(124,92,255,.2);transform:translateX(105%);transition:transform .5s cubic-bezier(.22,.8,.26,1);display:flex;flex-direction:column}
+.tiroir.ouvert{transform:none}
+.tiroir::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,#FF2E9C,#7C5CFF,#FF2E9C);background-size:100% 300%;animation:coule 5s linear infinite}
+@keyframes coule{to{background-position:0 300%}}
+.t-defile{overflow-y:auto;padding:26px 28px 34px;scrollbar-width:thin;scrollbar-color:rgba(255,46,156,.5) transparent}
+.t-defile::-webkit-scrollbar{width:7px}
+.t-defile::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#FF2E9C,#7C5CFF);border-radius:99px}
+.t-fermer{position:absolute;top:18px;right:18px;z-index:2;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:rgba(10,10,28,.5);backdrop-filter:blur(10px);color:#fff;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .25s,transform .25s}
+.t-fermer:hover{background:rgba(255,46,156,.45);transform:rotate(90deg)}
+.t-video{border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.16);margin-bottom:20px;aspect-ratio:16/9;background:#000}
+.t-video video{width:100%;height:100%;object-fit:cover;opacity:1;position:static}
+.t-badge{display:inline-flex;align-items:center;gap:8px;font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#FFD9EE;background:rgba(255,46,156,.16);border:1px solid rgba(255,46,156,.5);border-radius:999px;padding:5px 13px;margin-bottom:12px}
+.tiroir h2{font-family:var(--display);font-weight:700;font-size:2rem;line-height:1.05;margin-bottom:8px}
+.t-meta{font-size:.78rem;color:var(--sourdine);margin-bottom:16px}
+.t-meta b{color:#fff}
+.tiroir .desc{color:#C9CAEA;font-size:.92rem;margin-bottom:22px}
+.t-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.t-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:13px 10px;text-align:center}
+.t-stat b{font-family:var(--display);font-size:1.25rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block;line-height:1.1}
+.t-stat span{font-size:.62rem;color:var(--sourdine)}
+.t-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.t-tags span{font-size:.68rem;font-weight:600;color:#E4DCFF;background:rgba(124,92,255,.15);border:1px solid rgba(124,92,255,.42);border-radius:999px;padding:5px 12px}
+.btn-grad{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.92rem;padding:13px 26px;border-radius:999px;background:var(--grad);color:#fff;box-shadow:0 0 24px rgba(255,46,156,.4);transition:transform .2s,box-shadow .2s}
+.btn-grad:hover{transform:translateY(-2px);box-shadow:0 0 34px rgba(255,46,156,.6)}
+
+/* ---------- sous le pli ---------- */
+.bas{position:relative;z-index:2;background:var(--fond)}
+.marquee{overflow:hidden;border-block:1px solid rgba(255,255,255,.08);padding:14px 0}
+.marquee-piste{display:inline-flex;gap:46px;white-space:nowrap;animation:defiler 26s linear infinite;font-family:var(--display);font-weight:600;font-size:.88rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sourdine)}
+.marquee-piste i{font-style:normal;color:var(--rose)}
+@keyframes defiler{to{transform:translateX(-50%)}}
+footer{padding:30px 0}
+.pied{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.85rem;color:var(--sourdine)}
+.pied ul{display:flex;gap:24px;list-style:none}
+.pied ul a:hover{color:#fff}
+
+/* ---------- responsive ---------- */
+@media(max-width:720px){
+  .nav-links{position:fixed;inset:72px 0 auto 0;max-height:calc(100vh - 72px);overflow:auto;background:var(--fond2);flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 24px;border-bottom:1px solid var(--bord);display:none}
+  .nav-links.ouvert{display:flex}
+  .nav-links>li>a,.nav-links>li>button{width:100%;justify-content:space-between;padding:14px 10px;font-size:.95rem}
+  .sous-menu{position:static;transform:none;min-width:0;opacity:1;visibility:visible;box-shadow:none;border:none;background:rgba(255,255,255,.03);border-radius:12px;margin:0 6px 8px;display:none;padding:6px}
+  .sous-menu::before{display:none}
+  li.ouvert .sous-menu{display:block}
+  .btn-cta{justify-content:center;text-align:center;margin-top:10px}
+  .burger{display:block}
+  .ligne-reel button{grid-template-columns:40px 1fr;gap:12px}
+  .ligne-reel .cat,.ligne-reel .cle{display:none}
+  .tag-reel{left:14px;bottom:26px;font-size:.64rem}
+  .controles{right:14px;bottom:26px}
+  .surcouche{padding-bottom:96px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.001s!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Nav avec sous-menus ===== -->
+<header class="nav">
+  <div class="conteneur nav-inner">
+    <a href="index.html" class="marque" aria-label="CyMedia — Accueil">
+      <svg class="glyphe" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+      </svg>
+      <span class="nom">CYMEDIA<small>MARKETING AGENCY</small></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="preview.html">Services</a></li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Portfolio <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="work.html"><i></i>Portfolio — grille</a></li>
+            <li><a href="cymedia-portfolio.html"><i></i>Portfolio — cartes verre</a></li>
+            <li><a href="cymedia-portfolio-v2.html"><i></i>Portfolio — index éditorial</a></li>
+            <li><a href="cymedia-portfolio-v3.html"><i></i>Portfolio — cinématique</a></li>
+            <li><a href="cymedia-portfolio-v4.html"><i></i>Portfolio — mosaïque bento</a></li>
+            <li><a href="cymedia-portfolio-v5.html"><i></i>Portfolio — scrollytelling 3D</a></li>
+            <li><a href="cymedia-portfolio-v6.html" class="actif" aria-current="page"><i></i>Portfolio — showreel vidéo</a></li>            
+            <li><a href="cymedia-portfolio-v7.html"><i></i>Portfolio — split-screen</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Versions <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li class="titre-groupe">Pages d'accueil</li>
+            <li><a href="index.html"><i></i>Version 1</a></li>
+            <li><a href="v2.html"><i></i>Version 2</a></li>
+            <li><a href="v3.html"><i></i>Version 3</a></li>
+            <li><a href="v4.html"><i></i>Version 4</a></li>
+            <li><a href="v5.html"><i></i>Version 5</a></li>
+            <li class="separe" aria-hidden="true"></li>
+            <li><a href="clear_fab.html"><i></i>Version claire</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Carrousels <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="carousel_1.html"><i></i>Carrousel V1</a></li>
+            <li><a href="carousel_2.html"><i></i>Carrousel V2</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Tarifs</a></li>
+        <li><a href="#contact" class="btn-cta">Réserver un appel</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="basculerMenu(this)"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== Scène showreel ===== -->
+<section class="scene" id="scene">
+  <!-- deux lecteurs pour le fondu enchaîné -->
+  <video id="vidA" class="actif" autoplay muted loop playsinline preload="auto"></video>
+  <video id="vidB" autoplay muted loop playsinline preload="auto"></video>
+  <div class="voile" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <span class="tag-reel" aria-hidden="true"><i></i><span id="tag-nom">Showreel 2026</span></span>
+  <div class="controles">
+    <button id="btn-son" aria-label="Activer le son">🔇</button>
+    <button id="btn-lecture" aria-label="Mettre en pause">⏸</button>
+  </div>
+
+  <div class="conteneur surcouche">
+    <div class="entete-reel">
+      <p class="eyebrow">Nos réalisations · Showreel</p>
+      <h1>Une agence vidéo se montre <span class="txt-grad">en vidéo.</span></h1>
+    </div>
+
+    <ul class="liste-reel" id="liste"></ul>
+  </div>
+</section>
+
+<!-- ===== Tiroir détail ===== -->
+<div class="tiroir-fond" id="tiroir-fond" onclick="fermerTiroir()"></div>
+<aside class="tiroir" id="tiroir" role="dialog" aria-modal="true" aria-labelledby="t-titre">
+  <button class="t-fermer" aria-label="Fermer" onclick="fermerTiroir()">✕</button>
+  <div class="t-defile">
+    <div class="t-video"><video id="t-vid" autoplay muted loop playsinline></video></div>
+    <span class="t-badge" id="t-badge"></span>
+    <h2 id="t-titre"></h2>
+    <p class="t-meta" id="t-meta"></p>
+    <p class="desc" id="t-desc"></p>
+    <div class="t-stats" id="t-stats"></div>
+    <div class="t-tags" id="t-tags"></div>
+    <a class="btn-grad" id="t-cta" href="#">Je veux ces résultats&nbsp;→</a>
+  </div>
+</aside>
+
+<!-- ===== Sous le pli ===== -->
+<div class="bas" id="contact">
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-piste" id="piste">
+      <span>Scripts vidéo <i>✦</i> Réels & formats courts <i>✦</i> Publicité <i>✦</i> Branding <i>✦</i> Réseaux sociaux <i>✦</i> Croissance <i>✦</i>&nbsp;</span>
+    </div>
+  </div>
+  <footer>
+    <div class="conteneur pied">
+      <span>© 2026 CyMedia — Agence marketing · contact@cymedia.ma</span>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="preview.html">Services</a></li>
+        <li><a href="mailto:contact@cymedia.ma">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   DONNÉES — remplacez les URLs `video` par vos vrais reels .mp4
+   (ici : clips de démonstration libres hébergés par Google)
+   ============================================================ */
+const BASE='https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/';
+const PROJETS=[
+ {nom:'Virelo',cat:'E-commerce',cle:'8,7× ROAS',video:BASE+'ForBiggerBlazes.mp4',annee:'2025',duree:'6 mois',
+  desc:"Tunnel « du réseau social à la vente » reconstruit de bout en bout pour une marque cosmétique. Contenus courts, retargeting créatif, preuves sociales : un système qui vend 24h/24.",
+  stats:[['+320\u00a0%','Engagement'],['8,7×','ROAS'],['×2,4','C.A.']],
+  tags:['Publicité Meta','Reels & UGC','Email marketing']},
+ {nom:'Mindset Pro',cat:'Coaching',cle:'6,3× C.A.',video:BASE+'ForBiggerEscapes.mp4',annee:'2025',duree:'8 mois',
+  desc:"Écosystème complet pour un coach business : vidéos longues, extraits viraux, newsletter et communauté privée. Chaque canal nourrit le suivant.",
+  stats:[['+185\u00a0%','Prospects'],['6,3×','C.A.'],['12k','Membres']],
+  tags:['Scripts vidéo','YouTube & Shorts','Communauté']},
+ {nom:'Taskly',cat:'SaaS',cle:'+210 % inscriptions',video:BASE+'ForBiggerFun.mp4',annee:'2024',duree:'10 mois',
+  desc:"Product-led growth face à des géants : comparatifs SEO, démos vidéo, parrainage et onboarding optimisé pour convertir chaque essai gratuit en abonné.",
+  stats:[['+210\u00a0%','Inscriptions'],['7,2×','Rétention'],['−31\u00a0%','CAC']],
+  tags:['SEO & contenu','Démos produit','Ads Google']},
+ {nom:'Maison Safran',cat:'Restauration',cle:'2,1 M de vues',video:BASE+'ForBiggerJoyrides.mp4',annee:'2025',duree:'5 mois',
+  desc:"Identité appétissante et réels food viraux pour un restaurant gastronomique de Marrakech, avec un parcours de réservation fluide depuis Instagram.",
+  stats:[['+140\u00a0%','Réservations'],['×4','Abonnés'],['2,1\u00a0M','Vues']],
+  tags:['Branding','Réels food','Instagram Ads']},
+ {nom:'Atlas Habitat',cat:'Immobilier',cle:'−38 % coût/lead',video:BASE+'ForBiggerMeltdowns.mp4',annee:'2024',duree:'7 mois',
+  desc:"Campagnes ciblées avec visites virtuelles, landing pages par programme et qualification automatique des prospects pour un promoteur immobilier.",
+  stats:[['+95\u00a0%','Leads'],['−38\u00a0%','Coût/lead'],['34\u00a0%','Taux RDV']],
+  tags:['Génération de leads','Landing pages','CRM']},
+ {nom:'Noor Bijoux',cat:'E-commerce',cle:'5,4× ROAS',video:BASE+'SubaruOutbackOnStreetAndDirt.mp4',annee:'2026',duree:'8 mois',
+  desc:"Lancement de zéro d'une marque de bijoux artisanaux : storytelling, coulisses de fabrication et micro-influence. Rentable dès le troisième mois.",
+  stats:[['0→45k','Abonnés'],['5,4×','ROAS'],['68\u00a0%','Ventes IG']],
+  tags:['Lancement de marque','Influence','E-boutique']}
+];
+const SHOWREEL=BASE+'ForBiggerEscapes.mp4'; /* reel par défaut */
+
+/* ============================================================
+   FONDU ENCHAÎNÉ ENTRE DEUX LECTEURS
+   ============================================================ */
+const vidA=document.getElementById('vidA');
+const vidB=document.getElementById('vidB');
+const tagNom=document.getElementById('tag-nom');
+let lecteurActif=vidA,enLecture=true,srcCourante='';
+
+function jouerSource(src,nom){
+  if(src===srcCourante)return;
+  srcCourante=src;
+  const entrant=lecteurActif===vidA?vidB:vidA;
+  entrant.src=src;
+  entrant.muted=lecteurActif.muted;
+  entrant.play().catch(()=>{});
+  entrant.classList.add('actif');
+  lecteurActif.classList.remove('actif');
+  const sortant=lecteurActif;
+  setTimeout(()=>{sortant.pause();},850);
+  lecteurActif=entrant;
+  if(nom)tagNom.textContent='Reel — '+nom;
+}
+vidA.src=SHOWREEL;srcCourante=SHOWREEL;
+vidA.play().catch(()=>{});
+
+/* ============================================================
+   LISTE DES PROJETS
+   ============================================================ */
+const liste=document.getElementById('liste');
+PROJETS.forEach((p,i)=>{
+  const li=document.createElement('li');
+  li.className='ligne-reel';
+  li.innerHTML=`
+    <button type="button">
+      <span class="num">/${String(i+1).padStart(2,'0')}</span>
+      <span class="nom">${p.nom}</span>
+      <span class="cat">${p.cat}</span>
+      <span class="cle">${p.cle}</span>
+    </button>`;
+  const btn=li.querySelector('button');
+  /* survol : la vidéo de fond change */
+  btn.addEventListener('mouseenter',()=>{
+    document.querySelectorAll('.ligne-reel').forEach(x=>x.classList.remove('actif'));
+    li.classList.add('actif');
+    jouerSource(p.video,p.nom);
+  });
+  /* clic : ouvre le tiroir détail */
+  btn.addEventListener('click',()=>ouvrirTiroir(i));
+  liste.appendChild(li);
+});
+/* quitter la liste : retour au showreel */
+liste.addEventListener('mouseleave',()=>{
+  document.querySelectorAll('.ligne-reel').forEach(x=>x.classList.remove('actif'));
+  jouerSource(SHOWREEL,null);
+  tagNom.textContent='Showreel 2026';
+});
+
+/* ============================================================
+   CONTRÔLES SON / LECTURE
+   ============================================================ */
+const btnSon=document.getElementById('btn-son');
+const btnLecture=document.getElementById('btn-lecture');
+btnSon.addEventListener('click',()=>{
+  const muet=!lecteurActif.muted;
+  vidA.muted=muet;vidB.muted=muet;
+  btnSon.textContent=muet?'🔇':'🔊';
+  btnSon.setAttribute('aria-label',muet?'Activer le son':'Couper le son');
+});
+btnLecture.addEventListener('click',()=>{
+  enLecture=!enLecture;
+  if(enLecture){lecteurActif.play().catch(()=>{});btnLecture.textContent='⏸';btnLecture.setAttribute('aria-label','Mettre en pause');}
+  else{vidA.pause();vidB.pause();btnLecture.textContent='▶';btnLecture.setAttribute('aria-label','Lecture');}
+});
+
+/* ============================================================
+   TIROIR DÉTAIL
+   ============================================================ */
+const tiroir=document.getElementById('tiroir');
+const tiroirFond=document.getElementById('tiroir-fond');
+function ouvrirTiroir(i){
+  const p=PROJETS[i];
+  document.getElementById('t-vid').src=p.video;
+  document.getElementById('t-badge').textContent=p.cat;
+  document.getElementById('t-titre').textContent=p.nom;
+  document.getElementById('t-meta').innerHTML='Année — <b>'+p.annee+'</b> &nbsp;·&nbsp; Durée — <b>'+p.duree+'</b>';
+  document.getElementById('t-desc').textContent=p.desc;
+  document.getElementById('t-stats').innerHTML=p.stats.map(s=>'<div class="t-stat"><b>'+s[0]+'</b><span>'+s[1]+'</span></div>').join('');
+  document.getElementById('t-tags').innerHTML=p.tags.map(t=>'<span>'+t+'</span>').join('');
+  document.getElementById('t-cta').href='mailto:contact@cymedia.ma?subject=Projet%20'+encodeURIComponent(p.nom);
+  tiroir.classList.add('ouvert');
+  tiroirFond.classList.add('ouvert');
+  const barre=window.innerWidth-document.documentElement.clientWidth;
+  document.body.style.paddingRight=barre+'px';
+  document.body.classList.add('fige');
+  tiroir.querySelector('.t-fermer').focus();
+}
+function fermerTiroir(){
+  tiroir.classList.remove('ouvert');
+  tiroirFond.classList.remove('ouvert');
+  document.getElementById('t-vid').pause();
+  document.body.classList.remove('fige');
+  document.body.style.paddingRight='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')fermerTiroir();});
+
+/* ============================================================
+   MENU + MARQUEE
+   ============================================================ */
+const piste=document.getElementById('piste');
+piste.innerHTML=piste.innerHTML+piste.innerHTML;
+function basculerMenu(btn){
+  const m=document.getElementById('nav-links');
+  const o=m.classList.toggle('ouvert');
+  btn.setAttribute('aria-expanded',o);
+}
+document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav-links').classList.remove('ouvert')));
+function basculerSousMenu(btn){
+  const li=btn.parentElement;
+  const dejaOuvert=li.classList.contains('ouvert');
+  document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+    x.classList.remove('ouvert');
+    x.querySelector('button').setAttribute('aria-expanded','false');
+  });
+  if(!dejaOuvert){li.classList.add('ouvert');btn.setAttribute('aria-expanded','true');}
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.a-sous-menu')){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+</script>
+</body>
+</html>

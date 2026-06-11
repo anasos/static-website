@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réalisations — CyMedia (scrollytelling 3D)</title>
+<meta name="description" content="Le portfolio CyMedia en scrollytelling 3D : un noyau de croissance qui évolue au fil des projets.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#07071A;
+  --fond2:#0D0D24;
+  --bord:rgba(255,255,255,.09);
+  --texte:#EFEFFA;
+  --sourdine:#9C9DC6;
+  --rose:#FF2E9C;
+  --violet:#7C5CFF;
+  --cyan:#3EE5E0;
+  --grad:linear-gradient(90deg,#FF2E9C,#7C5CFF);
+  --display:'Space Grotesk',sans-serif;
+  --corps:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--fond);color:var(--texte);font-family:var(--corps);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}
+.conteneur{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ---------- scène 3D fixe ---------- */
+#scene3d{position:fixed;inset:0;z-index:0;pointer-events:none}
+.voile-fond{position:fixed;inset:0;z-index:1;pointer-events:none;background:
+  radial-gradient(1100px 700px at 50% 42%,transparent 30%,rgba(7,7,26,.55) 75%,rgba(7,7,26,.9) 100%)}
+
+/* ============================================================
+   NAV AVEC SOUS-MENUS
+   ============================================================ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(7,7,26,.7);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.marque{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700}
+.marque .glyphe{width:36px;height:36px}
+.marque .nom{font-size:1rem;line-height:1}
+.marque .nom small{display:block;font-size:.48rem;font-weight:500;letter-spacing:.4em;color:var(--sourdine)}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a,.nav-links>li>button{display:flex;align-items:center;gap:6px;font-family:var(--corps);font-size:.9rem;font-weight:500;color:var(--sourdine);background:none;border:none;cursor:pointer;padding:10px 14px;border-radius:10px;transition:color .2s,background .2s}
+.nav-links>li>a:hover,.nav-links>li>button:hover,.nav-links>li.ouvert>button{color:#fff;background:rgba(255,255,255,.06)}
+.chevron{width:9px;height:9px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex:none}
+li.ouvert .chevron{transform:rotate(225deg) translateY(-1px)}
+.sous-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);min-width:240px;background:linear-gradient(168deg,rgba(30,26,60,.96),rgba(16,14,38,.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:8px;list-style:none;box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(124,92,255,.15),inset 0 1px 0 rgba(255,255,255,.12);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s}
+.sous-menu::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:rgba(30,26,60,.96);border-left:1px solid rgba(255,255,255,.14);border-top:1px solid rgba(255,255,255,.14)}
+li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+@media(hover:hover) and (min-width:721px){
+  .nav-links>li:hover .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .nav-links>li:hover>button{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-links>li:hover .chevron{transform:rotate(225deg) translateY(-1px)}
+}
+.sous-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.88rem;color:var(--sourdine);transition:color .2s,background .2s}
+.sous-menu a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.18),rgba(124,92,255,.14))}
+.sous-menu a i{font-style:normal;width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none;opacity:0;transition:opacity .2s}
+.sous-menu a:hover i{opacity:1}
+.sous-menu a.actif{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.22),rgba(124,92,255,.18))}
+.sous-menu a.actif i{opacity:1}
+.sous-menu .titre-groupe{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(156,157,198,.7);padding:8px 14px 4px}
+.sous-menu .separe{height:1px;background:rgba(255,255,255,.08);margin:6px 8px}
+.btn-cta{font-weight:600;font-size:.85rem;color:#fff!important;background:var(--grad);border-radius:999px;padding:10px 20px!important;box-shadow:0 0 22px rgba(255,46,156,.35);transition:transform .2s,box-shadow .2s}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(255,46,156,.5);background:var(--grad)!important}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:22px;height:2px;background:#fff;margin:5px 0;border-radius:2px}
+
+/* ---------- contenu au-dessus de la 3D ---------- */
+.couche{position:relative;z-index:2}
+
+/* intro */
+.etape-intro{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:90px 24px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--rose);margin-bottom:18px}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--rose);box-shadow:0 0 10px var(--rose)}
+.etape-intro h1{font-family:var(--display);font-weight:700;font-size:clamp(2.6rem,6.5vw,5rem);line-height:1.05;letter-spacing:-.02em;max-width:16ch}
+.txt-grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.etape-intro p{color:var(--sourdine);max-width:480px;margin-top:22px;font-size:1.04rem}
+.indice-scroll{margin-top:48px;display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--sourdine);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase}
+.indice-scroll .fil{width:1px;height:46px;background:linear-gradient(180deg,var(--rose),transparent);position:relative;overflow:hidden}
+.indice-scroll .fil::after{content:"";position:absolute;top:-12px;left:0;width:1px;height:12px;background:#fff;animation:descendre 1.8s ease-in-out infinite}
+@keyframes descendre{to{top:58px}}
+
+/* étapes projets */
+.etape{min-height:100vh;display:flex;align-items:center;padding:90px 0}
+.etape .conteneur{display:flex;width:100%}
+.etape:nth-of-type(even) .conteneur{justify-content:flex-end}
+.panneau-projet{width:min(470px,100%);background:linear-gradient(165deg,rgba(255,255,255,.1) 0%,rgba(255,255,255,.04) 50%,rgba(124,92,255,.07) 100%);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);border:1px solid rgba(255,255,255,.16);border-radius:26px;padding:30px 32px;box-shadow:0 30px 70px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.18);opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+.panneau-projet.visible{opacity:1;transform:none}
+.panneau-projet .num{font-family:var(--display);font-weight:700;font-size:.85rem;color:var(--sourdine);letter-spacing:.18em;margin-bottom:10px}
+.panneau-projet .num b{color:#fff;font-size:1.05rem}
+.badge{display:inline-flex;align-items:center;gap:8px;font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#FFD9EE;background:rgba(255,46,156,.16);border:1px solid rgba(255,46,156,.5);border-radius:999px;padding:5px 13px;margin-bottom:14px}
+.panneau-projet h2{font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.06;margin-bottom:12px}
+.panneau-projet p{color:#C9CAEA;font-size:.93rem;margin-bottom:20px}
+.p-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.p-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:12px 10px;text-align:center}
+.p-stat b{font-family:var(--display);font-size:1.2rem;line-height:1.1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block}
+.p-stat span{font-size:.64rem;color:var(--sourdine)}
+.p-tags{display:flex;gap:8px;flex-wrap:wrap}
+.p-tags span{font-size:.66rem;font-weight:600;color:#E4DCFF;background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);border-radius:999px;padding:4px 11px}
+
+/* progression latérale */
+.progression{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:13px;opacity:0;transition:opacity .4s;pointer-events:none}
+.progression.visible{opacity:1;pointer-events:auto}
+.progression a{display:flex;align-items:center;gap:10px;justify-content:flex-end}
+.progression .pt{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.22);transition:all .3s}
+.progression .lbl{font-family:var(--display);font-size:.66rem;font-weight:600;color:var(--sourdine);opacity:0;transform:translateX(6px);transition:all .3s;white-space:nowrap}
+.progression a:hover .lbl{opacity:1;transform:none}
+.progression a.actif .pt{background:var(--grad);box-shadow:0 0 12px rgba(255,46,156,.6);transform:scale(1.35)}
+.progression a.actif .lbl{opacity:1;transform:none;color:#fff}
+
+/* final */
+.etape-fin{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:90px 24px}
+.bande-chiffres{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;margin-bottom:50px}
+.chiffre b{font-family:var(--display);font-size:2.4rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block;line-height:1.1}
+.chiffre span{font-size:.84rem;color:var(--sourdine)}
+.etape-fin h2{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5vw,3.6rem);line-height:1.08;margin-bottom:16px}
+.etape-fin p{color:var(--sourdine);max-width:460px;margin:0 auto 32px}
+.btn-grad{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:1rem;padding:15px 32px;border-radius:999px;background:var(--grad);color:#fff;box-shadow:0 0 28px rgba(255,46,156,.4);transition:transform .2s,box-shadow .2s}
+.btn-grad:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(255,46,156,.6)}
+
+footer{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.07);padding:30px 0;background:rgba(7,7,26,.85);backdrop-filter:blur(10px)}
+.pied{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.85rem;color:var(--sourdine)}
+.pied ul{display:flex;gap:24px;list-style:none}
+.pied ul a:hover{color:#fff}
+
+/* ---------- responsive ---------- */
+@media(max-width:720px){
+  .nav-links{position:fixed;inset:72px 0 auto 0;max-height:calc(100vh - 72px);overflow:auto;background:var(--fond2);flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 24px;border-bottom:1px solid var(--bord);display:none}
+  .nav-links.ouvert{display:flex}
+  .nav-links>li>a,.nav-links>li>button{width:100%;justify-content:space-between;padding:14px 10px;font-size:.95rem}
+  .sous-menu{position:static;transform:none;min-width:0;opacity:1;visibility:visible;box-shadow:none;border:none;background:rgba(255,255,255,.03);border-radius:12px;margin:0 6px 8px;display:none;padding:6px}
+  .sous-menu::before{display:none}
+  li.ouvert .sous-menu{display:block}
+  .btn-cta{justify-content:center;text-align:center;margin-top:10px}
+  .burger{display:block}
+  .progression{right:10px}
+  .progression .lbl{display:none}
+  .etape .conteneur,.etape:nth-of-type(even) .conteneur{justify-content:center}
+  .panneau-projet{padding:24px 22px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.001s!important}
+  .panneau-projet{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== scène 3D ===== -->
+<canvas id="scene3d" aria-hidden="true"></canvas>
+<div class="voile-fond" aria-hidden="true"></div>
+
+<!-- ===== Nav avec sous-menus ===== -->
+<header class="nav">
+  <div class="conteneur nav-inner">
+    <a href="index.html" class="marque" aria-label="CyMedia — Accueil">
+      <svg class="glyphe" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+      </svg>
+      <span class="nom">CYMEDIA<small>MARKETING AGENCY</small></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="preview.html">Services</a></li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Portfolio <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="work.html"><i></i>Portfolio — grille</a></li>
+            <li><a href="cymedia-portfolio.html"><i></i>Portfolio — cartes verre</a></li>
+            <li><a href="cymedia-portfolio-v2.html"><i></i>Portfolio — index éditorial</a></li>
+            <li><a href="cymedia-portfolio-v3.html"><i></i>Portfolio — cinématique</a></li>
+            <li><a href="cymedia-portfolio-v4.html"><i></i>Portfolio — mosaïque bento</a></li>
+            <li><a href="cymedia-portfolio-v5.html" class="actif" aria-current="page"><i></i>Portfolio — scrollytelling 3D</a></li>
+            <li><a href="cymedia-portfolio-v6.html"><i></i>Portfolio — showreel vidéo</a></li>
+            <li><a href="cymedia-portfolio-v7.html"><i></i>Portfolio — split-screen</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Versions <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li class="titre-groupe">Pages d'accueil</li>
+            <li><a href="index.html"><i></i>Version 1</a></li>
+            <li><a href="v2.html"><i></i>Version 2</a></li>
+            <li><a href="v3.html"><i></i>Version 3</a></li>
+            <li><a href="v4.html"><i></i>Version 4</a></li>
+            <li><a href="v5.html"><i></i>Version 5</a></li>
+            <li class="separe" aria-hidden="true"></li>
+            <li><a href="clear_fab.html"><i></i>Version claire</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Carrousels <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="carousel_1.html"><i></i>Carrousel V1</a></li>
+            <li><a href="carousel_2.html"><i></i>Carrousel V2</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Tarifs</a></li>
+        <li><a href="#contact" class="btn-cta">Réserver un appel</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="basculerMenu(this)"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== Progression latérale ===== -->
+<nav class="progression" id="progression" aria-label="Projets"></nav>
+
+<!-- ===== Couche de contenu ===== -->
+<main class="couche">
+
+  <section class="etape-intro">
+    <p class="eyebrow">Nos réalisations · Expérience 3D</p>
+    <h1>Un noyau de croissance, <span class="txt-grad">six histoires.</span></h1>
+    <p>Faites défiler : le noyau évolue, change de couleur et d'énergie à chaque projet. La 3D réagit à votre scroll en temps réel.</p>
+    <div class="indice-scroll" aria-hidden="true"><span class="fil"></span>Défiler</div>
+  </section>
+
+  <div id="etapes"></div>
+
+  <section class="etape-fin" id="contact">
+    <div class="bande-chiffres">
+      <div class="chiffre"><b>120+</b><span>projets livrés</span></div>
+      <div class="chiffre"><b>×3,2</b><span>ROAS moyen</span></div>
+      <div class="chiffre"><b>48&nbsp;M</b><span>de vues générées</span></div>
+      <div class="chiffre"><b>96&nbsp;%</b><span>de clients satisfaits</span></div>
+    </div>
+    <h2>Votre marque, notre <span class="txt-grad">prochaine orbite.</span></h2>
+    <p>Réservez un appel découverte gratuit : nous analysons votre présence et repartons avec trois pistes concrètes.</p>
+    <a class="btn-grad" href="mailto:contact@cymedia.ma?subject=Nouveau%20projet">Démarrer un projet&nbsp;→</a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="conteneur pied">
+    <span>© 2026 CyMedia — Agence marketing</span>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="preview.html">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ============================================================
+   DONNÉES
+   ============================================================ */
+const PROJETS=[
+ {nom:'Virelo',cat:'E-commerce',couleur:0xFF2E9C,
+  desc:"Tunnel « du réseau social à la vente » reconstruit de bout en bout pour une marque cosmétique. Un système qui vend 24h/24.",
+  stats:[['+320\u00a0%','Engagement'],['8,7×','ROAS'],['×2,4','C.A.']],
+  tags:['Publicité Meta','Reels & UGC','Email']},
+ {nom:'Mindset Pro',cat:'Coaching',couleur:0x7C5CFF,
+  desc:"Écosystème complet pour un coach business : vidéos longues, extraits viraux, newsletter et communauté privée. Chaque canal nourrit le suivant.",
+  stats:[['+185\u00a0%','Prospects'],['6,3×','C.A.'],['12k','Membres']],
+  tags:['Scripts vidéo','YouTube','Communauté']},
+ {nom:'Taskly',cat:'SaaS',couleur:0x3EE5E0,
+  desc:"Product-led growth face à des géants : comparatifs SEO, démos vidéo, parrainage et onboarding optimisé pour convertir chaque essai gratuit.",
+  stats:[['+210\u00a0%','Inscriptions'],['7,2×','Rétention'],['−31\u00a0%','CAC']],
+  tags:['SEO','Démos produit','Ads Google']},
+ {nom:'Maison Safran',cat:'Restauration',couleur:0xFF7A45,
+  desc:"Identité appétissante et réels food viraux pour un restaurant gastronomique de Marrakech, avec réservation fluide depuis Instagram.",
+  stats:[['+140\u00a0%','Réservations'],['×4','Abonnés'],['2,1\u00a0M','Vues']],
+  tags:['Branding','Réels food','Instagram Ads']},
+ {nom:'Atlas Habitat',cat:'Immobilier',couleur:0x9D5CFF,
+  desc:"Campagnes ciblées avec visites virtuelles, landing pages par programme et qualification automatique des prospects pour un promoteur immobilier.",
+  stats:[['+95\u00a0%','Leads'],['−38\u00a0%','Coût/lead'],['34\u00a0%','Taux RDV']],
+  tags:['Leads','Landing pages','CRM']},
+ {nom:'Noor Bijoux',cat:'E-commerce',couleur:0xFF2E9C,
+  desc:"Lancement de zéro d'une marque de bijoux artisanaux : storytelling, coulisses de fabrication et micro-influence. Rentable dès le 3e mois.",
+  stats:[['0→45k','Abonnés'],['5,4×','ROAS'],['68\u00a0%','Ventes IG']],
+  tags:['Lancement','Influence','E-boutique']}
+];
+
+/* ============================================================
+   RENDU DES ÉTAPES HTML
+   ============================================================ */
+const zone=document.getElementById('etapes');
+PROJETS.forEach((p,i)=>{
+  const s=document.createElement('section');
+  s.className='etape';
+  s.id='projet-'+i;
+  s.innerHTML=`
+    <div class="conteneur">
+      <article class="panneau-projet">
+        <div class="num">PROJET <b>/${String(i+1).padStart(2,'0')}</b></div>
+        <span class="badge">${p.cat}</span>
+        <h2>${p.nom}</h2>
+        <p>${p.desc}</p>
+        <div class="p-stats">${p.stats.map(x=>`<div class="p-stat"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>
+        <div class="p-tags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+      </article>
+    </div>`;
+  zone.appendChild(s);
+});
+
+/* progression latérale */
+const prog=document.getElementById('progression');
+PROJETS.forEach((p,i)=>{
+  const a=document.createElement('a');
+  a.href='#projet-'+i;
+  a.innerHTML=`<span class="lbl">${p.nom}</span><span class="pt"></span>`;
+  prog.appendChild(a);
+});
+const liens=[...prog.children];
+const etapes=[...document.querySelectorAll('.etape')];
+const panneaux=[...document.querySelectorAll('.panneau-projet')];
+
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    const i=etapes.indexOf(e.target);
+    if(e.isIntersecting){
+      panneaux[i].classList.add('visible');
+      liens.forEach((l,j)=>l.classList.toggle('actif',j===i));
+    }
+  });
+},{threshold:.45});
+etapes.forEach(s=>obs.observe(s));
+
+const obsZone=new IntersectionObserver(es=>{
+  es.forEach(e=>prog.classList.toggle('visible',e.isIntersecting));
+},{threshold:0});
+obsZone.observe(zone);
+
+/* ============================================================
+   SCÈNE THREE.JS — le noyau de croissance
+   ============================================================ */
+const mouvementReduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canvas=document.getElementById('scene3d');
+const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(46,1,0.1,100);
+
+/* noyau : sphère émissive + coquille filaire */
+const groupe=new THREE.Group();
+scene.add(groupe);
+
+const coeurMat=new THREE.MeshStandardMaterial({color:0xFF2E9C,emissive:0xFF2E9C,emissiveIntensity:1.6,roughness:.3,metalness:.1});
+const coeur=new THREE.Mesh(new THREE.SphereGeometry(0.62,40,40),coeurMat);
+groupe.add(coeur);
+
+const coquilleMat=new THREE.MeshBasicMaterial({color:0xFF2E9C,wireframe:true,transparent:true,opacity:.28});
+const coquille=new THREE.Mesh(new THREE.IcosahedronGeometry(1.5,1),coquilleMat);
+groupe.add(coquille);
+
+/* anneaux orbitaux */
+const anneaux=[];
+[[2.2,.012,.5],[2.8,.009,-.8],[3.5,.007,1.9]].forEach(([r,ep,tilt],k)=>{
+  const mat=new THREE.MeshBasicMaterial({color:0x7C5CFF,transparent:true,opacity:.5,blending:THREE.AdditiveBlending});
+  const an=new THREE.Mesh(new THREE.TorusGeometry(r,ep*r*6,8,140),mat);
+  an.rotation.x=Math.PI/2+tilt*.4;
+  an.rotation.y=tilt;
+  groupe.add(an);
+  anneaux.push(an);
+  /* satellite lumineux sur l'anneau */
+  const sat=new THREE.Mesh(new THREE.SphereGeometry(.07,12,12),new THREE.MeshBasicMaterial({color:0xffffff}));
+  sat.userData={r,vitesse:.4+k*.18,phase:k*2.1,anneau:an};
+  groupe.add(sat);
+  anneaux.push(sat);
+});
+
+/* champ de particules */
+const NB=window.innerWidth<720?700:1500;
+const pos=new Float32Array(NB*3);
+for(let i=0;i<NB;i++){
+  const r=4.3+Math.random()*5.5;
+  const th=Math.random()*Math.PI*2;
+  const ph=Math.acos(2*Math.random()-1);
+  pos[i*3]=r*Math.sin(ph)*Math.cos(th);
+  pos[i*3+1]=r*Math.sin(ph)*Math.sin(th)*.7;
+  pos[i*3+2]=r*Math.cos(ph);
+}
+const partGeo=new THREE.BufferGeometry();
+partGeo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+const partMat=new THREE.PointsMaterial({color:0x9C9DC6,size:.035,transparent:true,opacity:.7,blending:THREE.AdditiveBlending,depthWrite:false});
+const particules=new THREE.Points(partGeo,partMat);
+scene.add(particules);
+
+/* lumières */
+scene.add(new THREE.AmbientLight(0x404060,1.2));
+const lum1=new THREE.PointLight(0xFF2E9C,2.4,30);
+const lum2=new THREE.PointLight(0x7C5CFF,2.4,30);
+scene.add(lum1,lum2);
+
+/* ----- chorégraphie pilotée par le scroll ----- */
+/* une configuration de caméra/couleur par étape (intro + 6 projets + fin) */
+const COULEURS=[0xFF2E9C,...PROJETS.map(p=>p.couleur),0xFF2E9C];
+const ETAPES_CAM=[
+  {angle:0.0, haut:0.4, dist:8.6},
+  {angle:0.9, haut:1.2, dist:7.2},
+  {angle:1.9, haut:-0.6, dist:6.6},
+  {angle:2.9, haut:1.6, dist:7.6},
+  {angle:3.9, haut:-1.0, dist:6.4},
+  {angle:4.9, haut:0.8, dist:7.0},
+  {angle:5.9, haut:-0.4, dist:6.8},
+  {angle:6.8, haut:0.5, dist:9.2}
+];
+const cible=new THREE.Color(COULEURS[0]);
+const couleurCourante=new THREE.Color(COULEURS[0]);
+const lerp=(a,b,t)=>a+(b-a)*t;
+const douce=t=>t*t*(3-2*t);
+
+function progressionScroll(){
+  const max=document.documentElement.scrollHeight-window.innerHeight;
+  return Math.min(Math.max(window.scrollY/Math.max(max,1),0),1);
+}
+
+function configCam(p){
+  const n=ETAPES_CAM.length-1;
+  const x=p*n;
+  const i=Math.min(Math.floor(x),n-1);
+  const t=douce(x-i);
+  const A=ETAPES_CAM[i],B=ETAPES_CAM[i+1];
+  return {angle:lerp(A.angle,B.angle,t),haut:lerp(A.haut,B.haut,t),dist:lerp(A.dist,B.dist,t),
+          ci:Math.min(Math.round(x),COULEURS.length-1)};
+}
+
+function redimensionner(){
+  const w=window.innerWidth,h=window.innerHeight;
+  renderer.setSize(w,h,false);
+  camera.aspect=w/h;
+  camera.updateProjectionMatrix();
+}
+window.addEventListener('resize',redimensionner);
+redimensionner();
+
+let t0=performance.now();
+function rendre(now){
+  const t=(now-t0)/1000;
+  const p=progressionScroll();
+  const c=configCam(p);
+
+  /* caméra en orbite */
+  camera.position.set(Math.sin(c.angle)*c.dist,c.haut,Math.cos(c.angle)*c.dist);
+  camera.lookAt(0,0,0);
+
+  /* couleur cible selon l'étape */
+  cible.setHex(COULEURS[c.ci]);
+  couleurCourante.lerp(cible,.04);
+  coeurMat.color.copy(couleurCourante);
+  coeurMat.emissive.copy(couleurCourante);
+  coquilleMat.color.copy(couleurCourante);
+  lum1.color.copy(couleurCourante);
+
+  /* respiration + rotations */
+  const pouls=1+Math.sin(t*1.6)*.05;
+  coeur.scale.setScalar(pouls);
+  coquille.rotation.y=t*.12+p*4;
+  coquille.rotation.x=t*.05;
+  particules.rotation.y=t*.02+p*1.2;
+
+  anneaux.forEach((o,k)=>{
+    if(o.userData&&o.userData.r){
+      const a=t*o.userData.vitesse+o.userData.phase+p*5;
+      const an=o.userData.anneau;
+      const v=new THREE.Vector3(Math.cos(a)*o.userData.r,0,Math.sin(a)*o.userData.r);
+      v.applyEuler(an.rotation);
+      o.position.copy(v);
+    }else{
+      o.rotation.z=t*.06*(k%2?1:-1);
+    }
+  });
+
+  lum1.position.set(Math.sin(t*.7)*5,2.4,Math.cos(t*.7)*5);
+  lum2.position.set(Math.sin(t*.5+3)*5,-2,Math.cos(t*.5+3)*5);
+
+  renderer.render(scene,camera);
+  if(!mouvementReduit)requestAnimationFrame(rendre);
+}
+requestAnimationFrame(rendre);
+if(mouvementReduit){/* une seule image fixe */renderer.render(scene,camera);}
+
+/* ============================================================
+   MENU : sous-menus + mobile
+   ============================================================ */
+function basculerMenu(btn){
+  const m=document.getElementById('nav-links');
+  const o=m.classList.toggle('ouvert');
+  btn.setAttribute('aria-expanded',o);
+}
+document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav-links').classList.remove('ouvert')));
+function basculerSousMenu(btn){
+  const li=btn.parentElement;
+  const dejaOuvert=li.classList.contains('ouvert');
+  document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+    x.classList.remove('ouvert');
+    x.querySelector('button').setAttribute('aria-expanded','false');
+  });
+  if(!dejaOuvert){li.classList.add('ouvert');btn.setAttribute('aria-expanded','true');}
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.a-sous-menu')){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+</script>
+</body>
+</html>
