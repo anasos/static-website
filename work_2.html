@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYMEDIA - Real Results. Proven Flows.</title>
+    <style>
+        /* --- Brand Colors & Core System --- */
+        :root {
+            --bg-dark: #020012;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-border: rgba(255, 255, 255, 0.07);
+            --text-main: #ffffff;
+            --text-muted: #8d92b1;
+            --pink-accent: #d946ef;
+            --purple-accent: #7c3aed;
+            --glow-color: rgba(217, 70, 239, 0.12);
+            --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            -webkit-font-smoothing: antialiased;
+            padding: 100px 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+        }
+
+        /* --- Global Neon Wave Overlay --- */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 40%;
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff007a, #7c3aed, transparent);
+            filter: blur(1px);
+            opacity: 0.35;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- Header Styling --- */
+        .section-header {
+            margin-bottom: 50px;
+        }
+
+        .subtitle {
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--pink-accent);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .title {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        /* --- 3-Column Tall Asymmetric Grid --- */
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            align-items: start;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Replicating the distinct vertical height variation from the mockup image */
+        .work-card:nth-child(1) { margin-top: 40px; }
+        .work-card:nth-child(2) { margin-top: 0px; }
+        .work-card:nth-child(3) { margin-top: 60px; }
+
+        .work-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 36px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .work-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(217, 70, 239, 0.3);
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.7), 0 0 40px var(--glow-color);
+        }
+
+        /* --- Card Header Elements --- */
+        .badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--pink-accent);
+            background: rgba(217, 70, 239, 0.1);
+            padding: 6px 14px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .brand-name {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 32px;
+            letter-spacing: -0.5px;
+        }
+
+        /* --- Unique Visual Infographics (matching the image mockups) --- */
+        .visual-container {
+            width: 100%;
+            height: 220px;
+            margin-bottom: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Card 1 Funnel Graphic Mockup */
+        .funnel-graphic {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+        .funnel-layer {
+            border: 2px solid rgba(217, 70, 239, 0.4);
+            border-radius: 100px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+            background: rgba(217, 70, 239, 0.05);
+        }
+        .fl-1 { width: 85%; background: rgba(217, 70, 239, 0.15); border-color: var(--pink-accent); }
+        .fl-2 { width: 65%; }
+        .fl-3 { width: 45%; }
+
+        /* Card 2 Node Network Mockup */
+        .network-graphic {
+            position: relative;
+            width: 160px;
+            height: 160px;
+        }
+        .center-node {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: var(--purple-accent);
+            border-radius: 50px;
+            box-shadow: 0 0 25px var(--purple-accent);
+        }
+        .outer-node {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--card-border);
+            border-radius: 50px;
+        }
+        .node-1 { top: 10%; left: 20%; }
+        .node-2 { top: 15%; right: 15%; }
+        .node-3 { bottom: 20%; left: 10%; }
+        .node-4 { bottom: 10%; right: 25%; }
+
+        /* Card 3 Dash Metrics Lines Mockup */
+        .chart-graphic {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            width: 80%;
+            height: 120px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+        }
+        .chart-bar {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px 6px 0 0;
+            transition: background 0.3s;
+        }
+        .chart-bar.active {
+            background: linear-gradient(180deg, var(--pink-accent) 0%, var(--purple-accent) 100%);
+            border: none;
+            box-shadow: 0 0 20px rgba(217, 70, 239, 0.3);
+        }
+        .bar-1 { height: 40%; }
+        .bar-2 { height: 75%; }
+        .bar-3 { height: 55%; }
+        .bar-4 { height: 95%; }
+
+        /* --- Descriptive Strategy Labels --- */
+        .strategy-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .strategy-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 32px;
+        }
+
+        /* --- Embedded Minimalist Metric Blocks --- */
+        .stats-grid {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .stat-block {
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .stat-num {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: block;
+        }
+
+        .stat-num.pink-text {
+            background: linear-gradient(90deg, #ff007a, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.35);
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* --- Bottom CTA Button --- */
+        .action-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 80px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(90deg, var(--pink-accent) 0%, var(--purple-accent) 100%);
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 16px 36px;
+            border-radius: 100px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(217, 70, 239, 0.35);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .showcase-grid { grid-template-columns: 1fr; gap: 40px; }
+            .work-card:nth-child(1), .work-card:nth-child(2), .work-card:nth-child(3) { margin-top: 0; }
+            .container::before { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <span class="subtitle">Our Work</span>
+            <h2 class="title">Real Results. Proven Flows.</h2>
+        </div>
+
+        <!-- Distinct Tech Column Cards Grid -->
+        <div class="showcase-grid">
+
+            <!-- Card 1: E-Commerce -->
+            <div class="work-card">
+                <span class="badge">E-Commerce</span>
+                <h3 class="brand-name">Virelo</h3>
+                
+                <!-- Funnel Simulation Graphic -->
+                <div class="visual-container">
+                    <div class="funnel-graphic">
+                        <div class="funnel-layer fl-1">Engage</div>
+                        <div class="funnel-layer fl-2">Nurture</div>
+                        <div class="funnel-layer fl-3">Convert</div>
+                    </div>
+                </div>
+
+                <h4 class="strategy-title">Optimized Social-to-Sale Funnel</h4>
+                <p class="strategy-desc">Turned viral reach directly into predictable transactional systems through high-intent conversion pathways.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-block">
+                        <span class="stat-num pink-text">+320%</span>
+                        <span class="stat-label">Engagement</span>
+                    </div>
+                    <div class="stat-block">
+                        <span class="stat-num">8.7x</span>
+                        <span class="stat-label">ROAS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Coaching -->
+            <div class="work-card">
+                <span class="badge">Coaching</span>
+                <h3 class="brand-name">Mindset Pro</h3>
+                
+                <!-- Node System Graphic -->
+                <div class="visual-container">
+                    <div class="network-graphic">
+                        <div class="center-node"></div>
+                        <div class="outer-node node-1"></div>
+                        <div class="outer-node node-2"></div>
+                        <div class="outer-node node-3"></div>
+                        <div class="outer-node node-4"></div>
+                    </div>
+                </div>
+
+                <h4 class="strategy-title">Content Ecosystem & Community Builder</h4>
+                <p class="strategy-desc">Linked automated messaging assets directly to distributed audience touchpoints to systematically grow inbound retention.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-block">
+                        <span class="stat-num pink-text">+185%</span>
+                        <span class="stat-label">Leads</span>
+                    </div>
+                    <div class="stat-block">
+                        <span class="stat-num">6.3x</span>
+                        <span class="stat-label">Revenue Growth</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: SaaS -->
+            <div class="work-card">
+                <span class="badge">SaaS</span>
+                <h3 class="brand-name">Taskly</h3>
+                
+                <!-- Bar Chart Graphic -->
+                <div class="visual-container">
+                    <div class="chart-graphic">
+                        <div class="chart-bar bar-1"></div>
+                        <div class="chart-bar bar-2"></div>
+                        <div class="chart-bar bar-3"></div>
+                        <div class="chart-bar bar-4 active"></div>
+                    </div>
+                </div>
+
+                <h4 class="strategy-title">Product-Led Growth Strategy</h4>
+                <p class="strategy-desc">Implemented native retention systems and activation sequences designed around compound velocity funnels.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-block">
+                        <span class="stat-num pink-text">+210%</span>
+                        <span class="stat-label">Signups</span>
+                    </div>
+                    <div class="stat-block">
+                        <span class="stat-num">7.2x</span>
+                        <span class="stat-label">Retention</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Section Action -->
+        <div class="action-container">
+            <a href="#" class="cta-button">View More Case Studies</a>
+        </div>
+    </section>
+
+</body>
+</html>

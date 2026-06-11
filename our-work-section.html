@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Our Work – Cymedia</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#07060f;
+  --surface:#0d0b1c;
+  --pink:#e0257a;
+  --pink-glow:rgba(224,37,122,0.35);
+  --navy:#1a2d6b;
+  --navy-bright:#2250c4;
+  --text:#eef2ff;
+  --muted:rgba(238,242,255,0.5);
+  --border:rgba(255,255,255,0.08);
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:60px 24px;
+}
+
+/* ── SECTION ── */
+.our-work{
+  width:100%;
+  max-width:1100px;
+  position:relative;
+}
+
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--pink);font-weight:600;margin-bottom:14px;
+}
+.section-eyebrow::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--pink);box-shadow:0 0 8px var(--pink);
+  animation:blink 2s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+.section-title{
+  font-family:'Syne',sans-serif;
+  font-weight:800;font-size:clamp(2rem,4vw,2.8rem);
+  letter-spacing:-0.02em;line-height:1.1;
+  margin-bottom:50px;
+}
+
+/* ── CARDS GRID ── */
+.work-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  position:relative;
+}
+
+/* Connector line between cards */
+.work-grid::before{
+  content:'';
+  position:absolute;
+  top:50%;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(224,37,122,0.3) 15%,
+    rgba(224,37,122,0.6) 35%,
+    rgba(34,80,196,0.6) 65%,
+    rgba(34,80,196,0.3) 85%,
+    transparent 100%
+  );
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── CARD ── */
+.work-card{
+  position:relative;z-index:1;
+  margin:0 10px;
+  border-radius:20px;
+  border:1px solid var(--border);
+  overflow:hidden;
+  background:var(--surface);
+  transition:transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
+  cursor:pointer;
+}
+.work-card:hover{
+  transform:translateY(-8px) scale(1.01);
+  box-shadow:0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(224,37,122,0.2);
+}
+
+/* Card 2 is taller / featured */
+.work-card.featured{
+  margin-top:-24px;
+  border-color:rgba(224,37,122,0.25);
+  box-shadow:0 0 40px rgba(224,37,122,0.1);
+}
+
+/* ── VISUAL AREA ── */
+.card-visual{
+  position:relative;
+  height:240px;
+  overflow:hidden;
+}
+.work-card.featured .card-visual{height:280px;}
+
+.card-visual-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,#0a1535 0%,#101c48 50%,#07060f 100%);
+}
+
+/* Funnel shape for card 1 */
+.funnel{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:160px;height:160px;
+}
+.funnel-ring{
+  position:absolute;left:50%;transform:translateX(-50%);
+  border-radius:50%;
+  border:1.5px solid;
+  opacity:0.7;
+}
+.funnel-ring:nth-child(1){width:140px;height:60px;bottom:0;border-color:rgba(224,37,122,0.8);box-shadow:0 0 20px rgba(224,37,122,0.3);}
+.funnel-ring:nth-child(2){width:110px;height:46px;bottom:28px;border-color:rgba(180,60,200,0.7);}
+.funnel-ring:nth-child(3){width:80px;height:34px;bottom:54px;border-color:rgba(100,80,220,0.6);}
+.funnel-ring:nth-child(4){width:52px;height:22px;bottom:76px;border-color:rgba(34,80,196,0.7);box-shadow:0 0 14px rgba(34,80,196,0.3);}
+.funnel-labels{
+  position:absolute;left:10px;bottom:8px;
+  display:flex;flex-direction:column;gap:16px;
+}
+.funnel-label{
+  font-size:0.6rem;color:var(--muted);
+  display:flex;align-items:center;gap:6px;
+}
+.funnel-label::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--pink);}
+
+/* Network nodes for card 2 */
+.network{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.node{
+  position:absolute;
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.75rem;color:var(--muted);
+}
+.node.center{
+  width:52px;height:52px;
+  background:rgba(224,37,122,0.12);
+  border-color:rgba(224,37,122,0.4);
+  box-shadow:0 0 20px rgba(224,37,122,0.2);
+  color:var(--pink);font-size:1rem;
+  animation:nodePulse 3s ease-in-out infinite;
+}
+@keyframes nodePulse{0%,100%{box-shadow:0 0 20px rgba(224,37,122,0.2)}50%{box-shadow:0 0 34px rgba(224,37,122,0.4)}}
+
+/* Node connector lines */
+.node-line{
+  position:absolute;
+  height:1px;
+  background:linear-gradient(90deg,rgba(224,37,122,0.5),rgba(34,80,196,0.3));
+  transform-origin:left center;
+}
+
+/* Dashboard mockup for card 3 */
+.dashboard{
+  position:absolute;inset:14px;
+  background:rgba(0,0,0,0.4);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;
+  padding:12px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.dash-topbar{
+  display:flex;gap:4px;padding-bottom:8px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.dash-dot{width:7px;height:7px;border-radius:50%;}
+.dash-row{display:flex;gap:8px;}
+.dash-block{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:6px;flex:1;height:24px;
+}
+.dash-block.tall{height:40px;}
+.dash-chart{
+  flex:2;height:40px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:6px;
+  display:flex;align-items:flex-end;gap:3px;padding:4px 6px;
+}
+.dash-bar{flex:1;border-radius:2px;background:linear-gradient(180deg,var(--pink),var(--navy-bright));opacity:0.8;}
+.dash-progress{
+  height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:2px;
+}
+.dash-progress-fill{height:4px;border-radius:2px;background:var(--pink);}
+
+/* Card category tag */
+.card-tag{
+  position:absolute;top:14px;left:14px;
+  background:rgba(0,0,0,0.5);
+  border:1px solid rgba(255,255,255,0.12);
+  backdrop-filter:blur(10px);
+  border-radius:6px;padding:4px 10px;
+  font-size:0.58rem;font-weight:600;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+/* Hover reveal overlay */
+.card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 40%,rgba(7,6,15,0.85) 100%);
+  opacity:0;transition:opacity .3s;
+}
+.work-card:hover .card-overlay{opacity:1;}
+
+/* ── CARD BODY ── */
+.card-body{padding:22px 22px 26px;}
+
+.card-strategy{
+  font-size:0.72rem;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);
+  margin-bottom:6px;
+}
+.card-brand{
+  font-family:'Syne',sans-serif;
+  font-weight:800;font-size:1.5rem;
+  margin-bottom:14px;line-height:1.1;
+}
+.work-card.featured .card-brand{font-size:1.8rem;}
+
+.card-desc{
+  font-size:0.8rem;color:var(--muted);line-height:1.6;
+  margin-bottom:18px;
+}
+
+/* Stats row */
+.card-stats{
+  display:flex;gap:0;
+  border-top:1px solid var(--border);
+  padding-top:16px;
+}
+.stat-block{flex:1;}
+.stat-block + .stat-block{
+  border-left:1px solid var(--border);
+  padding-left:16px;margin-left:0;
+}
+.stat-val{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:1.4rem;color:var(--pink);
+  text-shadow:0 0 20px var(--pink-glow);
+  line-height:1;
+}
+.work-card.featured .stat-val{font-size:1.7rem;}
+.stat-label{font-size:0.65rem;color:var(--muted);margin-top:3px;}
+
+/* Video thumb inside card 1 body */
+.video-thumb{
+  width:100%;height:72px;border-radius:10px;
+  background:linear-gradient(135deg,#0a1535,#1a0830);
+  border:1px solid rgba(255,255,255,0.08);
+  position:relative;overflow:hidden;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;
+}
+.video-thumb::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 60%,rgba(224,37,122,0.2),transparent 70%);
+}
+.play-btn{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.65rem;
+}
+
+/* CTA */
+.work-cta{
+  margin-top:44px;text-align:center;
+}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:10px;
+  background:transparent;
+  border:1.5px solid rgba(224,37,122,0.4);
+  color:var(--text);padding:14px 32px;border-radius:30px;
+  font-family:'DM Sans',sans-serif;font-size:0.92rem;font-weight:500;
+  cursor:pointer;text-decoration:none;
+  transition:border-color .25s,background .25s,box-shadow .25s,transform .2s;
+}
+.btn-outline:hover{
+  border-color:var(--pink);
+  background:rgba(224,37,122,0.08);
+  box-shadow:0 0 30px var(--pink-glow);
+  transform:translateY(-2px);
+}
+.btn-arrow{transition:transform .2s;color:var(--pink);}
+.btn-outline:hover .btn-arrow{transform:translateX(5px);}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-d1{transition-delay:.1s}
+.reveal-d2{transition-delay:.22s}
+.reveal-d3{transition-delay:.34s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .work-grid{grid-template-columns:1fr;gap:20px;}
+  .work-grid::before{display:none;}
+  .work-card{margin:0;}
+  .work-card.featured{margin-top:0;}
+}
+</style>
+</head>
+<body>
+
+<section class="our-work">
+
+  <!-- Header -->
+  <div class="reveal">
+    <div class="section-eyebrow">Our Work</div>
+    <h2 class="section-title">Real Results. Proven Flows.</h2>
+  </div>
+
+  <!-- Cards -->
+  <div class="work-grid">
+
+    <!-- ── CARD 1: E-COMMERCE ── -->
+    <div class="work-card reveal reveal-d1">
+      <div class="card-visual">
+        <div class="card-visual-bg"></div>
+
+        <!-- Funnel illustration -->
+        <div class="funnel">
+          <div class="funnel-ring"></div>
+          <div class="funnel-ring"></div>
+          <div class="funnel-ring"></div>
+          <div class="funnel-ring"></div>
+        </div>
+        <div class="funnel-labels">
+          <div class="funnel-label">Engage</div>
+          <div class="funnel-label">Nurture</div>
+          <div class="funnel-label">Convert</div>
+        </div>
+
+        <div class="card-tag">E-Commerce</div>
+        <div class="card-overlay"></div>
+      </div>
+
+      <div class="card-body">
+        <div class="card-strategy">Optimized Social-to-Sale Funnel</div>
+        <div class="card-brand">Virelo</div>
+
+        <div class="video-thumb">
+          <div class="play-btn">▶</div>
+        </div>
+
+        <div class="card-stats">
+          <div class="stat-block">
+            <div class="stat-val" data-count="320" data-suffix="%">+320%</div>
+            <div class="stat-label">Engagement</div>
+          </div>
+          <div class="stat-block" style="padding-left:16px">
+            <div class="stat-val">8.7x</div>
+            <div class="stat-label">ROAS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CARD 2: COACHING (FEATURED) ── -->
+    <div class="work-card featured reveal reveal-d2">
+      <div class="card-visual">
+        <div class="card-visual-bg" style="background:linear-gradient(160deg,#10072a 0%,#1a0d40 50%,#07060f 100%)"></div>
+
+        <!-- Network illustration -->
+        <div class="network">
+          <!-- Center node -->
+          <div class="node center" style="left:50%;top:50%;transform:translate(-50%,-50%)">◎</div>
+          <!-- Surrounding nodes -->
+          <div class="node" style="left:28%;top:28%">✦</div>
+          <div class="node" style="right:24%;top:30%">◈</div>
+          <div class="node" style="left:22%;top:56%">⬡</div>
+          <div class="node" style="right:20%;top:58%">◇</div>
+          <div class="node" style="left:44%;top:18%">⊕</div>
+          <div class="node" style="left:44%;bottom:14%">⊗</div>
+        </div>
+
+        <div class="card-tag">Coaching</div>
+        <div class="card-overlay"></div>
+      </div>
+
+      <div class="card-body">
+        <div class="card-strategy">Content Ecosystem &amp; Community Builder</div>
+        <div class="card-brand">Mindset Pro</div>
+        <div class="card-desc">Built a full content engine — scripting, distribution, and community loops that turned viewers into paying clients.</div>
+
+        <div class="card-stats">
+          <div class="stat-block">
+            <div class="stat-val" data-count="185" data-suffix="%">+185%</div>
+            <div class="stat-label">Leads</div>
+          </div>
+          <div class="stat-block" style="padding-left:16px">
+            <div class="stat-val">6.3x</div>
+            <div class="stat-label">Revenue ROAS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CARD 3: SAAS ── -->
+    <div class="work-card reveal reveal-d3">
+      <div class="card-visual">
+        <div class="card-visual-bg" style="background:linear-gradient(160deg,#061828 0%,#0c2040 50%,#07060f 100%)"></div>
+
+        <!-- Dashboard illustration -->
+        <div class="dashboard">
+          <div class="dash-topbar">
+            <div class="dash-dot" style="background:#e0257a"></div>
+            <div class="dash-dot" style="background:#2250c4"></div>
+            <div class="dash-dot" style="background:rgba(255,255,255,0.15)"></div>
+          </div>
+          <div class="dash-row">
+            <div class="dash-block"></div>
+            <div class="dash-block"></div>
+            <div class="dash-block"></div>
+          </div>
+          <div class="dash-row">
+            <div class="dash-block tall"></div>
+            <div class="dash-chart">
+              <div class="dash-bar" style="height:35%"></div>
+              <div class="dash-bar" style="height:55%"></div>
+              <div class="dash-bar" style="height:45%"></div>
+              <div class="dash-bar" style="height:75%"></div>
+              <div class="dash-bar" style="height:65%"></div>
+              <div class="dash-bar" style="height:100%"></div>
+            </div>
+          </div>
+          <div class="dash-progress"><div class="dash-progress-fill" style="width:72%"></div></div>
+          <div class="dash-progress"><div class="dash-progress-fill" style="width:48%;background:var(--navy-bright)"></div></div>
+        </div>
+
+        <div class="card-tag">SaaS</div>
+        <div class="card-overlay"></div>
+      </div>
+
+      <div class="card-body">
+        <div class="card-strategy">Product-Led Growth Strategy</div>
+        <div class="card-brand">Taskly</div>
+
+        <div class="card-stats">
+          <div class="stat-block">
+            <div class="stat-val" data-count="210" data-suffix="%">+210%</div>
+            <div class="stat-label">Signups</div>
+          </div>
+          <div class="stat-block" style="padding-left:16px">
+            <div class="stat-val">7.2x</div>
+            <div class="stat-label">Retention</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /work-grid -->
+
+  <!-- CTA -->
+  <div class="work-cta reveal">
+    <a href="#" class="btn-outline">
+      View More Case Studies <span class="btn-arrow">→</span>
+    </a>
+  </div>
+
+</section>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.12});
+  reveals.forEach(el => io.observe(el));
+
+  // Animated counters
+  function counter(el, target, suffix){
+    let start = null;
+    const dur = 1800;
+    const step = ts => {
+      if(!start) start = ts;
+      const p = Math.min((ts - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = '+' + Math.floor(ease * target) + suffix;
+      if(p < 1) requestAnimationFrame(step);
+      else el.textContent = '+' + target + suffix;
+    };
+    requestAnimationFrame(step);
+  }
+
+  const statIo = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const el = e.target;
+        counter(el, parseFloat(el.dataset.count), el.dataset.suffix || '');
+        statIo.unobserve(el);
+      }
+    });
+  },{threshold:0.5});
+  document.querySelectorAll('[data-count]').forEach(el => statIo.observe(el));
+</script>
+
+</body>
+</html>

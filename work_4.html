@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYMEDIA - Our Work (Light Mode)</title>
+    <style>
+        /* --- Brand Colors & Core System (Light Theme) --- */
+        :root {
+            --bg-light: #f3f4f8;
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --card-border: rgba(255, 255, 255, 0.6);
+            --card-shadow: rgba(165, 175, 205, 0.25);
+            --text-main: #121124;
+            --text-muted: #61607a;
+            --pink-accent: #d946ef;
+            --purple-accent: #7c3aed;
+            --glow-color: rgba(217, 70, 239, 0.08);
+            --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            -webkit-font-smoothing: antialiased;
+            padding: 100px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Header Styling --- */
+        .section-header {
+            margin-bottom: 50px;
+        }
+
+        .subtitle {
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--purple-accent);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .title {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        /* --- 3-Column Asymmetric Grid --- */
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            align-items: start;
+        }
+
+        .work-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 36px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            box-shadow: 0 30px 60px var(--card-shadow);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .work-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(124, 58, 237, 0.2);
+            box-shadow: 0 40px 70px rgba(165, 175, 205, 0.4), 0 0 40px var(--glow-color);
+        }
+
+        /* --- Card Header Elements --- */
+        .badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--purple-accent);
+            background: rgba(124, 58, 237, 0.08);
+            padding: 6px 14px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .brand-name {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 32px;
+            letter-spacing: -0.5px;
+        }
+
+        /* --- Infographics (Matching image specifications) --- */
+        .visual-container {
+            width: 100%;
+            height: 220px;
+            margin-bottom: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Card 1 Funnel Graphic */
+        .funnel-graphic {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+        .funnel-layer {
+            border: 2px solid rgba(124, 58, 237, 0.2);
+            border-radius: 100px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.6);
+        }
+        .fl-1 { width: 85%; background: rgba(217, 70, 239, 0.1); border-color: var(--pink-accent); color: var(--pink-accent); }
+        .fl-2 { width: 65%; background: rgba(124, 58, 237, 0.05); border-color: var(--purple-accent); color: var(--purple-accent); }
+        .fl-3 { width: 45%; }
+
+        /* Card 2 Node Network */
+        .network-graphic {
+            position: relative;
+            width: 160px;
+            height: 160px;
+        }
+        .center-node {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: var(--purple-accent);
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
+        }
+        .outer-node {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: #ffffff;
+            border: 1.5px solid rgba(124, 58, 237, 0.2);
+            border-radius: 50px;
+        }
+        .node-1 { top: 10%; left: 20%; }
+        .node-2 { top: 15%; right: 15%; border-color: var(--pink-accent); }
+        .node-3 { bottom: 20%; left: 10%; }
+        .node-4 { bottom: 10%; right: 25%; }
+
+        /* Card 3 Analytics Chart */
+        .chart-graphic {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            width: 80%;
+            height: 120px;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
+            padding-bottom: 8px;
+        }
+        .chart-bar {
+            flex: 1;
+            background: rgba(0,0,0,0.04);
+            border-radius: 6px 6px 0 0;
+            height: 0;
+        }
+        .chart-bar.active {
+            background: linear-gradient(180deg, var(--pink-accent) 0%, var(--purple-accent) 100%);
+            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.2);
+        }
+        .bar-1 { height: 40%; }
+        .bar-2 { height: 75%; }
+        .bar-3 { height: 55%; }
+        .bar-4 { height: 95%; }
+
+        /* --- Strategy Details --- */
+        .strategy-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .strategy-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 32px;
+        }
+
+        /* --- Metric Panels --- */
+        .stats-grid {
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            padding-top: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .stat-block {
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .stat-num {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: block;
+        }
+
+        .stat-num.gradient-text {
+            background: linear-gradient(90deg, var(--purple-accent), var(--pink-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* --- CTA Button --- */
+        .action-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 60px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(90deg, var(--purple-accent) 0%, var(--pink-accent) 100%);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 16px 36px;
+            border-radius: 100px;
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.25);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Responsive Settings */
+        @media (max-width: 992px) {
+            .showcase-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <span class="subtitle">Our Work</span>
+            <h2 class="title">Our Work. Real Results. Real Brands.</h2>
+        </div>
+
+        <!-- Light Mode Grid Engine -->
+        <div class="showcase-grid">
+
+            <!-- Card 1: E-Commerce -->
+            <div class="work-card">
+                <span class="badge">E-Commerce</span>
+                <h3 class="brand-name">Virelo</h3>
+                
+                <div class="visual-container">
+                    <div class="funnel-graphic">
+                        <div class="funnel-layer fl-1">Engage</div>
+                        <div class="funnel-layer fl-2">Nurture</div>
+                        <div class="funnel-layer fl-3">Convert</div>
+                    </div>
+                </div>
+
+                <h4 class="strategy-title">Optimized Social-to-Sale Funnel</h4>
+                <p class="strategy-desc">Turned viral reach directly into predictable transactional systems through high-intent conversion pathways.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-block">
+                        <span class="stat-num gradient-text">+320%</span>
+                        <span class="stat-label">Engagement</span>
+                    </div>
+                    <div class="stat-block">
+                        <span class="stat-num">8.7x</span>
+                        <span class="stat-label">ROAS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Coaching -->
+            <div class="work-card">
+                <span class="badge">Coaching</span>
+                <h3 class="brand-name">Mindset Pro</h3>
+                
+                <div class="visual-container">
+                    <div class="network-graphic">
+                        <div class="center-node"></div>
+                        <div class="outer-node node-1"></div>
+                        <div class="outer-node node-2"></div>
+                        <div class="outer-node node-3"></div>
+                        <div class="outer-node node-4"></div>
+                    </div>
+                </div>
+
+                <h4 class="strategy-title">Content Ecosystem & Community Builder</h4>
+                <p class="strategy-desc">Linked automated messaging assets directly to distributed audience touchpoints to systematically grow inbound retention.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-block">
+                        <span class="stat-num gradient-text">+185%</span>
+                        <span class="stat-label">Leads</span>
+                    </div>
+                    <div class="stat-block">
+                        <span class="stat-num">6.3x</span>
+                        <span class="stat-label">ROAS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: SaaS -->
+            <div class="work-card">
+                <span class="badge">SaaS</span>
+                <h3 class="brand-name">Taskly</h3>
+                
+                <div class="visual-container">
+                    <div class="chart-graphic">
+                        <div class="chart-bar bar-1"></div>
+                        <div class="chart-bar bar-2"></div>
+                        <div class="chart-bar bar-3"></div>
+                        <div class="chart-bar bar-4 active"></div>
+                    </div>
+                </div>
+
+                <h4 class="strategy-title">Product-Led Growth Strategy</h4>
+                <p class="strategy-desc">Implemented native retention systems and activation sequences designed around compound velocity funnels.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-block">
+                        <span class="stat-num gradient-text">+210%</span>
+                        <span class="stat-label">Signups</span>
+                    </div>
+                    <div class="stat-block">
+                        <span class="stat-num">7.2x</span>
+                        <span class="stat-label">ROAS</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Section Action -->
+        <div class="action-container">
+            <a href="#" class="cta-button">View More Case Studies</a>
+        </div>
+    </section>
+
+</body>
+</html>
