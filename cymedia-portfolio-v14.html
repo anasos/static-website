@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réalisations — CyMedia (diagnostic)</title>
+<meta name="description" content="Le portfolio inversé : répondez à 4 questions sur votre marque, nous vous montrons les études de cas qui vous ressemblent.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#08081A;
+  --fond2:#0D0D24;
+  --bord:rgba(255,255,255,.1);
+  --texte:#F0F0FB;
+  --sourdine:#9C9DC6;
+  --rose:#FF2E9C;
+  --violet:#7C5CFF;
+  --grad:linear-gradient(90deg,#FF2E9C,#7C5CFF);
+  --display:'Space Grotesk',sans-serif;
+  --corps:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--fond);color:var(--texte);font-family:var(--corps);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:8px}
+.conteneur{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* halos */
+.atmosphere{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.atmosphere span{position:absolute;border-radius:50%;filter:blur(90px)}
+.a1{width:520px;height:520px;top:-150px;right:-130px;background:rgba(124,92,255,.24);animation:derive 14s ease-in-out infinite alternate}
+.a2{width:460px;height:460px;bottom:-140px;left:-150px;background:rgba(255,46,156,.18);animation:derive 17s ease-in-out 2s infinite alternate-reverse}
+@keyframes derive{from{transform:translate(0,0)}to{transform:translate(46px,-36px) scale(1.1)}}
+
+/* ============================================================
+   NAV AVEC SOUS-MENUS
+   ============================================================ */
+.nav{position:sticky;top:0;z-index:60;background:rgba(8,8,26,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.marque{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700}
+.marque .glyphe{width:36px;height:36px}
+.marque .nom{font-size:1rem;line-height:1}
+.marque .nom small{display:block;font-size:.48rem;font-weight:500;letter-spacing:.4em;color:var(--sourdine)}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a,.nav-links>li>button{display:flex;align-items:center;gap:6px;font-family:var(--corps);font-size:.9rem;font-weight:500;color:var(--sourdine);background:none;border:none;cursor:pointer;padding:10px 14px;border-radius:10px;transition:color .2s,background .2s}
+.nav-links>li>a:hover,.nav-links>li>button:hover,.nav-links>li.ouvert>button{color:#fff;background:rgba(255,255,255,.06)}
+.chevron{width:9px;height:9px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex:none}
+li.ouvert .chevron{transform:rotate(225deg) translateY(-1px)}
+.sous-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);min-width:272px;background:linear-gradient(168deg,rgba(30,26,60,.96),rgba(16,14,38,.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:8px;list-style:none;box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(124,92,255,.15),inset 0 1px 0 rgba(255,255,255,.12);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s}
+.sous-menu::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:rgba(30,26,60,.96);border-left:1px solid rgba(255,255,255,.14);border-top:1px solid rgba(255,255,255,.14)}
+li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+@media(hover:hover) and (min-width:721px){
+  .nav-links>li:hover .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .nav-links>li:hover>button{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-links>li:hover .chevron{transform:rotate(225deg) translateY(-1px)}
+}
+.sous-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.88rem;color:var(--sourdine);transition:color .2s,background .2s}
+.sous-menu a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.18),rgba(124,92,255,.14))}
+.sous-menu a i{font-style:normal;width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none;opacity:0;transition:opacity .2s}
+.sous-menu a:hover i{opacity:1}
+.sous-menu a.actif{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.22),rgba(124,92,255,.18))}
+.sous-menu a.actif i{opacity:1}
+.sous-menu .titre-groupe{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(156,157,198,.7);padding:8px 14px 4px}
+.sous-menu .separe{height:1px;background:rgba(255,255,255,.08);margin:6px 8px}
+.btn-cta{font-weight:600;font-size:.85rem;color:#fff!important;background:var(--grad);border-radius:999px;padding:10px 20px!important;box-shadow:0 0 22px rgba(255,46,156,.35);transition:transform .2s,box-shadow .2s}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(255,46,156,.5);background:var(--grad)!important}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:22px;height:2px;background:#fff;margin:5px 0;border-radius:2px}
+
+/* ============================================================
+   QUIZ
+   ============================================================ */
+.scene-quiz{max-width:760px;margin:0 auto;padding:50px 24px 80px;min-height:calc(100vh - 72px);display:flex;flex-direction:column}
+/* barre de progression */
+.progression{display:flex;align-items:center;gap:14px;margin-bottom:36px}
+.prog-rail{flex:1;height:5px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+.prog-rail i{display:block;height:100%;width:0;border-radius:99px;background:var(--grad);box-shadow:0 0 14px rgba(255,46,156,.6);transition:width .5s cubic-bezier(.22,.8,.26,1)}
+.prog-txt{font-family:var(--display);font-size:.78rem;font-weight:700;color:var(--sourdine);white-space:nowrap}
+.prog-txt b{color:#fff}
+/* écrans */
+.ecran{display:none;animation:arriver .5s cubic-bezier(.22,.8,.26,1)}
+.ecran.actif{display:block}
+@keyframes arriver{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--rose);margin-bottom:14px}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--rose);box-shadow:0 0 10px var(--rose)}
+.ecran h1,.ecran h2{font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,4.6vw,2.8rem);line-height:1.1;margin-bottom:14px}
+.txt-grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ecran .sous{color:var(--sourdine);font-size:.98rem;max-width:54ch;margin-bottom:30px}
+/* intro */
+.points-intro{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:34px}
+.point-intro{display:flex;align-items:center;gap:10px;font-size:.84rem;color:#D5D6EE}
+.point-intro i{font-style:normal;width:30px;height:30px;border-radius:10px;background:rgba(255,46,156,.14);border:1px solid rgba(255,46,156,.4);display:flex;align-items:center;justify-content:center;flex:none}
+.btn-grad{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:1rem;padding:15px 32px;border-radius:999px;background:var(--grad);color:#fff;border:none;cursor:pointer;box-shadow:0 0 28px rgba(255,46,156,.45);transition:transform .2s,box-shadow .2s}
+.btn-grad:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(255,46,156,.65)}
+/* options */
+.options{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.option{display:flex;align-items:center;gap:14px;text-align:left;background:rgba(255,255,255,.04);border:1px solid var(--bord);border-radius:16px;padding:17px 18px;cursor:pointer;transition:border-color .25s,background .25s,transform .25s}
+.option:hover{border-color:rgba(255,46,156,.55);background:rgba(255,46,156,.08);transform:translateY(-3px)}
+.option .emo{font-size:1.4rem;flex:none}
+.option .txt b{display:block;font-weight:600;font-size:.94rem}
+.option .txt span{font-size:.74rem;color:var(--sourdine)}
+.retour{margin-top:22px;background:none;border:none;cursor:pointer;color:var(--sourdine);font-size:.84rem;display:inline-flex;align-items:center;gap:8px;padding:6px 0;transition:color .2s}
+.retour:hover{color:#fff}
+/* analyse */
+.analyse{text-align:center;padding-top:30px}
+.scanner{width:120px;height:120px;margin:0 auto 26px;position:relative}
+.scanner svg{width:100%;height:100%;animation:tourner 1.6s linear infinite}
+@keyframes tourner{to{transform:rotate(360deg)}}
+.etapes-analyse{list-style:none;max-width:330px;margin:0 auto;text-align:left}
+.etapes-analyse li{display:flex;align-items:center;gap:11px;padding:8px 0;color:var(--sourdine);font-size:.88rem;opacity:.35;transition:opacity .4s,color .4s}
+.etapes-analyse li.fait{opacity:1;color:#fff}
+.etapes-analyse li i{font-style:normal;width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:.6rem;flex:none;transition:all .4s}
+.etapes-analyse li.fait i{background:var(--grad);border-color:transparent}
+
+/* ============================================================
+   RÉSULTATS
+   ============================================================ */
+.bloc-resultat{background:rgba(255,255,255,.04);border:1px solid var(--bord);border-radius:20px;padding:24px 26px;margin-bottom:18px}
+.entete-res{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.entete-res .profil-titre{font-family:var(--display);font-weight:700;font-size:1.35rem;margin-bottom:6px}
+.entete-res .profil-sous{font-size:.86rem;color:var(--sourdine)}
+/* jauge score */
+.jauge-score{position:relative;width:128px;height:128px;flex:none}
+.jauge-score svg{transform:rotate(-90deg)}
+.jauge-score .fondj{stroke:rgba(255,255,255,.1)}
+.jauge-score .remplij{stroke:url(#gradJ);stroke-linecap:round;transition:stroke-dashoffset 1.4s cubic-bezier(.22,.8,.26,1)}
+.jauge-score .centre{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.jauge-score .centre b{font-family:var(--display);font-size:1.7rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.jauge-score .centre span{font-size:.58rem;color:var(--sourdine);letter-spacing:.1em;text-transform:uppercase}
+/* recommandations */
+.recos{list-style:none}
+.recos li{display:flex;gap:12px;padding:10px 0;border-bottom:1px dotted rgba(255,255,255,.1);font-size:.9rem;color:#D5D6EE}
+.recos li:last-child{border:none}
+.recos i{font-style:normal;width:24px;height:24px;border-radius:8px;background:rgba(124,92,255,.16);border:1px solid rgba(124,92,255,.42);display:flex;align-items:center;justify-content:center;font-size:.7rem;flex:none;margin-top:2px}
+/* cas correspondants */
+.titre-bloc{font-family:var(--display);font-weight:700;font-size:1.05rem;margin-bottom:14px}
+.titre-bloc small{display:block;font-size:.74rem;font-weight:500;color:var(--sourdine)}
+.cas-grille{display:grid;grid-template-columns:1fr;gap:14px}
+.cas{display:grid;grid-template-columns:120px 1fr;gap:15px;background:rgba(255,255,255,.04);border:1px solid var(--bord);border-radius:16px;padding:14px;align-items:center;transition:border-color .25s,transform .25s}
+.cas:hover{border-color:rgba(255,46,156,.5);transform:translateY(-3px)}
+.cas img{width:100%;height:86px;object-fit:cover;border-radius:11px}
+.cas .pertinence{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#FFD9EE;background:rgba(255,46,156,.16);border:1px solid rgba(255,46,156,.5);border-radius:999px;padding:3px 10px;margin-bottom:6px}
+.cas h3{font-family:var(--display);font-size:1.02rem;margin-bottom:3px}
+.cas .pourquoi{font-size:.78rem;color:var(--sourdine);margin-bottom:7px}
+.cas .stats-c{display:flex;gap:16px}
+.cas .stats-c b{font-family:var(--display);font-size:.92rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block;line-height:1.1}
+.cas .stats-c span{font-size:.56rem;color:var(--sourdine)}
+/* actions finales */
+.actions-fin{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:24px}
+.lien-rejouer{background:none;border:none;cursor:pointer;color:var(--sourdine);font-size:.86rem;text-decoration:underline;text-underline-offset:4px}
+.lien-rejouer:hover{color:#fff}
+
+footer{border-top:1px solid rgba(255,255,255,.07);padding:26px 0}
+.pied{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.84rem;color:var(--sourdine)}
+.pied ul{display:flex;gap:24px;list-style:none}
+.pied ul a:hover{color:#fff}
+
+/* ---------- responsive ---------- */
+@media(max-width:680px){
+  .options{grid-template-columns:1fr}
+  .entete-res{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .cas{grid-template-columns:1fr}
+  .cas img{height:130px}
+}
+@media(max-width:720px){
+  .nav-links{position:fixed;inset:72px 0 auto 0;max-height:calc(100vh - 72px);overflow:auto;background:var(--fond2);flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 24px;border-bottom:1px solid var(--bord);display:none}
+  .nav-links.ouvert{display:flex}
+  .nav-links>li>a,.nav-links>li>button{width:100%;justify-content:space-between;padding:14px 10px;font-size:.95rem}
+  .sous-menu{position:static;transform:none;min-width:0;opacity:1;visibility:visible;box-shadow:none;border:none;background:rgba(255,255,255,.03);border-radius:12px;margin:0 6px 8px;display:none;padding:6px}
+  .sous-menu::before{display:none}
+  li.ouvert .sous-menu{display:block}
+  .btn-cta{justify-content:center;text-align:center;margin-top:10px}
+  .burger{display:block}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.001s!important}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+<linearGradient id="gradJ" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#FF2E9C"/><stop offset="1" stop-color="#7C5CFF"/>
+</linearGradient>
+</defs></svg>
+
+<div class="atmosphere" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
+
+<!-- ===== Nav avec sous-menus ===== -->
+<header class="nav">
+  <div class="conteneur nav-inner">
+    <a href="index.html" class="marque" aria-label="CyMedia — Accueil">
+      <svg class="glyphe" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+      </svg>
+      <span class="nom">CYMEDIA<small>MARKETING AGENCY</small></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="preview.html">Services</a></li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Portfolio <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="work.html"><i></i>Portfolio — grille</a></li>
+            <li><a href="cymedia-portfolio.html"><i></i>Portfolio — cartes verre</a></li>
+            <li><a href="cymedia-portfolio-v2.html"><i></i>Portfolio — index éditorial</a></li>
+            <li><a href="cymedia-portfolio-v3.html"><i></i>Portfolio — cinématique</a></li>
+            <li><a href="cymedia-portfolio-v4.html"><i></i>Portfolio — mosaïque bento</a></li>
+            <li><a href="cymedia-portfolio-v5.html"><i></i>Portfolio — scrollytelling 3D</a></li>
+            <li><a href="cymedia-portfolio-v6.html"><i></i>Portfolio — showreel vidéo</a></li>
+            <li><a href="cymedia-portfolio-v7.html"><i></i>Portfolio — split-screen</a></li>
+            <li><a href="cymedia-portfolio-v8.html"><i></i>Portfolio — édition magazine</a></li>
+            <li><a href="cymedia-portfolio-v9.html"><i></i>Portfolio — galerie horizontale</a></li>
+            <li><a href="cymedia-portfolio-v10.html"><i></i>Portfolio — le feed social</a></li>
+            <li><a href="cymedia-portfolio-v11.html"><i></i>Portfolio — dashboard analytics</a></li>
+            <li><a href="cymedia-portfolio-v12.html"><i></i>Portfolio — salle de montage</a></li>
+            <li><a href="cymedia-portfolio-v13.html"><i></i>Portfolio — le funnel</a></li>
+            <li><a href="cymedia-portfolio-v14.html" class="actif" aria-current="page"><i></i>Portfolio — quiz de diagnostic</a></li>            
+            <li><a href="cymedia-portfolio-v15.html"><i></i>Portfolio — visite du studio</a></li>
+            <li><a href="cymedia-portfolio-v16.html"><i></i>Portfolio — Ligne Croissance</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Versions <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li class="titre-groupe">Pages d'accueil</li>
+            <li><a href="index.html"><i></i>Version 1</a></li>
+            <li><a href="v2.html"><i></i>Version 2</a></li>
+            <li><a href="v3.html"><i></i>Version 3</a></li>
+            <li><a href="v4.html"><i></i>Version 4</a></li>
+            <li><a href="v5.html"><i></i>Version 5</a></li>
+            <li class="separe" aria-hidden="true"></li>
+            <li><a href="clear_fab.html"><i></i>Version claire</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Carrousels <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="carousel_1.html"><i></i>Carrousel V1</a></li>
+            <li><a href="carousel_2.html"><i></i>Carrousel V2</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Tarifs</a></li>
+        <li><a href="mailto:contact@cymedia.ma" class="btn-cta">Réserver un appel</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="basculerMenu(this)"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== Quiz ===== -->
+<div class="scene-quiz">
+  <div class="progression" id="progression" style="visibility:hidden">
+    <div class="prog-rail"><i id="prog-rempli"></i></div>
+    <span class="prog-txt"><b id="prog-num">1</b> / 4</span>
+  </div>
+
+  <!-- écran 0 : intro -->
+  <section class="ecran actif" id="ecran-intro">
+    <p class="eyebrow">Nos réalisations · Diagnostic</p>
+    <h1>Ne regardez pas notre portfolio.<br>Laissez-le <span class="txt-grad">vous trouver.</span></h1>
+    <p class="sous">4 questions, 60 secondes. Nous analysons votre profil et ne vous montrons que les études de cas qui ressemblent à votre marque — avec un mini-diagnostic personnalisé en prime.</p>
+    <div class="points-intro">
+      <span class="point-intro"><i>⚡</i>60 secondes chrono</span>
+      <span class="point-intro"><i>🎯</i>Cas sur mesure</span>
+      <span class="point-intro"><i>📋</i>3 recommandations offertes</span>
+    </div>
+    <button class="btn-grad" onclick="demarrer()">Lancer mon diagnostic&nbsp;→</button>
+  </section>
+
+  <!-- écrans questions (générés en JS) -->
+  <div id="zone-questions"></div>
+
+  <!-- écran analyse -->
+  <section class="ecran" id="ecran-analyse">
+    <div class="analyse">
+      <div class="scanner" aria-hidden="true">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="6"/>
+          <circle cx="50" cy="50" r="42" fill="none" stroke="url(#gradJ)" stroke-width="6" stroke-linecap="round" stroke-dasharray="80 184"/>
+        </svg>
+      </div>
+      <h2>Analyse de votre profil…</h2>
+      <ul class="etapes-analyse" id="etapes-analyse">
+        <li><i>✓</i>Lecture de vos réponses</li>
+        <li><i>✓</i>Comparaison avec 120+ projets</li>
+        <li><i>✓</i>Sélection des cas les plus proches</li>
+        <li><i>✓</i>Calcul de votre potentiel de croissance</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- écran résultats -->
+  <section class="ecran" id="ecran-resultats">
+    <p class="eyebrow">Votre diagnostic</p>
+    <div class="bloc-resultat">
+      <div class="entete-res">
+        <div>
+          <div class="profil-titre" id="r-profil"></div>
+          <div class="profil-sous" id="r-profil-sous"></div>
+        </div>
+        <div class="jauge-score">
+          <svg viewBox="0 0 128 128">
+            <circle class="fondj" cx="64" cy="64" r="54" fill="none" stroke-width="11"/>
+            <circle class="remplij" id="r-jauge" cx="64" cy="64" r="54" fill="none" stroke-width="11"/>
+          </svg>
+          <div class="centre"><b id="r-score">0</b><span>potentiel</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloc-resultat">
+      <div class="titre-bloc">Nos 3 recommandations pour vous</div>
+      <ul class="recos" id="r-recos"></ul>
+    </div>
+
+    <div class="bloc-resultat">
+      <div class="titre-bloc">Les études de cas qui vous ressemblent
+        <small id="r-nb-cas"></small>
+      </div>
+      <div class="cas-grille" id="r-cas"></div>
+    </div>
+
+    <div class="actions-fin">
+      <a class="btn-grad" id="r-cta" href="#">Recevoir mon diagnostic complet&nbsp;→</a>
+      <button class="lien-rejouer" onclick="rejouer()">Refaire le test</button>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="conteneur pied">
+    <span>© 2026 CyMedia — Agence marketing · Ce diagnostic est indicatif ; le vrai se fait de vive voix.</span>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="preview.html">Services</a></li>
+      <li><a href="mailto:contact@cymedia.ma">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   QUESTIONS
+   ============================================================ */
+const QUESTIONS=[
+ {id:'secteur',titre:'Dans quel univers évolue votre marque ?',
+  options:[
+   {v:'ecommerce',emo:'🛍️',b:'E-commerce',s:'Vous vendez des produits en ligne'},
+   {v:'coaching',emo:'🎓',b:'Coaching & formation',s:'Vous vendez votre expertise'},
+   {v:'saas',emo:'💻',b:'SaaS & tech',s:'Logiciel, app ou service digital'},
+   {v:'resto',emo:'🍽️',b:'Restauration & local',s:'Un lieu physique à remplir'},
+   {v:'immo',emo:'🏗️',b:'Immobilier',s:'Programmes, biens, promotion'},
+   {v:'autre',emo:'✨',b:'Autre secteur',s:'On s\u2019adapte, promis'}]},
+ {id:'objectif',titre:'Votre objectif n°1 cette année ?',
+  options:[
+   {v:'vendre',emo:'💸',b:'Vendre plus en ligne',s:'Du trafic qui devient du chiffre'},
+   {v:'leads',emo:'🧲',b:'Générer des leads',s:'Des prospects qualifiés en continu'},
+   {v:'audience',emo:'📣',b:'Construire une audience',s:'Une communauté qui vous suit'},
+   {v:'notoriete',emo:'🌟',b:'Faire connaître la marque',s:'Qu\u2019on parle (bien) de vous'}]},
+ {id:'phase',titre:'Où en êtes-vous aujourd\u2019hui ?',
+  options:[
+   {v:'zero',emo:'🌱',b:'Je pars de zéro',s:'Tout est à construire'},
+   {v:'stagne',emo:'😤',b:'J\u2019ai une base, mais ça stagne',s:'Les efforts ne paient plus'},
+   {v:'accelere',emo:'🚀',b:'Ça marche, je veux accélérer',s:'Passer au palier supérieur'}]},
+ {id:'canal',titre:'Votre canal de cœur ?',
+  options:[
+   {v:'social',emo:'📱',b:'Instagram & TikTok',s:'Le règne du format court'},
+   {v:'youtube',emo:'▶️',b:'YouTube',s:'Le format long qui construit'},
+   {v:'seo',emo:'🔎',b:'Google & SEO',s:'Être trouvé au bon moment'},
+   {v:'sais-pas',emo:'🤷',b:'Je ne sais pas',s:'Conseillez-moi !'}]}
+];
+const LIBELLES={ecommerce:'E-commerce',coaching:'Coaching & formation',saas:'SaaS & tech',resto:'Restauration & local',immo:'Immobilier',autre:'Multi-secteurs',
+ vendre:'vendre plus en ligne',leads:'générer des leads',audience:'construire une audience',notoriete:'gagner en notoriété',
+ zero:'en phase de lancement',stagne:'en phase de déblocage',accelere:'en phase d\u2019accélération'};
+
+/* ============================================================
+   ÉTUDES DE CAS + correspondances
+   ============================================================ */
+const PROJETS=[
+ {nom:'Virelo',seed:'virelo7',secteurs:['ecommerce'],objectifs:['vendre'],phases:['stagne','accelere'],canaux:['social'],
+  pourquoi:{vendre:'Même objectif : transformer l\u2019audience sociale en ventes directes.',defaut:'Un tunnel social-to-sale reconstruit de A à Z.'},
+  stats:[['8,7×','ROAS'],['+320\u00a0%','Engagement'],['×2,4','C.A.']]},
+ {nom:'Mindset Pro',seed:'mindset3',secteurs:['coaching'],objectifs:['audience','leads'],phases:['stagne','accelere'],canaux:['youtube','social'],
+  pourquoi:{audience:'Comme vous : construire une audience fidèle multi-canaux.',defaut:'Un écosystème de contenu où chaque canal nourrit le suivant.'},
+  stats:[['+185\u00a0%','Prospects'],['6,3×','C.A.'],['12k','Membres']]},
+ {nom:'Taskly',seed:'taskly9',secteurs:['saas'],objectifs:['leads','vendre'],phases:['stagne','accelere'],canaux:['seo'],
+  pourquoi:{leads:'Même besoin : des inscriptions qualifiées qui se transforment.',defaut:'Croissance pilotée par le produit, organique avant payant.'},
+  stats:[['+210\u00a0%','Inscriptions'],['7,2×','Rétention'],['−31\u00a0%','CAC']]},
+ {nom:'Maison Safran',seed:'safran5',secteurs:['resto'],objectifs:['notoriete','vendre'],phases:['zero','stagne'],canaux:['social'],
+  pourquoi:{notoriete:'Même défi : faire d\u2019un lieu une marque dont on parle.',defaut:'Du contenu food viral à la réservation en un clic.'},
+  stats:[['+140\u00a0%','Réservations'],['×4','Abonnés'],['2,1\u00a0M','Vues']]},
+ {nom:'Atlas Habitat',seed:'atlas2',secteurs:['immo'],objectifs:['leads'],phases:['stagne','accelere'],canaux:['seo','social'],
+  pourquoi:{leads:'Exactement votre enjeu : des leads qualifiés, pas du volume.',defaut:'Une machine à prospects avec qualification automatique.'},
+  stats:[['+95\u00a0%','Leads'],['−38\u00a0%','Coût/lead'],['34\u00a0%','Taux RDV']]},
+ {nom:'Noor Bijoux',seed:'noor4',secteurs:['ecommerce','autre'],objectifs:['audience','vendre','notoriete'],phases:['zero'],canaux:['social'],
+  pourquoi:{zero:'Comme vous : partie de zéro, rentable en trois mois.',defaut:'Un lancement de marque orchestré du premier post à la vente.'},
+  stats:[['0→45k','Abonnés'],['5,4×','ROAS'],['68\u00a0%','Ventes IG']]}
+];
+
+/* ============================================================
+   MOTEUR DU QUIZ
+   ============================================================ */
+const reponses={};
+let etape=-1; /* -1 = intro */
+const zoneQ=document.getElementById('zone-questions');
+QUESTIONS.forEach((q,i)=>{
+  const s=document.createElement('section');
+  s.className='ecran';
+  s.id='ecran-q'+i;
+  s.innerHTML=`
+    <p class="eyebrow">Question ${i+1} sur ${QUESTIONS.length}</p>
+    <h2>${q.titre}</h2>
+    <div class="options">
+      ${q.options.map(o=>`
+        <button class="option" data-q="${q.id}" data-v="${o.v}">
+          <span class="emo">${o.emo}</span>
+          <span class="txt"><b>${o.b}</b><span>${o.s}</span></span>
+        </button>`).join('')}
+    </div>
+    ${i>0?'<button class="retour" onclick="precedent()">← Question précédente</button>':''}`;
+  zoneQ.appendChild(s);
+});
+document.querySelectorAll('.option').forEach(b=>{
+  b.addEventListener('click',()=>{
+    reponses[b.dataset.q]=b.dataset.v;
+    suivant();
+  });
+});
+
+function montrer(id){
+  document.querySelectorAll('.ecran').forEach(e=>e.classList.remove('actif'));
+  const e=document.getElementById(id);
+  e.classList.remove('actif');void e.offsetWidth;e.classList.add('actif');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function majProgression(){
+  const prog=document.getElementById('progression');
+  if(etape<0||etape>=QUESTIONS.length){prog.style.visibility='hidden';return;}
+  prog.style.visibility='visible';
+  document.getElementById('prog-rempli').style.width=((etape)/QUESTIONS.length*100)+'%';
+  document.getElementById('prog-num').textContent=etape+1;
+}
+function demarrer(){etape=0;montrer('ecran-q0');majProgression();}
+function suivant(){
+  etape++;
+  if(etape<QUESTIONS.length){montrer('ecran-q'+etape);majProgression();}
+  else{majProgression();lancerAnalyse();}
+}
+function precedent(){if(etape>0){etape--;montrer('ecran-q'+etape);majProgression();}}
+function rejouer(){
+  Object.keys(reponses).forEach(k=>delete reponses[k]);
+  etape=-1;montrer('ecran-intro');majProgression();
+}
+
+/* ============================================================
+   ANALYSE (mise en scène) PUIS RÉSULTATS
+   ============================================================ */
+const mouvementReduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function lancerAnalyse(){
+  montrer('ecran-analyse');
+  const lis=[...document.querySelectorAll('#etapes-analyse li')];
+  lis.forEach(l=>l.classList.remove('fait'));
+  if(mouvementReduit){afficherResultats();return;}
+  lis.forEach((l,i)=>setTimeout(()=>l.classList.add('fait'),400+i*550));
+  setTimeout(afficherResultats,400+lis.length*550+500);
+}
+
+function scorer(p){
+  let s=0;
+  if(p.secteurs.includes(reponses.secteur))s+=3;
+  if(reponses.secteur==='autre')s+=1;
+  if(p.objectifs.includes(reponses.objectif))s+=2;
+  if(p.phases.includes(reponses.phase))s+=1;
+  if(p.canaux.includes(reponses.canal))s+=1;
+  return s;
+}
+function afficherResultats(){
+  /* profil */
+  document.getElementById('r-profil').textContent=
+    'Profil : '+LIBELLES[reponses.secteur]+' '+LIBELLES[reponses.phase];
+  document.getElementById('r-profil-sous').textContent=
+    'Objectif prioritaire : '+LIBELLES[reponses.objectif]+'. Voici ce que nos données racontent sur des marques comme la vôtre.';
+
+  /* score de potentiel (déterministe selon les réponses) */
+  const basePhase={zero:74,stagne:81,accelere:88}[reponses.phase];
+  const bonusCanal={social:6,youtube:4,seo:5,'sais-pas':7}[reponses.canal];
+  const score=Math.min(basePhase+bonusCanal,96);
+  const cercle=document.getElementById('r-jauge');
+  const C=2*Math.PI*54;
+  cercle.style.strokeDasharray=C;
+  cercle.style.strokeDashoffset=C;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    cercle.style.strokeDashoffset=C*(1-score/100);
+  }));
+  const elScore=document.getElementById('r-score');
+  if(mouvementReduit)elScore.textContent=score+'%';
+  else{
+    const debut=performance.now();
+    (function pas(t){
+      const p=Math.min((t-debut)/1300,1);
+      elScore.textContent=Math.round(score*(1-Math.pow(1-p,3)))+'%';
+      if(p<1)requestAnimationFrame(pas);
+    })(debut);
+  }
+
+  /* recommandations composées */
+  const recoPhase={
+    zero:'Commencez par un système simple : une plateforme, un format signature, un rythme tenable. La constance bat le volume.',
+    stagne:'Votre problème n\u2019est probablement pas le contenu mais le tunnel : auditez chaque étape entre la vue et l\u2019achat.',
+    accelere:'Doublez sur ce qui marche déjà et industrialisez la production : découpage, réemploi, automatisation.'};
+  const recoObjectif={
+    vendre:'Installez du retargeting créatif : 70 % de vos futures ventes viendront de gens qui vous connaissent déjà.',
+    leads:'Créez un aimant à prospects irrésistible et qualifiez automatiquement avant tout contact humain.',
+    audience:'Misez sur un format signature reconnaissable en 2 secondes : c\u2019est lui qui construit l\u2019abonnement.',
+    notoriete:'Provoquez la conversation : un point de vue assumé vaut dix publications consensuelles.'};
+  const recoCanal={
+    social:'Sur Instagram/TikTok, les 3 premières secondes décident de tout : investissez dans vos accroches.',
+    youtube:'Sur YouTube, pensez en séries, pas en vidéos : la rétention se construit épisode après épisode.',
+    seo:'Sur Google, visez les requêtes d\u2019intention (« alternative à », « avis », « prix ») avant les requêtes de volume.',
+    'sais-pas':'Bonne nouvelle : choisir le bon canal est exactement la première chose qu\u2019on fait ensemble en appel découverte.'};
+  document.getElementById('r-recos').innerHTML=
+    [recoPhase[reponses.phase],recoObjectif[reponses.objectif],recoCanal[reponses.canal]]
+    .map((r,i)=>`<li><i>${i+1}</i>${r}</li>`).join('');
+
+  /* cas correspondants */
+  const classes=PROJETS.map(p=>({p,s:scorer(p)})).sort((a,b)=>b.s-a.s);
+  const retenus=classes.filter(x=>x.s>0).slice(0,3);
+  const finaux=(retenus.length?retenus:classes.slice(0,2));
+  document.getElementById('r-nb-cas').textContent=
+    finaux.length+' cas sélectionnés sur '+PROJETS.length+' selon vos réponses';
+  document.getElementById('r-cas').innerHTML=finaux.map(({p,s},i)=>{
+    const pert=i===0?'Correspondance forte':s>=3?'Très pertinent':'Pertinent';
+    const pourquoi=p.pourquoi[reponses.objectif]||p.pourquoi[reponses.phase]||p.pourquoi.defaut;
+    return `
+    <a class="cas" href="mailto:contact@cymedia.ma?subject=Cas%20${encodeURIComponent(p.nom)}">
+      <img src="https://picsum.photos/seed/${p.seed}/360/240" alt="Projet ${p.nom}" loading="lazy">
+      <div>
+        <span class="pertinence">${pert}</span>
+        <h3>${p.nom}</h3>
+        <p class="pourquoi">${pourquoi}</p>
+        <div class="stats-c">${p.stats.map(st=>`<div><b>${st[0]}</b><span>${st[1]}</span></div>`).join('')}</div>
+      </div>
+    </a>`;
+  }).join('');
+
+  /* CTA pré-rempli avec les réponses */
+  const corps=encodeURIComponent(
+`Bonjour CyMedia,
+
+Voici mon diagnostic express :
+- Secteur : ${LIBELLES[reponses.secteur]}
+- Objectif : ${LIBELLES[reponses.objectif]}
+- Situation : ${LIBELLES[reponses.phase]}
+- Canal : ${reponses.canal}
+
+J'aimerais recevoir le diagnostic complet / réserver un appel découverte.`);
+  document.getElementById('r-cta').href=
+    'mailto:contact@cymedia.ma?subject='+encodeURIComponent('Mon diagnostic CyMedia')+'&body='+corps;
+
+  montrer('ecran-resultats');
+}
+
+/* ============================================================
+   MENU
+   ============================================================ */
+function basculerMenu(btn){
+  const m=document.getElementById('nav-links');
+  const o=m.classList.toggle('ouvert');
+  btn.setAttribute('aria-expanded',o);
+}
+document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav-links').classList.remove('ouvert')));
+function basculerSousMenu(btn){
+  const li=btn.parentElement;
+  const dejaOuvert=li.classList.contains('ouvert');
+  document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+    x.classList.remove('ouvert');
+    x.querySelector('button').setAttribute('aria-expanded','false');
+  });
+  if(!dejaOuvert){li.classList.add('ouvert');btn.setAttribute('aria-expanded','true');}
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.a-sous-menu')){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+</script>
+</body>
+</html>

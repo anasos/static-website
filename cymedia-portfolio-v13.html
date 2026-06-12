@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réalisations — CyMedia (le funnel)</title>
+<meta name="description" content="Le portfolio CyMedia en entonnoir de conversion : entrez par l'Attention, sortez par l'Action.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#08081A;
+  --fond2:#0D0D24;
+  --bord:rgba(255,255,255,.1);
+  --texte:#F0F0FB;
+  --sourdine:#9C9DC6;
+  --rose:#FF2E9C;
+  --violet:#7C5CFF;
+  --cyan:#3EE5E0;
+  --grad:linear-gradient(90deg,#FF2E9C,#7C5CFF);
+  --display:'Space Grotesk',sans-serif;
+  --corps:'Inter',sans-serif;
+  /* largeurs de l'entonnoir */
+  --l1:min(1160px,94vw);
+  --l2:min(900px,82vw);
+  --l3:min(660px,68vw);
+  --l4:min(440px,54vw);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--fond);color:var(--texte);font-family:var(--corps);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}
+.conteneur{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ============================================================
+   NAV AVEC SOUS-MENUS
+   ============================================================ */
+.nav{position:sticky;top:0;z-index:60;background:rgba(8,8,26,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.marque{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700}
+.marque .glyphe{width:36px;height:36px}
+.marque .nom{font-size:1rem;line-height:1}
+.marque .nom small{display:block;font-size:.48rem;font-weight:500;letter-spacing:.4em;color:var(--sourdine)}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a,.nav-links>li>button{display:flex;align-items:center;gap:6px;font-family:var(--corps);font-size:.9rem;font-weight:500;color:var(--sourdine);background:none;border:none;cursor:pointer;padding:10px 14px;border-radius:10px;transition:color .2s,background .2s}
+.nav-links>li>a:hover,.nav-links>li>button:hover,.nav-links>li.ouvert>button{color:#fff;background:rgba(255,255,255,.06)}
+.chevron{width:9px;height:9px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex:none}
+li.ouvert .chevron{transform:rotate(225deg) translateY(-1px)}
+.sous-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);min-width:270px;background:linear-gradient(168deg,rgba(30,26,60,.96),rgba(16,14,38,.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:8px;list-style:none;box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(124,92,255,.15),inset 0 1px 0 rgba(255,255,255,.12);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s}
+.sous-menu::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:rgba(30,26,60,.96);border-left:1px solid rgba(255,255,255,.14);border-top:1px solid rgba(255,255,255,.14)}
+li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+@media(hover:hover) and (min-width:721px){
+  .nav-links>li:hover .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .nav-links>li:hover>button{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-links>li:hover .chevron{transform:rotate(225deg) translateY(-1px)}
+}
+.sous-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.88rem;color:var(--sourdine);transition:color .2s,background .2s}
+.sous-menu a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.18),rgba(124,92,255,.14))}
+.sous-menu a i{font-style:normal;width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none;opacity:0;transition:opacity .2s}
+.sous-menu a:hover i{opacity:1}
+.sous-menu a.actif{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.22),rgba(124,92,255,.18))}
+.sous-menu a.actif i{opacity:1}
+.sous-menu .titre-groupe{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(156,157,198,.7);padding:8px 14px 4px}
+.sous-menu .separe{height:1px;background:rgba(255,255,255,.08);margin:6px 8px}
+.btn-cta{font-weight:600;font-size:.85rem;color:#fff!important;background:var(--grad);border-radius:999px;padding:10px 20px!important;box-shadow:0 0 22px rgba(255,46,156,.35);transition:transform .2s,box-shadow .2s}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(255,46,156,.5);background:var(--grad)!important}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:22px;height:2px;background:#fff;margin:5px 0;border-radius:2px}
+
+/* ============================================================
+   FLUX DE TRAFIC (points qui tombent dans l'entonnoir)
+   ============================================================ */
+.flux{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.flux i{position:absolute;top:-20px;width:5px;height:5px;border-radius:50%;background:var(--rose);opacity:.5;animation:tomber linear infinite;box-shadow:0 0 8px rgba(255,46,156,.6)}
+.flux i:nth-child(even){background:var(--violet);box-shadow:0 0 8px rgba(124,92,255,.6)}
+@keyframes tomber{to{transform:translateY(110vh)}}
+
+/* ============================================================
+   INDICATEUR D'ÉTAPE (latéral fixe)
+   ============================================================ */
+.jauge-funnel{position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:2px;opacity:0;transition:opacity .4s}
+.jauge-funnel.visible{opacity:1}
+.jauge-etape{display:flex;align-items:center;gap:10px;padding:6px 0;cursor:pointer;background:none;border:none}
+.jauge-etape .trap{height:13px;background:rgba(255,255,255,.14);clip-path:polygon(0 0,100% 0,86% 100%,14% 100%);transition:background .3s,box-shadow .3s}
+.jauge-etape:nth-child(1) .trap{width:44px}
+.jauge-etape:nth-child(2) .trap{width:34px;margin-left:5px}
+.jauge-etape:nth-child(3) .trap{width:24px;margin-left:10px}
+.jauge-etape:nth-child(4) .trap{width:15px;margin-left:14.5px}
+.jauge-etape.actif .trap{background:var(--grad);box-shadow:0 0 14px rgba(255,46,156,.6)}
+.jauge-etape .lbl{font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(156,157,198,.6);transition:color .3s}
+.jauge-etape.actif .lbl{color:#fff}
+
+/* ============================================================
+   ENTONNOIR
+   ============================================================ */
+.contenu{position:relative;z-index:2}
+/* étape générique : parois lumineuses sur les côtés */
+.etage{position:relative;margin:0 auto;padding:70px 26px 60px}
+.etage::before,.etage::after{content:"";position:absolute;top:0;bottom:0;width:2px;background:linear-gradient(180deg,rgba(255,46,156,.55),rgba(124,92,255,.45));box-shadow:0 0 16px rgba(255,46,156,.35)}
+.etage::before{left:0}
+.etage::after{right:0}
+.e1{width:var(--l1)}
+.e2{width:var(--l2)}
+.e3{width:var(--l3)}
+.e4{width:var(--l4);padding-bottom:80px}
+/* col de transition entre deux étages */
+.col{position:relative;margin:0 auto;height:120px;pointer-events:none}
+.col svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.col line{stroke:url(#gradParoi);stroke-width:2;filter:drop-shadow(0 0 8px rgba(255,46,156,.4))}
+.badge-conv{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:auto;font-family:var(--display);font-weight:700;font-size:.78rem;color:#fff;background:linear-gradient(168deg,rgba(30,26,60,.96),rgba(16,14,38,.98));border:1px solid rgba(255,46,156,.5);border-radius:999px;padding:9px 18px;box-shadow:0 0 24px rgba(255,46,156,.3);white-space:nowrap}
+.badge-conv b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:.95rem}
+/* en-tête d'étage */
+.tete-etage{text-align:center;margin-bottom:40px}
+.num-etage{font-family:var(--display);font-size:.66rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--sourdine)}
+.tete-etage h2{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5.4vw,3.6rem);line-height:1;letter-spacing:.04em;text-transform:uppercase;margin:8px 0 10px}
+.tete-etage h2 .pct{font-size:.42em;vertical-align:super;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-left:8px}
+.tete-etage p{color:var(--sourdine);font-size:.95rem;max-width:52ch;margin:0 auto}
+.txt-grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- étage 1 : ATTENTION (chaos flottant) ---------- */
+.chaos{position:relative;height:380px}
+.puce-chaos{position:absolute;display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:9px 16px;font-size:.8rem;font-weight:600;cursor:pointer;transition:border-color .25s,box-shadow .25s,transform .25s;animation:flotter ease-in-out infinite;white-space:nowrap}
+.puce-chaos:hover{border-color:var(--rose);box-shadow:0 0 22px rgba(255,46,156,.35);z-index:3}
+.puce-chaos b{font-family:var(--display);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.puce-chaos img{width:26px;height:26px;border-radius:50%;object-fit:cover}
+@keyframes flotter{0%,100%{transform:translateY(0) rotate(var(--rot,0deg))}50%{transform:translateY(-14px) rotate(var(--rot,0deg))}}
+.legende-chaos{text-align:center;font-size:.78rem;color:var(--sourdine);margin-top:8px}
+
+/* ---------- étage 2 : INTÉRÊT (cartes accroche) ---------- */
+.grille-interet{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.carte-int{background:rgba(255,255,255,.04);border:1px solid var(--bord);border-radius:16px;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s}
+.carte-int:hover{transform:translateY(-6px);border-color:rgba(255,46,156,.45);box-shadow:0 18px 44px rgba(0,0,0,.45)}
+.carte-int img{width:100%;height:120px;object-fit:cover}
+.carte-int .corps{padding:13px 15px 15px}
+.carte-int h3{font-family:var(--display);font-size:1rem;margin-bottom:3px}
+.carte-int .accroche{font-size:.74rem;color:var(--sourdine)}
+.carte-int .stat-acc{display:inline-block;margin-top:9px;font-family:var(--display);font-weight:700;font-size:.85rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- étage 3 : DÉSIR (preuves profondes) ---------- */
+.cartes-desir{display:flex;flex-direction:column;gap:16px}
+.carte-desir{display:grid;grid-template-columns:130px 1fr;gap:16px;background:rgba(255,255,255,.05);border:1px solid var(--bord);border-radius:18px;padding:16px;align-items:center;transition:border-color .3s,box-shadow .3s}
+.carte-desir:hover{border-color:rgba(124,92,255,.5);box-shadow:0 0 34px rgba(124,92,255,.16)}
+.carte-desir img{width:100%;height:100px;object-fit:cover;border-radius:12px}
+.carte-desir h3{font-family:var(--display);font-size:1.1rem;margin-bottom:4px}
+.carte-desir q{font-size:.82rem;color:#D6D6EE;font-style:italic;quotes:"\u00ab\u00a0" "\u00a0\u00bb";display:block;margin-bottom:8px}
+.carte-desir .auteur{font-size:.68rem;color:var(--sourdine)}
+.carte-desir .stats-d{display:flex;gap:14px;margin-top:8px}
+.carte-desir .stats-d b{font-family:var(--display);font-size:.95rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block;line-height:1.1}
+.carte-desir .stats-d span{font-size:.58rem;color:var(--sourdine)}
+
+/* ---------- étage 4 : ACTION ---------- */
+.boite-action{text-align:center}
+.compteur-conv{font-family:var(--display);font-weight:700;font-size:clamp(3.4rem,9vw,5.4rem);line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 26px rgba(255,46,156,.4))}
+.boite-action .note{font-size:.82rem;color:var(--sourdine);margin:8px 0 26px}
+.btn-grad{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:1rem;padding:16px 34px;border-radius:999px;background:var(--grad);color:#fff;box-shadow:0 0 30px rgba(255,46,156,.5);transition:transform .2s,box-shadow .2s;animation:battement 2.4s ease-in-out infinite}
+@keyframes battement{0%,100%{box-shadow:0 0 26px rgba(255,46,156,.45)}50%{box-shadow:0 0 46px rgba(255,46,156,.75)}}
+.btn-grad:hover{transform:translateY(-2px) scale(1.03)}
+.reassurance{margin-top:22px;font-size:.78rem;color:var(--sourdine);max-width:34ch;margin-inline:auto}
+/* goutte de sortie */
+.goutte{width:14px;height:14px;border-radius:50%;background:var(--grad);margin:34px auto 0;box-shadow:0 0 20px rgba(255,46,156,.8);animation:goutter 1.8s ease-in infinite}
+@keyframes goutter{0%{transform:translateY(0);opacity:1}70%{transform:translateY(46px);opacity:1}100%{transform:translateY(60px);opacity:0}}
+
+/* entête de page */
+.entete-page{text-align:center;padding:54px 24px 30px;position:relative;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--rose);margin-bottom:12px}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--rose);box-shadow:0 0 10px var(--rose)}
+.entete-page h1{font-family:var(--display);font-weight:700;font-size:clamp(2rem,4.8vw,3.3rem);line-height:1.08}
+.entete-page p{color:var(--sourdine);max-width:540px;margin:12px auto 0;font-size:.98rem}
+
+footer{border-top:1px solid rgba(255,255,255,.07);padding:26px 0;position:relative;z-index:2;background:var(--fond)}
+.pied{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.84rem;color:var(--sourdine)}
+.pied ul{display:flex;gap:24px;list-style:none}
+.pied ul a:hover{color:#fff}
+
+/* révélation */
+.reveler{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveler.visible{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media(max-width:860px){
+  :root{--l1:94vw;--l2:86vw;--l3:78vw;--l4:70vw}
+  .jauge-funnel{left:8px}
+  .jauge-etape .lbl{display:none}
+  .grille-interet{grid-template-columns:1fr 1fr}
+  .carte-desir{grid-template-columns:1fr}
+  .carte-desir img{height:140px}
+  .chaos{height:480px}
+}
+@media(max-width:720px){
+  .nav-links{position:fixed;inset:72px 0 auto 0;max-height:calc(100vh - 72px);overflow:auto;background:var(--fond2);flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 24px;border-bottom:1px solid var(--bord);display:none}
+  .nav-links.ouvert{display:flex}
+  .nav-links>li>a,.nav-links>li>button{width:100%;justify-content:space-between;padding:14px 10px;font-size:.95rem}
+  .sous-menu{position:static;transform:none;min-width:0;opacity:1;visibility:visible;box-shadow:none;border:none;background:rgba(255,255,255,.03);border-radius:12px;margin:0 6px 8px;display:none;padding:6px}
+  .sous-menu::before{display:none}
+  li.ouvert .sous-menu{display:block}
+  .btn-cta{justify-content:center;text-align:center;margin-top:10px}
+  .burger{display:block}
+  .grille-interet{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.001s!important}
+  .reveler{opacity:1;transform:none}
+  .flux{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- dégradé partagé pour les parois -->
+<svg width="0" height="0" style="position:absolute"><defs>
+<linearGradient id="gradParoi" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="rgba(255,46,156,.55)"/><stop offset="1" stop-color="rgba(124,92,255,.45)"/>
+</linearGradient>
+</defs></svg>
+
+<!-- flux de trafic -->
+<div class="flux" id="flux" aria-hidden="true"></div>
+
+<!-- ===== Nav avec sous-menus ===== -->
+<header class="nav">
+  <div class="conteneur nav-inner">
+    <a href="index.html" class="marque" aria-label="CyMedia — Accueil">
+      <svg class="glyphe" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+      </svg>
+      <span class="nom">CYMEDIA<small>MARKETING AGENCY</small></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="preview.html">Services</a></li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Portfolio <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="work.html"><i></i>Portfolio — grille</a></li>
+            <li><a href="cymedia-portfolio.html"><i></i>Portfolio — cartes verre</a></li>
+            <li><a href="cymedia-portfolio-v2.html"><i></i>Portfolio — index éditorial</a></li>
+            <li><a href="cymedia-portfolio-v3.html"><i></i>Portfolio — cinématique</a></li>
+            <li><a href="cymedia-portfolio-v4.html"><i></i>Portfolio — mosaïque bento</a></li>
+            <li><a href="cymedia-portfolio-v5.html"><i></i>Portfolio — scrollytelling 3D</a></li>
+            <li><a href="cymedia-portfolio-v6.html"><i></i>Portfolio — showreel vidéo</a></li>
+            <li><a href="cymedia-portfolio-v7.html"><i></i>Portfolio — split-screen</a></li>
+            <li><a href="cymedia-portfolio-v8.html"><i></i>Portfolio — édition magazine</a></li>
+            <li><a href="cymedia-portfolio-v9.html"><i></i>Portfolio — galerie horizontale</a></li>
+            <li><a href="cymedia-portfolio-v10.html"><i></i>Portfolio — le feed social</a></li>
+            <li><a href="cymedia-portfolio-v11.html"><i></i>Portfolio — dashboard analytics</a></li>
+            <li><a href="cymedia-portfolio-v12.html"><i></i>Portfolio — salle de montage</a></li>
+            <li><a href="cymedia-portfolio-v13.html" class="actif" aria-current="page"><i></i>Portfolio — le funnel</a></li>            
+            <li><a href="cymedia-portfolio-v14.html"><i></i>Portfolio — quiz de diagnostic</a></li>
+            <li><a href="cymedia-portfolio-v15.html"><i></i>Portfolio — visite du studio</a></li>
+            <li><a href="cymedia-portfolio-v16.html"><i></i>Portfolio — Ligne Croissance</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Versions <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li class="titre-groupe">Pages d'accueil</li>
+            <li><a href="index.html"><i></i>Version 1</a></li>
+            <li><a href="v2.html"><i></i>Version 2</a></li>
+            <li><a href="v3.html"><i></i>Version 3</a></li>
+            <li><a href="v4.html"><i></i>Version 4</a></li>
+            <li><a href="v5.html"><i></i>Version 5</a></li>
+            <li class="separe" aria-hidden="true"></li>
+            <li><a href="clear_fab.html"><i></i>Version claire</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Carrousels <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="carousel_1.html"><i></i>Carrousel V1</a></li>
+            <li><a href="carousel_2.html"><i></i>Carrousel V2</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Tarifs</a></li>
+        <li><a href="#action" class="btn-cta">Réserver un appel</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="basculerMenu(this)"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== Jauge d'étape ===== -->
+<nav class="jauge-funnel" id="jauge" aria-label="Étapes du funnel">
+  <button class="jauge-etape" data-cible="attention"><span class="trap"></span><span class="lbl">Attention</span></button>
+  <button class="jauge-etape" data-cible="interet"><span class="trap"></span><span class="lbl">Intérêt</span></button>
+  <button class="jauge-etape" data-cible="desir"><span class="trap"></span><span class="lbl">Désir</span></button>
+  <button class="jauge-etape" data-cible="action"><span class="trap"></span><span class="lbl">Action</span></button>
+</nav>
+
+<div class="contenu">
+
+  <!-- entête -->
+  <div class="entete-page">
+    <p class="eyebrow">Nos réalisations · Le funnel</p>
+    <h1>Vous venez d'entrer dans un <span class="txt-grad">entonnoir.</span></h1>
+    <p>Cette page est construite comme les tunnels de conversion que nous vendons : elle se rétrécit à chaque étape. Descendez — peu arriveront en bas, et c'est exactement le but.</p>
+  </div>
+
+  <!-- ============ ÉTAGE 1 : ATTENTION ============ -->
+  <section class="etage e1" id="attention">
+    <div class="tete-etage reveler">
+      <div class="num-etage">Étape 01 — Haut de l'entonnoir</div>
+      <h2>Attention<span class="pct">100&nbsp;%</span></h2>
+      <p>Tout le monde entre ici. Le bruit, le scroll infini, des marques qui crient. Notre métier : faire que la vôtre soit celle qu'on remarque. Voici ce qui a accroché l'œil pour nos clients.</p>
+    </div>
+    <div class="chaos" id="chaos"></div>
+    <p class="legende-chaos reveler">↑ Cliquez une accroche pour la suivre dans l'entonnoir</p>
+  </section>
+
+  <!-- col 1→2 -->
+  <div class="col" id="col1">
+    <svg preserveAspectRatio="none"><line id="cg1"/><line id="cd1"/></svg>
+    <span class="badge-conv"><b>62&nbsp;%</b>&nbsp; continuent — l'accroche a fonctionné</span>
+  </div>
+
+  <!-- ============ ÉTAGE 2 : INTÉRÊT ============ -->
+  <section class="etage e2" id="interet">
+    <div class="tete-etage reveler">
+      <div class="num-etage">Étape 02 — Milieu de l'entonnoir</div>
+      <h2>Intérêt<span class="pct">62&nbsp;%</span></h2>
+      <p>L'attention est captée ; maintenant il faut la retenir. Contenu qui éduque, retargeting qui répond aux objections. Ce qui a retenu l'audience, projet par projet :</p>
+    </div>
+    <div class="grille-interet" id="grille-interet"></div>
+  </section>
+
+  <!-- col 2→3 -->
+  <div class="col" id="col2">
+    <svg preserveAspectRatio="none"><line id="cg2"/><line id="cd2"/></svg>
+    <span class="badge-conv"><b>31&nbsp;%</b>&nbsp; veulent en savoir plus</span>
+  </div>
+
+  <!-- ============ ÉTAGE 3 : DÉSIR ============ -->
+  <section class="etage e3" id="desir">
+    <div class="tete-etage reveler">
+      <div class="num-etage">Étape 03 — Bas de l'entonnoir</div>
+      <h2>Désir<span class="pct">31&nbsp;%</span></h2>
+      <p>Ici, plus de promesses : des preuves. Témoignages réels et chiffres vérifiables — ce qui transforme l'intérêt en envie.</p>
+    </div>
+    <div class="cartes-desir" id="cartes-desir"></div>
+  </section>
+
+  <!-- col 3→4 -->
+  <div class="col" id="col3">
+    <svg preserveAspectRatio="none"><line id="cg3"/><line id="cd3"/></svg>
+    <span class="badge-conv"><b>8&nbsp;%</b>&nbsp; passent à l'action… et changent tout</span>
+  </div>
+
+  <!-- ============ ÉTAGE 4 : ACTION ============ -->
+  <section class="etage e4" id="action">
+    <div class="tete-etage reveler">
+      <div class="num-etage">Étape 04 — Sortie de l'entonnoir</div>
+      <h2>Action</h2>
+    </div>
+    <div class="boite-action reveler">
+      <div class="compteur-conv" id="compteur-conv" data-cible="8">0&nbsp;%</div>
+      <p class="note">des visiteurs arrivent ici. Vous en faites partie — ce n'est pas un hasard, c'est un funnel qui marche.</p>
+      <a class="btn-grad" href="mailto:contact@cymedia.ma?subject=Je%20suis%20arriv%C3%A9%20au%20bout%20du%20funnel">Convertir maintenant&nbsp;→</a>
+      <p class="reassurance">Appel découverte gratuit de 30 min. Trois recommandations concrètes, que vous signiez ou non.</p>
+      <span class="goutte" aria-hidden="true"></span>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="conteneur pied">
+    <span>© 2026 CyMedia — Agence marketing · Taux de conversion de cette page : à vous de jouer.</span>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="preview.html">Services</a></li>
+      <li><a href="mailto:contact@cymedia.ma">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   DONNÉES
+   ============================================================ */
+const PROJETS=[
+ {nom:'Virelo',seed:'virelo7',accrocheChaos:'2,4 M de personnes touchées',
+  accroche:'Une routine beauté en 19 secondes qui a arrêté le scroll.',statAcc:'+320\u00a0% d\u2019engagement'},
+ {nom:'Mindset Pro',seed:'mindset3',accrocheChaos:'Un short vu 1,8 M de fois',
+  accroche:'Un conseil contre-intuitif en 40 secondes, devenu viral.',statAcc:'+185\u00a0% de prospects'},
+ {nom:'Taskly',seed:'taskly9',accrocheChaos:'N°1 sur « alternative à … »',
+  accroche:'Le comparatif que tout le monde cherchait sur Google.',statAcc:'+210\u00a0% d\u2019inscriptions'},
+ {nom:'Maison Safran',seed:'safran5',accrocheChaos:'2,1 M de vues food',
+  accroche:'Un tajine filmé de si près qu\u2019on sent les épices.',statAcc:'+140\u00a0% de réservations'},
+ {nom:'Atlas Habitat',seed:'atlas2',accrocheChaos:'Visites 3D immersives',
+  accroche:'Visiter son futur appartement depuis son canapé.',statAcc:'−38\u00a0% de coût/lead'},
+ {nom:'Noor Bijoux',seed:'noor4',accrocheChaos:'Les coulisses d\u2019un atelier',
+  accroche:'Des mains qui créent, en gros plan. Hypnotique.',statAcc:'0→45k abonnés'}
+];
+const DESIR=[
+ {nom:'Virelo',seed:'virelo7',
+  quote:'On a doublé le chiffre d\u2019affaires en six mois. Le tunnel vend pendant qu\u2019on dort, littéralement.',
+  auteur:'Sofia R. — Fondatrice, Virelo',
+  stats:[['8,7×','ROAS'],['×2,4','C.A.'],['+320\u00a0%','Engagement']]},
+ {nom:'Maison Safran',seed:'safran5',
+  quote:'La salle est pleine tous les soirs et la liste d\u2019attente est devenue notre meilleur argument.',
+  auteur:'Salma B. — Maison Safran, Marrakech',
+  stats:[['+140\u00a0%','Réservations'],['×4','Abonnés'],['2,1\u00a0M','Vues']]},
+ {nom:'Taskly',seed:'taskly9',
+  quote:'L\u2019organique a dépassé le payant en cinq mois. On ne dépend plus de la pub pour grandir.',
+  auteur:'Mehdi K. — CEO, Taskly',
+  stats:[['+210\u00a0%','Inscriptions'],['7,2×','Rétention'],['−31\u00a0%','CAC']]}
+];
+
+/* ============================================================
+   ÉTAGE 1 : chaos flottant
+   ============================================================ */
+const chaos=document.getElementById('chaos');
+const POSITIONS=[[4,8],[38,2],[68,12],[14,46],[48,40],[76,52],[26,74],[58,78]];
+PROJETS.forEach((p,i)=>{
+  const [x,y]=POSITIONS[i];
+  const el=document.createElement('button');
+  el.className='puce-chaos';
+  el.style.left=x+'%';el.style.top=y+'%';
+  el.style.setProperty('--rot',((i%2?1:-1)*(2+i))+'deg');
+  el.style.animationDuration=(4.6+i*0.7)+'s';
+  el.style.animationDelay=(i*0.4)+'s';
+  el.innerHTML=`<img src="https://picsum.photos/seed/${p.seed}/60/60" alt="">${p.nom} — <b>${p.accrocheChaos}</b>`;
+  el.addEventListener('click',()=>document.getElementById('carte-int-'+i).scrollIntoView({behavior:'smooth',block:'center'}));
+  chaos.appendChild(el);
+});
+/* deux puces "bruit" en plus */
+[['Concurrents','du bruit, beaucoup de bruit'],['Pub classique','ignorée en 0,4 s']].forEach((b,j)=>{
+  const [x,y]=POSITIONS[6+j];
+  const el=document.createElement('button');
+  el.className='puce-chaos';
+  el.style.left=x+'%';el.style.top=y+'%';
+  el.style.opacity='.45';
+  el.style.setProperty('--rot',(j?-3:3)+'deg');
+  el.style.animationDuration=(6+j)+'s';
+  el.innerHTML=`${b[0]} — <span style="color:var(--sourdine)">${b[1]}</span>`;
+  chaos.appendChild(el);
+});
+
+/* ============================================================
+   ÉTAGE 2 : cartes intérêt
+   ============================================================ */
+const grilleInt=document.getElementById('grille-interet');
+PROJETS.forEach((p,i)=>{
+  const c=document.createElement('article');
+  c.className='carte-int reveler';
+  c.id='carte-int-'+i;
+  c.innerHTML=`
+    <img src="https://picsum.photos/seed/${p.seed}/520/300" alt="Projet ${p.nom}" loading="lazy">
+    <div class="corps">
+      <h3>${p.nom}</h3>
+      <p class="accroche">${p.accroche}</p>
+      <span class="stat-acc">${p.statAcc}</span>
+    </div>`;
+  grilleInt.appendChild(c);
+});
+
+/* ============================================================
+   ÉTAGE 3 : cartes désir
+   ============================================================ */
+const zoneDesir=document.getElementById('cartes-desir');
+DESIR.forEach(d=>{
+  const c=document.createElement('article');
+  c.className='carte-desir reveler';
+  c.innerHTML=`
+    <img src="https://picsum.photos/seed/${d.seed}/360/280" alt="Projet ${d.nom}" loading="lazy">
+    <div>
+      <h3>${d.nom}</h3>
+      <q>${d.quote}</q>
+      <div class="auteur">${d.auteur}</div>
+      <div class="stats-d">${d.stats.map(s=>`<div><b>${s[0]}</b><span>${s[1]}</span></div>`).join('')}</div>
+    </div>`;
+  zoneDesir.appendChild(c);
+});
+
+/* ============================================================
+   COLS DE L'ENTONNOIR : lignes qui relient les largeurs
+   ============================================================ */
+function largeurPx(v){ /* résout une var --lN en pixels */
+  const probe=document.createElement('div');
+  probe.style.cssText='position:absolute;visibility:hidden;width:'+v;
+  document.body.appendChild(probe);
+  const w=probe.getBoundingClientRect().width;
+  probe.remove();return w;
+}
+function dessinerCols(){
+  const W=window.innerWidth;
+  const paires=[['--l1','--l2','1'],['--l2','--l3','2'],['--l3','--l4','3']];
+  paires.forEach(([a,b,n])=>{
+    const wa=largeurPx(getComputedStyle(document.documentElement).getPropertyValue(a).trim());
+    const wb=largeurPx(getComputedStyle(document.documentElement).getPropertyValue(b).trim());
+    const col=document.getElementById('col'+n);
+    col.style.width=W+'px';
+    const h=col.getBoundingClientRect().height;
+    const g=document.getElementById('cg'+n),d=document.getElementById('cd'+n);
+    g.setAttribute('x1',(W-wa)/2);g.setAttribute('y1',0);
+    g.setAttribute('x2',(W-wb)/2);g.setAttribute('y2',h);
+    d.setAttribute('x1',(W+wa)/2);d.setAttribute('y1',0);
+    d.setAttribute('x2',(W+wb)/2);d.setAttribute('y2',h);
+  });
+}
+window.addEventListener('resize',dessinerCols);
+dessinerCols();
+
+/* ============================================================
+   FLUX DE POINTS
+   ============================================================ */
+const mouvementReduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!mouvementReduit){
+  const flux=document.getElementById('flux');
+  for(let i=0;i<16;i++){
+    const pt=document.createElement('i');
+    pt.style.left=(38+Math.random()*24)+'%';
+    pt.style.animationDuration=(5+Math.random()*6)+'s';
+    pt.style.animationDelay=(Math.random()*8)+'s';
+    flux.appendChild(pt);
+  }
+}
+
+/* ============================================================
+   JAUGE + compteur final + révélations
+   ============================================================ */
+const jauge=document.getElementById('jauge');
+const etapesJauge=[...jauge.children];
+etapesJauge.forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.cible).scrollIntoView({behavior:'smooth'})));
+const sections=['attention','interet','desir','action'].map(id=>document.getElementById(id));
+const obsEtapes=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      const i=sections.indexOf(e.target);
+      etapesJauge.forEach((b,j)=>b.classList.toggle('actif',j===i));
+    }
+  });
+},{threshold:.3});
+sections.forEach(s=>obsEtapes.observe(s));
+const obsJauge=new IntersectionObserver(es=>{
+  es.forEach(e=>jauge.classList.toggle('visible',e.isIntersecting));
+},{threshold:0});
+obsJauge.observe(document.querySelector('.contenu'));
+
+/* compteur 0→8 % */
+const compteur=document.getElementById('compteur-conv');
+const obsCompteur=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(!e.isIntersecting)return;
+    obsCompteur.unobserve(e.target);
+    if(mouvementReduit){compteur.innerHTML='8\u00a0%';return;}
+    const debut=performance.now();
+    (function pas(t){
+      const p=Math.min((t-debut)/1300,1);
+      compteur.innerHTML=Math.round(8*(1-Math.pow(1-p,3)))+'\u00a0%';
+      if(p<1)requestAnimationFrame(pas);
+    })(debut);
+  });
+},{threshold:.6});
+obsCompteur.observe(compteur);
+
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}})},{threshold:.1});
+document.querySelectorAll('.reveler').forEach(el=>obs.observe(el));
+
+/* ============================================================
+   MENU
+   ============================================================ */
+function basculerMenu(btn){
+  const m=document.getElementById('nav-links');
+  const o=m.classList.toggle('ouvert');
+  btn.setAttribute('aria-expanded',o);
+}
+document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav-links').classList.remove('ouvert')));
+function basculerSousMenu(btn){
+  const li=btn.parentElement;
+  const dejaOuvert=li.classList.contains('ouvert');
+  document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+    x.classList.remove('ouvert');
+    x.querySelector('button').setAttribute('aria-expanded','false');
+  });
+  if(!dejaOuvert){li.classList.add('ouvert');btn.setAttribute('aria-expanded','true');}
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.a-sous-menu')){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+</script>
+</body>
+</html>

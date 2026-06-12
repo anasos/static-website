@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réalisations — CyMedia (Ligne Croissance)</title>
+<meta name="description" content="Le portfolio CyMedia en plan de métro : la Ligne Croissance dessert 6 clients. Terminus : votre marque.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#08081A;
+  --fond2:#0D0D24;
+  --bord:rgba(255,255,255,.1);
+  --texte:#F0F0FB;
+  --sourdine:#9C9DC6;
+  --rose:#FF2E9C;
+  --violet:#7C5CFF;
+  --cyan:#3EE5E0;
+  --orange:#FF7A45;
+  --vert:#3EE58B;
+  --grad:linear-gradient(90deg,#FF2E9C,#7C5CFF);
+  --display:'Space Grotesk',sans-serif;
+  --corps:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--fond);color:var(--texte);font-family:var(--corps);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:8px}
+.conteneur{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ============================================================
+   NAV AVEC SOUS-MENUS
+   ============================================================ */
+.nav{position:sticky;top:0;z-index:60;background:rgba(8,8,26,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.marque{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700}
+.marque .glyphe{width:36px;height:36px}
+.marque .nom{font-size:1rem;line-height:1}
+.marque .nom small{display:block;font-size:.48rem;font-weight:500;letter-spacing:.4em;color:var(--sourdine)}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a,.nav-links>li>button{display:flex;align-items:center;gap:6px;font-family:var(--corps);font-size:.9rem;font-weight:500;color:var(--sourdine);background:none;border:none;cursor:pointer;padding:10px 14px;border-radius:10px;transition:color .2s,background .2s}
+.nav-links>li>a:hover,.nav-links>li>button:hover,.nav-links>li.ouvert>button{color:#fff;background:rgba(255,255,255,.06)}
+.chevron{width:9px;height:9px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex:none}
+li.ouvert .chevron{transform:rotate(225deg) translateY(-1px)}
+.sous-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);min-width:278px;background:linear-gradient(168deg,rgba(30,26,60,.96),rgba(16,14,38,.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:8px;list-style:none;box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(124,92,255,.15),inset 0 1px 0 rgba(255,255,255,.12);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s;max-height:70vh;overflow:auto}
+.sous-menu::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:rgba(30,26,60,.96);border-left:1px solid rgba(255,255,255,.14);border-top:1px solid rgba(255,255,255,.14)}
+li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+@media(hover:hover) and (min-width:721px){
+  .nav-links>li:hover .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .nav-links>li:hover>button{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-links>li:hover .chevron{transform:rotate(225deg) translateY(-1px)}
+}
+.sous-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.88rem;color:var(--sourdine);transition:color .2s,background .2s}
+.sous-menu a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.18),rgba(124,92,255,.14))}
+.sous-menu a i{font-style:normal;width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none;opacity:0;transition:opacity .2s}
+.sous-menu a:hover i{opacity:1}
+.sous-menu a.actif{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.22),rgba(124,92,255,.18))}
+.sous-menu a.actif i{opacity:1}
+.sous-menu .titre-groupe{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(156,157,198,.7);padding:8px 14px 4px}
+.sous-menu .separe{height:1px;background:rgba(255,255,255,.08);margin:6px 8px}
+.btn-cta{font-weight:600;font-size:.85rem;color:#fff!important;background:var(--grad);border-radius:999px;padding:10px 20px!important;box-shadow:0 0 22px rgba(255,46,156,.35);transition:transform .2s,box-shadow .2s}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(255,46,156,.5);background:var(--grad)!important}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:22px;height:2px;background:#fff;margin:5px 0;border-radius:2px}
+
+/* ============================================================
+   SIGNALÉTIQUE — EN-TÊTE DE LIGNE
+   ============================================================ */
+.signaletique{padding:50px 0 30px}
+.panneau-ligne{display:flex;align-items:center;gap:20px;flex-wrap:wrap;background:rgba(255,255,255,.04);border:1px solid var(--bord);border-radius:20px;padding:22px 26px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.badge-ligne{width:64px;height:64px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:2rem;color:#fff;flex:none;box-shadow:0 0 30px rgba(255,46,156,.55)}
+.infos-ligne h1{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,3.6vw,2.2rem);line-height:1.05}
+.infos-ligne .direction{font-size:.84rem;color:var(--sourdine)}
+.infos-ligne .direction b{color:#fff}
+.tableau-departs{margin-left:auto;background:#070714;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 18px;font-family:var(--display);font-size:.78rem;min-width:230px}
+.tableau-departs .rangee{display:flex;justify-content:space-between;gap:18px;padding:3px 0;color:var(--sourdine)}
+.tableau-departs .rangee b{color:#FFB347}
+.tableau-departs .rangee .maintenant{color:var(--vert);animation:clignoter 1.2s steps(2) infinite}
+@keyframes clignoter{50%{opacity:.25}}
+/* légende correspondances */
+.legende{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;font-size:.72rem;color:var(--sourdine)}
+.legende span{display:inline-flex;align-items:center;gap:7px}
+.legende i{font-style:normal;width:10px;height:10px;border-radius:50%;flex:none}
+
+/* ============================================================
+   LE PLAN
+   ============================================================ */
+.zone-plan{position:relative;max-width:1000px;margin:10px auto 0;padding:0 12px}
+.plan-svg{width:100%;height:auto;display:block}
+.rail-fond{fill:none;stroke:rgba(255,255,255,.13);stroke-width:14;stroke-linecap:round}
+.rail-parcouru{fill:none;stroke:url(#gradLigne);stroke-width:14;stroke-linecap:round;filter:drop-shadow(0 0 12px rgba(255,46,156,.55))}
+.station-cercle{fill:#0D0D24;stroke:#fff;stroke-width:5;transition:all .35s}
+.station.actif .station-cercle{stroke:url(#gradLigne);filter:drop-shadow(0 0 14px rgba(255,46,156,.8))}
+.station-terminus .station-cercle{stroke-width:7}
+.corresp{transition:opacity .35s}
+/* train */
+.train{filter:drop-shadow(0 6px 16px rgba(0,0,0,.6)) drop-shadow(0 0 18px rgba(255,46,156,.5))}
+/* fiches stations (HTML positionnées) */
+.fiche{position:absolute;width:min(300px,36%);background:linear-gradient(168deg,rgba(28,24,58,.92),rgba(13,12,32,.95));backdrop-filter:blur(10px);border:1px solid var(--bord);border-radius:16px;padding:15px 17px;transform:translateY(14px);opacity:0;transition:opacity .6s ease,transform .6s ease,border-color .35s,box-shadow .35s}
+.fiche.visible{opacity:1;transform:none}
+.fiche.actif{border-color:rgba(255,46,156,.55);box-shadow:0 0 34px rgba(255,46,156,.22)}
+.fiche .eyebrow-f{font-family:var(--display);font-size:.56rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--sourdine)}
+.fiche h3{font-family:var(--display);font-weight:700;font-size:1.15rem;margin:2px 0 4px}
+.fiche .desc-f{font-size:.74rem;color:#C9CAEA;margin-bottom:9px}
+.fiche .stats-f{display:flex;gap:12px;margin-bottom:9px}
+.fiche .stats-f b{font-family:var(--display);font-size:.92rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block;line-height:1.1}
+.fiche .stats-f span{font-size:.54rem;color:var(--sourdine)}
+.fiche .corresp-f{display:flex;align-items:center;gap:6px;font-size:.62rem;color:var(--sourdine)}
+.fiche .corresp-f i{font-style:normal;width:9px;height:9px;border-radius:50%}
+/* connecteur pointillé fiche→station */
+.fiche::before{content:"";position:absolute;top:50%;width:26px;border-top:2px dashed rgba(255,255,255,.3)}
+.fiche.cote-g::before{right:-28px}
+.fiche.cote-d::before{left:-28px}
+
+/* ============================================================
+   TERMINUS CTA
+   ============================================================ */
+.terminus-cta{text-align:center;padding:30px 24px 80px;max-width:620px;margin:0 auto}
+.terminus-cta .quai{font-family:var(--display);font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--sourdine);margin-bottom:10px}
+.terminus-cta h2{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,4.6vw,3rem);line-height:1.08;margin-bottom:12px}
+.txt-grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.terminus-cta p{color:var(--sourdine);margin-bottom:26px}
+.btn-grad{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:1rem;padding:15px 32px;border-radius:999px;background:var(--grad);color:#fff;box-shadow:0 0 28px rgba(255,46,156,.5);transition:transform .2s,box-shadow .2s}
+.btn-grad:hover{transform:translateY(-2px);box-shadow:0 0 42px rgba(255,46,156,.7)}
+.terminus-cta .note{font-size:.72rem;color:var(--sourdine);margin-top:14px}
+
+footer{border-top:1px solid rgba(255,255,255,.07);padding:26px 0}
+.pied{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.84rem;color:var(--sourdine)}
+.pied ul{display:flex;gap:24px;list-style:none}
+.pied ul a:hover{color:#fff}
+
+/* ---------- responsive ---------- */
+@media(max-width:640px){
+  .fiche{width:44%}
+  .fiche .desc-f{display:none}
+  .fiche .stats-f{gap:8px}
+  .tableau-departs{margin-left:0;width:100%}
+}
+@media(max-width:720px){
+  .nav-links{position:fixed;inset:72px 0 auto 0;max-height:calc(100vh - 72px);overflow:auto;background:var(--fond2);flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 24px;border-bottom:1px solid var(--bord);display:none;z-index:90}
+  .nav-links.ouvert{display:flex}
+  .nav-links>li>a,.nav-links>li>button{width:100%;justify-content:space-between;padding:14px 10px;font-size:.95rem}
+  .sous-menu{position:static;transform:none;min-width:0;opacity:1;visibility:visible;box-shadow:none;border:none;background:rgba(255,255,255,.03);border-radius:12px;margin:0 6px 8px;display:none;padding:6px;max-height:none}
+  .sous-menu::before{display:none}
+  li.ouvert .sous-menu{display:block}
+  .btn-cta{justify-content:center;text-align:center;margin-top:10px}
+  .burger{display:block}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.001s!important}
+  .fiche{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Nav avec sous-menus ===== -->
+<header class="nav">
+  <div class="conteneur nav-inner">
+    <a href="index.html" class="marque" aria-label="CyMedia — Accueil">
+      <svg class="glyphe" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+      </svg>
+      <span class="nom">CYMEDIA<small>MARKETING AGENCY</small></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="preview.html">Services</a></li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Portfolio <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="work.html"><i></i>Portfolio — grille</a></li>
+            <li><a href="cymedia-portfolio.html"><i></i>Portfolio — cartes verre</a></li>
+            <li><a href="cymedia-portfolio-v2.html"><i></i>Portfolio — index éditorial</a></li>
+            <li><a href="cymedia-portfolio-v3.html"><i></i>Portfolio — cinématique</a></li>
+            <li><a href="cymedia-portfolio-v4.html"><i></i>Portfolio — mosaïque bento</a></li>
+            <li><a href="cymedia-portfolio-v5.html"><i></i>Portfolio — scrollytelling 3D</a></li>
+            <li><a href="cymedia-portfolio-v6.html"><i></i>Portfolio — showreel vidéo</a></li>
+            <li><a href="cymedia-portfolio-v7.html"><i></i>Portfolio — split-screen</a></li>
+            <li><a href="cymedia-portfolio-v8.html"><i></i>Portfolio — édition magazine</a></li>
+            <li><a href="cymedia-portfolio-v9.html"><i></i>Portfolio — galerie horizontale</a></li>
+            <li><a href="cymedia-portfolio-v10.html"><i></i>Portfolio — le feed social</a></li>
+            <li><a href="cymedia-portfolio-v11.html"><i></i>Portfolio — dashboard analytics</a></li>
+            <li><a href="cymedia-portfolio-v12.html"><i></i>Portfolio — salle de montage</a></li>
+            <li><a href="cymedia-portfolio-v13.html"><i></i>Portfolio — le funnel</a></li>
+            <li><a href="cymedia-portfolio-v14.html"><i></i>Portfolio — quiz de diagnostic</a></li>
+            <li><a href="cymedia-portfolio-v15.html"><i></i>Portfolio — visite du studio</a></li>
+            <li><a href="cymedia-portfolio-v16.html" class="actif" aria-current="page"><i></i>Portfolio — Ligne Croissance</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Versions <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li class="titre-groupe">Pages d'accueil</li>
+            <li><a href="index.html"><i></i>Version 1</a></li>
+            <li><a href="v2.html"><i></i>Version 2</a></li>
+            <li><a href="v3.html"><i></i>Version 3</a></li>
+            <li><a href="v4.html"><i></i>Version 4</a></li>
+            <li><a href="v5.html"><i></i>Version 5</a></li>
+            <li class="separe" aria-hidden="true"></li>
+            <li><a href="clear_fab.html"><i></i>Version claire</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Carrousels <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="carousel_1.html"><i></i>Carrousel V1</a></li>
+            <li><a href="carousel_2.html"><i></i>Carrousel V2</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Tarifs</a></li>
+        <li><a href="#terminus" class="btn-cta">Réserver un appel</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="basculerMenu(this)"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== Signalétique ===== -->
+<section class="signaletique">
+  <div class="conteneur">
+    <div class="panneau-ligne">
+      <span class="badge-ligne">C</span>
+      <div class="infos-ligne">
+        <h1>Ligne Croissance</h1>
+        <p class="direction">Direction <b>Votre Marque</b> · dessert 6 clients + 1 terminus</p>
+      </div>
+      <div class="tableau-departs" aria-label="Tableau des départs">
+        <div class="rangee"><span>Prochain départ</span><b class="maintenant">MAINTENANT</b></div>
+        <div class="rangee"><span>Durée du trajet</span><b>~6 mois</b></div>
+        <div class="rangee"><span>Quai</span><b>Nº 1</b></div>
+      </div>
+    </div>
+    <div class="legende" aria-label="Correspondances">
+      <span><i style="background:#FF2E9C"></i>Publicité & Ads</span>
+      <span><i style="background:#7C5CFF"></i>Branding</span>
+      <span><i style="background:#3EE5E0"></i>SEO & contenu</span>
+      <span><i style="background:#FF7A45"></i>Vidéo & réels</span>
+      <span><i style="background:#3EE58B"></i>Génération de leads</span>
+      <span style="margin-left:auto">Faites défiler — le train suit votre lecture 🚇</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Le plan ===== -->
+<div class="zone-plan" id="zone-plan">
+  <svg class="plan-svg" id="plan" viewBox="0 0 1000 3450" aria-label="Plan de la Ligne Croissance">
+    <defs>
+      <linearGradient id="gradLigne" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#FF2E9C"/><stop offset="1" stop-color="#7C5CFF"/>
+      </linearGradient>
+    </defs>
+    <path class="rail-fond" id="rail-fond"/>
+    <path class="rail-parcouru" id="rail-parcouru"/>
+    <g id="stations-svg"></g>
+    <g class="train" id="train">
+      <rect x="-34" y="-16" width="68" height="32" rx="10" fill="#15152e" stroke="url(#gradLigne)" stroke-width="3"/>
+      <rect x="-22" y="-8" width="13" height="11" rx="2.5" fill="#9fe8ff" opacity=".85"/>
+      <rect x="-4" y="-8" width="13" height="11" rx="2.5" fill="#9fe8ff" opacity=".85"/>
+      <rect x="14" y="-8" width="9" height="11" rx="2.5" fill="#9fe8ff" opacity=".85"/>
+      <circle cx="30" cy="0" r="4.5" fill="#FFE9A0"/>
+    </g>
+  </svg>
+  <div id="fiches"></div>
+</div>
+
+<!-- ===== Terminus CTA ===== -->
+<section class="terminus-cta" id="terminus">
+  <div class="quai">Terminus · Tout le monde descend</div>
+  <h2>Prochaine station : <span class="txt-grad">votre marque.</span></h2>
+  <p>La Ligne Croissance a encore des places. Appel découverte gratuit de 30 minutes : nous traçons ensemble votre itinéraire.</p>
+  <a class="btn-grad" href="mailto:contact@cymedia.ma?subject=Je%20monte%20%C3%A0%20bord%20de%20la%20Ligne%20Croissance">Monter à bord&nbsp;→</a>
+  <p class="note">Titre de transport non requis. Correspondances illimitées entre nos services.</p>
+</section>
+
+<footer>
+  <div class="conteneur pied">
+    <span>© 2026 CyMedia — Agence marketing · RATP non affiliée, croissance garantie d'origine.</span>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="preview.html">Services</a></li>
+      <li><a href="mailto:contact@cymedia.ma">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   STATIONS  (coordonnées dans le viewBox 1000×3450)
+   ============================================================ */
+const SERVICES={ads:'#FF2E9C',brand:'#7C5CFF',seo:'#3EE5E0',video:'#FF7A45',leads:'#3EE58B'};
+const STATIONS=[
+ {nom:'Départ',x:500,y:110,type:'depart',sous:'Toute croissance commence ici'},
+ {nom:'Virelo',x:790,y:520,cat:'E-commerce',desc:'Tunnel social-to-sale reconstruit : le système vend 24h/24.',
+  stats:[['8,7×','ROAS'],['+320\u00a0%','Engag.']],corresp:['ads','video']},
+ {nom:'Mindset Pro',x:210,y:950,cat:'Coaching',desc:'Écosystème YouTube + newsletter + communauté privée.',
+  stats:[['+185\u00a0%','Prospects'],['6,3×','C.A.']],corresp:['video','brand']},
+ {nom:'Taskly',x:790,y:1380,cat:'SaaS',desc:'Product-led growth : l\u2019organique a dépassé le payant.',
+  stats:[['+210\u00a0%','Inscriptions'],['−31\u00a0%','CAC']],corresp:['seo','leads']},
+ {nom:'Maison Safran',x:210,y:1810,cat:'Restauration',desc:'Réels food viraux, réservation depuis Instagram.',
+  stats:[['+140\u00a0%','Réserv.'],['2,1\u00a0M','Vues']],corresp:['video','brand','ads']},
+ {nom:'Atlas Habitat',x:790,y:2240,cat:'Immobilier',desc:'Visites virtuelles + qualification automatique des leads.',
+  stats:[['+95\u00a0%','Leads'],['−38\u00a0%','Coût/lead']],corresp:['leads','seo']},
+ {nom:'Noor Bijoux',x:210,y:2670,cat:'E-commerce',desc:'Lancement de zéro, rentable dès le troisième mois.',
+  stats:[['0→45k','Abonnés'],['5,4×','ROAS']],corresp:['brand','ads','video']},
+ {nom:'Votre Marque',x:500,y:3180,type:'terminus',sous:'Terminus — correspondance avec votre futur'}
+];
+
+/* ============================================================
+   TRACÉ DE LA LIGNE (courbes douces entre stations)
+   ============================================================ */
+function tracer(){
+  let d='M'+STATIONS[0].x+' '+STATIONS[0].y;
+  for(let i=1;i<STATIONS.length;i++){
+    const a=STATIONS[i-1],b=STATIONS[i];
+    const my=(a.y+b.y)/2;
+    d+=` C ${a.x} ${my}, ${b.x} ${my}, ${b.x} ${b.y}`;
+  }
+  return d;
+}
+const railFond=document.getElementById('rail-fond');
+const railParcouru=document.getElementById('rail-parcouru');
+railFond.setAttribute('d',tracer());
+railParcouru.setAttribute('d',tracer());
+const L=railParcouru.getTotalLength();
+railParcouru.style.strokeDasharray=L;
+railParcouru.style.strokeDashoffset=L;
+
+/* longueur curviligne de chaque station (échantillonnage) */
+const longueursStations=STATIONS.map(s=>{
+  let meilleure=0,dist=Infinity;
+  for(let t=0;t<=1;t+=0.002){
+    const p=railParcouru.getPointAtLength(t*L);
+    const d2=(p.x-s.x)**2+(p.y-s.y)**2;
+    if(d2<dist){dist=d2;meilleure=t*L;}
+  }
+  return meilleure;
+});
+
+/* ============================================================
+   STATIONS SVG + FICHES HTML
+   ============================================================ */
+const gStations=document.getElementById('stations-svg');
+const zoneFiches=document.getElementById('fiches');
+const NS='http://www.w3.org/2000/svg';
+STATIONS.forEach((s,i)=>{
+  const g=document.createElementNS(NS,'g');
+  g.setAttribute('class','station'+(s.type==='terminus'?' station-terminus':''));
+  g.dataset.i=i;
+  const r=s.type?'22':'15';
+  g.innerHTML=`<circle class="station-cercle" cx="${s.x}" cy="${s.y}" r="${r}"/>`;
+  /* pastilles de correspondance autour de la station */
+  if(s.corresp){
+    s.corresp.forEach((c,j)=>{
+      const cx=s.x+(s.x<500?1:-1)*(30+j*22);
+      const pt=document.createElementNS(NS,'circle');
+      pt.setAttribute('class','corresp');
+      pt.setAttribute('cx',cx);pt.setAttribute('cy',s.y+30);pt.setAttribute('r','8');
+      pt.setAttribute('fill',SERVICES[c]);
+      g.appendChild(pt);
+    });
+  }
+  /* nom de la station dans le SVG pour Départ/Terminus */
+  if(s.type){
+    const t=document.createElementNS(NS,'text');
+    t.setAttribute('x',s.x);t.setAttribute('y',s.y-(s.type==='terminus'?42:36));
+    t.setAttribute('text-anchor','middle');
+    t.setAttribute('style','font-family:Space Grotesk;font-weight:700;font-size:30px;fill:#fff');
+    t.textContent=s.nom.toUpperCase();
+    g.appendChild(t);
+    const st=document.createElementNS(NS,'text');
+    st.setAttribute('x',s.x);st.setAttribute('y',s.y+(s.type==='terminus'?58:54));
+    st.setAttribute('text-anchor','middle');
+    st.setAttribute('style','font-family:Inter;font-size:16px;fill:#9C9DC6');
+    st.textContent=s.sous;
+    g.appendChild(st);
+  }
+  gStations.appendChild(g);
+
+  /* fiche HTML pour les clients */
+  if(!s.type){
+    const gauche=s.x>500; /* station à droite → fiche à gauche */
+    const f=document.createElement('article');
+    f.className='fiche '+(gauche?'cote-g':'cote-d');
+    f.dataset.i=i;
+    f.style[gauche?'right':'left']=((gauche?(1000-s.x):s.x)/1000*100+5.5)+'%';
+    f.style.top=(s.y/3450*100)+'%';
+    f.style.transform='translateY(-50%)';
+    f.innerHTML=`
+      <div class="eyebrow-f">Station ${String(i).padStart(2,'0')} · ${s.cat}</div>
+      <h3>${s.nom}</h3>
+      <p class="desc-f">${s.desc}</p>
+      <div class="stats-f">${s.stats.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>
+      <div class="corresp-f">Correspondances : ${s.corresp.map(c=>`<i style="background:${SERVICES[c]}"></i>`).join('')}</div>`;
+    zoneFiches.appendChild(f);
+  }
+});
+const fiches=[...zoneFiches.children];
+const stationsSvg=[...gStations.children];
+
+/* révélation des fiches */
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:.2});
+fiches.forEach(f=>{
+  /* garder translateY(-50%) après révélation */
+  f.style.transform='translateY(calc(-50% + 14px))';
+  obs.observe(f);
+});
+const style=document.createElement('style');
+style.textContent='.fiche.visible{transform:translateY(-50%)!important}';
+document.head.appendChild(style);
+
+/* ============================================================
+   LE TRAIN SUIT LE SCROLL
+   ============================================================ */
+const zonePlan=document.getElementById('zone-plan');
+const train=document.getElementById('train');
+const mouvementReduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let prog=0,progCible=0;
+
+function calculerCible(){
+  const r=zonePlan.getBoundingClientRect();
+  const ancre=window.innerHeight*0.55;
+  progCible=Math.min(Math.max((ancre-r.top)/(r.height-120),0),1);
+}
+function rendre(){
+  prog+=(progCible-prog)*(mouvementReduit?1:.1);
+  const lg=prog*L;
+  const p=railParcouru.getPointAtLength(lg);
+  const p2=railParcouru.getPointAtLength(Math.min(lg+2,L));
+  const angle=Math.atan2(p2.y-p.y,p2.x-p.x)*180/Math.PI;
+  train.setAttribute('transform',`translate(${p.x} ${p.y}) rotate(${angle+90})`);
+  railParcouru.style.strokeDashoffset=L-lg;
+  /* stations actives */
+  stationsSvg.forEach((g,i)=>{
+    const actif=lg>=longueursStations[i]-4;
+    g.classList.toggle('actif',actif);
+    const f=fiches.find(x=>+x.dataset.i===i);
+    if(f)f.classList.toggle('actif',actif&&lg<longueursStations[i]+260);
+  });
+  requestAnimationFrame(rendre);
+}
+window.addEventListener('scroll',calculerCible,{passive:true});
+window.addEventListener('resize',calculerCible);
+calculerCible();
+/* orientation initiale du train : vers le bas */
+requestAnimationFrame(rendre);
+
+/* ============================================================
+   MENU
+   ============================================================ */
+function basculerMenu(btn){
+  const m=document.getElementById('nav-links');
+  const o=m.classList.toggle('ouvert');
+  btn.setAttribute('aria-expanded',o);
+}
+document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav-links').classList.remove('ouvert')));
+function basculerSousMenu(btn){
+  const li=btn.parentElement;
+  const dejaOuvert=li.classList.contains('ouvert');
+  document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+    x.classList.remove('ouvert');
+    x.querySelector('button').setAttribute('aria-expanded','false');
+  });
+  if(!dejaOuvert){li.classList.add('ouvert');btn.setAttribute('aria-expanded','true');}
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.a-sous-menu')){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+</script>
+</body>
+</html>

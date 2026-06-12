@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réalisations — CyMedia (dashboard analytics)</title>
+<meta name="description" content="Le portfolio CyMedia présenté comme un tableau de bord analytics : chaque campagne est une étude de cas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#08081A;
+  --fond2:#0D0D24;
+  --carte:#0F0F28;
+  --carte2:#13132e;
+  --bord:rgba(255,255,255,.1);
+  --texte:#F0F0FB;
+  --sourdine:#9C9DC6;
+  --rose:#FF2E9C;
+  --violet:#7C5CFF;
+  --cyan:#3EE5E0;
+  --vert:#3EE58B;
+  --grad:linear-gradient(90deg,#FF2E9C,#7C5CFF);
+  --display:'Space Grotesk',sans-serif;
+  --corps:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--fond);color:var(--texte);font-family:var(--corps);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}
+.conteneur{max-width:1280px;margin:0 auto;padding:0 24px}
+
+/* ============================================================
+   NAV AVEC SOUS-MENUS
+   ============================================================ */
+.nav{position:sticky;top:0;z-index:60;background:rgba(8,8,26,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.marque{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700}
+.marque .glyphe{width:36px;height:36px}
+.marque .nom{font-size:1rem;line-height:1}
+.marque .nom small{display:block;font-size:.48rem;font-weight:500;letter-spacing:.4em;color:var(--sourdine)}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a,.nav-links>li>button{display:flex;align-items:center;gap:6px;font-family:var(--corps);font-size:.9rem;font-weight:500;color:var(--sourdine);background:none;border:none;cursor:pointer;padding:10px 14px;border-radius:10px;transition:color .2s,background .2s}
+.nav-links>li>a:hover,.nav-links>li>button:hover,.nav-links>li.ouvert>button{color:#fff;background:rgba(255,255,255,.06)}
+.chevron{width:9px;height:9px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex:none}
+li.ouvert .chevron{transform:rotate(225deg) translateY(-1px)}
+.sous-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);min-width:265px;background:linear-gradient(168deg,rgba(30,26,60,.96),rgba(16,14,38,.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:8px;list-style:none;box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(124,92,255,.15),inset 0 1px 0 rgba(255,255,255,.12);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s}
+.sous-menu::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:rgba(30,26,60,.96);border-left:1px solid rgba(255,255,255,.14);border-top:1px solid rgba(255,255,255,.14)}
+li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+@media(hover:hover) and (min-width:721px){
+  .nav-links>li:hover .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .nav-links>li:hover>button{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-links>li:hover .chevron{transform:rotate(225deg) translateY(-1px)}
+}
+.sous-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.88rem;color:var(--sourdine);transition:color .2s,background .2s}
+.sous-menu a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.18),rgba(124,92,255,.14))}
+.sous-menu a i{font-style:normal;width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none;opacity:0;transition:opacity .2s}
+.sous-menu a:hover i{opacity:1}
+.sous-menu a.actif{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.22),rgba(124,92,255,.18))}
+.sous-menu a.actif i{opacity:1}
+.sous-menu .titre-groupe{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(156,157,198,.7);padding:8px 14px 4px}
+.sous-menu .separe{height:1px;background:rgba(255,255,255,.08);margin:6px 8px}
+.btn-cta{font-weight:600;font-size:.85rem;color:#fff!important;background:var(--grad);border-radius:999px;padding:10px 20px!important;box-shadow:0 0 22px rgba(255,46,156,.35);transition:transform .2s,box-shadow .2s}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(255,46,156,.5);background:var(--grad)!important}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:22px;height:2px;background:#fff;margin:5px 0;border-radius:2px}
+
+/* ============================================================
+   COQUILLE DASHBOARD
+   ============================================================ */
+.app{display:grid;grid-template-columns:230px 1fr;gap:0;max-width:1280px;margin:26px auto 60px;padding:0 24px}
+/* sidebar */
+.lateral{background:var(--carte);border:1px solid var(--bord);border-right:none;border-radius:20px 0 0 20px;padding:22px 14px;display:flex;flex-direction:column;gap:4px}
+.lateral .titre-app{font-family:var(--display);font-weight:700;font-size:.92rem;padding:4px 12px 16px;display:flex;align-items:center;gap:9px}
+.lateral .titre-app i{font-style:normal;width:9px;height:9px;border-radius:50%;background:var(--vert);box-shadow:0 0 10px var(--vert);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.4}}
+.lateral button{display:flex;align-items:center;gap:11px;width:100%;background:none;border:none;cursor:pointer;font-size:.86rem;font-weight:500;color:var(--sourdine);padding:10px 12px;border-radius:11px;transition:background .2s,color .2s;text-align:left}
+.lateral button:hover{color:#fff;background:rgba(255,255,255,.05)}
+.lateral button.actif{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.2),rgba(124,92,255,.16));box-shadow:inset 2px 0 0 var(--rose)}
+.lateral .ico{width:17px;text-align:center;flex:none}
+.lateral .spacer{flex:1}
+.lateral .carte-aide{background:linear-gradient(135deg,rgba(255,46,156,.16),rgba(124,92,255,.14));border:1px solid rgba(255,46,156,.35);border-radius:14px;padding:14px;font-size:.76rem;color:#E9D9F2}
+.lateral .carte-aide b{display:block;font-family:var(--display);color:#fff;margin-bottom:4px}
+.lateral .carte-aide a{display:inline-block;margin-top:9px;font-weight:700;font-size:.74rem;background-image:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* zone principale */
+.principal{background:var(--fond2);border:1px solid var(--bord);border-radius:0 20px 20px 0;padding:24px 26px 30px;min-width:0}
+.barre-haut{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.barre-haut h1{font-family:var(--display);font-weight:700;font-size:1.35rem}
+.barre-haut .sous{font-size:.78rem;color:var(--sourdine)}
+.outils{display:flex;gap:10px;align-items:center}
+.periodes{display:flex;background:var(--carte);border:1px solid var(--bord);border-radius:11px;padding:3px}
+.periodes button{background:none;border:none;cursor:pointer;font-size:.76rem;font-weight:600;color:var(--sourdine);padding:7px 13px;border-radius:8px;transition:all .2s}
+.periodes button.actif{color:#fff;background:var(--grad);box-shadow:0 0 14px rgba(255,46,156,.35)}
+.btn-export{display:flex;align-items:center;gap:7px;background:var(--carte);border:1px solid var(--bord);border-radius:11px;padding:9px 15px;font-size:.78rem;font-weight:600;cursor:pointer;transition:border-color .2s}
+.btn-export:hover{border-color:rgba(255,46,156,.5)}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.kpi{background:var(--carte);border:1px solid var(--bord);border-radius:16px;padding:16px 16px 12px;position:relative;overflow:hidden}
+.kpi .lbl{font-size:.7rem;color:var(--sourdine);letter-spacing:.06em}
+.kpi .val{font-family:var(--display);font-weight:700;font-size:1.6rem;line-height:1.15;margin:4px 0 2px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.kpi .delta{font-size:.68rem;font-weight:700;display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:3px 9px}
+.kpi .delta.haut{color:#9CF5C6;background:rgba(62,229,139,.13)}
+.kpi .delta.bas{color:#FFB3C9;background:rgba(255,46,76,.13)}
+.kpi svg{position:absolute;right:8px;bottom:6px;width:86px;height:32px;opacity:.9}
+
+/* grilles graphiques */
+.rangee-graphes{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:18px}
+.bloc{background:var(--carte);border:1px solid var(--bord);border-radius:16px;padding:18px}
+.bloc .bloc-titre{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.bloc h2{font-family:var(--display);font-weight:700;font-size:.95rem}
+.bloc .legende-mini{font-size:.68rem;color:var(--sourdine)}
+.legende-series{display:flex;gap:14px;font-size:.7rem;color:var(--sourdine)}
+.legende-series i{font-style:normal;display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+/* graphe principal */
+#graphe-principal{width:100%;height:230px}
+.grille-svg{stroke:rgba(255,255,255,.06)}
+.axe-txt{fill:#7C7DA8;font-size:9.5px;font-family:Inter}
+/* donut */
+.donut-zone{display:flex;align-items:center;gap:18px}
+.donut-zone svg{width:140px;height:140px;flex:none}
+.donut-centre{font-family:var(--display);font-weight:700;font-size:1rem;fill:#fff}
+.donut-centre-s{font-size:8.5px;fill:#9C9DC6}
+.donut-leg{list-style:none;font-size:.76rem;flex:1}
+.donut-leg li{display:flex;align-items:center;gap:8px;padding:4px 0;color:var(--sourdine)}
+.donut-leg i{font-style:normal;width:9px;height:9px;border-radius:3px;flex:none}
+.donut-leg b{margin-left:auto;color:#fff;font-family:var(--display)}
+
+/* table campagnes */
+.table-zone{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.84rem;min-width:680px}
+thead th{text-align:left;font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--sourdine);padding:10px 12px;border-bottom:1px solid var(--bord)}
+tbody tr{cursor:pointer;transition:background .2s}
+tbody tr:hover{background:rgba(255,46,156,.06)}
+tbody td{padding:13px 12px;border-bottom:1px solid rgba(255,255,255,.05)}
+.cellule-client{display:flex;align-items:center;gap:11px;font-weight:600}
+.cellule-client img{width:34px;height:34px;border-radius:10px;object-fit:cover;border:1px solid var(--bord)}
+.cellule-client span small{display:block;font-weight:500;font-size:.68rem;color:var(--sourdine)}
+.statut{font-size:.66rem;font-weight:700;border-radius:999px;padding:4px 10px}
+.statut.actif{color:#9CF5C6;background:rgba(62,229,139,.12)}
+.statut.termine{color:#C9CAEA;background:rgba(255,255,255,.08)}
+.roas{font-family:var(--display);font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.perf-barre{width:110px;height:6px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.perf-barre i{display:block;height:100%;border-radius:99px;background:var(--grad);box-shadow:0 0 10px rgba(255,46,156,.5);width:0;transition:width 1s cubic-bezier(.22,.8,.26,1)}
+.voir-rapport{font-size:1rem;color:var(--sourdine)}
+tbody tr:hover .voir-rapport{color:#fff}
+
+/* ============================================================
+   PANNEAU RAPPORT (slide-over)
+   ============================================================ */
+body.fige{overflow:hidden}
+.rapport-fond{position:fixed;inset:0;z-index:90;background:rgba(5,5,16,.6);backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+.rapport-fond.ouvert{opacity:1;visibility:visible}
+.rapport{position:fixed;top:0;right:0;bottom:0;z-index:95;width:min(500px,94vw);background:linear-gradient(170deg,rgba(28,24,58,.95),rgba(13,12,32,.98));backdrop-filter:blur(24px);border-left:1px solid rgba(255,255,255,.16);box-shadow:-40px 0 110px rgba(0,0,0,.7),0 0 80px rgba(124,92,255,.2);transform:translateX(105%);transition:transform .5s cubic-bezier(.22,.8,.26,1);display:flex;flex-direction:column}
+.rapport.ouvert{transform:none}
+.r-defile{overflow-y:auto;padding:24px 26px 32px;scrollbar-width:thin;scrollbar-color:rgba(255,46,156,.5) transparent}
+.r-defile::-webkit-scrollbar{width:7px}
+.r-defile::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#FF2E9C,#7C5CFF);border-radius:99px}
+.r-fermer{position:absolute;top:16px;right:16px;z-index:2;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:rgba(10,10,28,.5);color:#fff;cursor:pointer;font-size:.95rem;transition:background .25s,transform .25s}
+.r-fermer:hover{background:rgba(255,46,156,.45);transform:rotate(90deg)}
+.r-entete{font-size:.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--sourdine);margin-bottom:8px}
+.rapport h2{font-family:var(--display);font-weight:700;font-size:1.7rem;margin-bottom:4px}
+.r-sous{font-size:.78rem;color:var(--sourdine);margin-bottom:16px}
+.r-img{border-radius:14px;overflow:hidden;border:1px solid var(--bord);margin-bottom:16px}
+.r-img img{width:100%;height:170px;object-fit:cover}
+.r-graphe{background:rgba(255,255,255,.04);border:1px solid var(--bord);border-radius:14px;padding:12px;margin-bottom:16px}
+.r-graphe svg{width:100%;height:110px}
+.r-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.r-stat{background:rgba(255,255,255,.05);border:1px solid var(--bord);border-radius:12px;padding:11px 8px;text-align:center}
+.r-stat b{font-family:var(--display);font-size:1.15rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block;line-height:1.1}
+.r-stat span{font-size:.6rem;color:var(--sourdine)}
+.rapport .desc{font-size:.86rem;color:#C9CAEA;margin-bottom:16px}
+.r-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.r-tags span{font-size:.66rem;font-weight:600;color:#E4DCFF;background:rgba(124,92,255,.15);border:1px solid rgba(124,92,255,.42);border-radius:999px;padding:5px 11px}
+.btn-grad{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.9rem;padding:12px 24px;border-radius:999px;background:var(--grad);color:#fff;box-shadow:0 0 24px rgba(255,46,156,.4);transition:transform .2s,box-shadow .2s}
+.btn-grad:hover{transform:translateY(-2px);box-shadow:0 0 34px rgba(255,46,156,.6)}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(80px);z-index:120;background:linear-gradient(168deg,rgba(30,26,60,.97),rgba(16,14,38,.98));border:1px solid rgba(255,46,156,.45);border-radius:14px;padding:13px 20px;font-size:.84rem;box-shadow:0 18px 50px rgba(0,0,0,.6),0 0 30px rgba(255,46,156,.25);opacity:0;transition:transform .4s cubic-bezier(.22,.8,.26,1),opacity .4s;pointer-events:none}
+.toast.visible{transform:translateX(-50%) translateY(0);opacity:1}
+
+footer{border-top:1px solid rgba(255,255,255,.07);padding:26px 0}
+.pied{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.84rem;color:var(--sourdine)}
+.pied ul{display:flex;gap:24px;list-style:none}
+.pied ul a:hover{color:#fff}
+
+/* ---------- responsive ---------- */
+@media(max-width:1020px){.kpis{grid-template-columns:repeat(2,1fr)}.rangee-graphes{grid-template-columns:1fr}}
+@media(max-width:860px){
+  .app{grid-template-columns:1fr;padding:0 16px}
+  .lateral{flex-direction:row;flex-wrap:wrap;border-radius:20px 20px 0 0;border-right:1px solid var(--bord);border-bottom:none;gap:4px;padding:12px}
+  .lateral .titre-app,.lateral .spacer,.lateral .carte-aide{display:none}
+  .lateral button{width:auto}
+  .principal{border-radius:0 0 20px 20px;padding:18px 16px 24px}
+}
+@media(max-width:720px){
+  .nav-links{position:fixed;inset:72px 0 auto 0;max-height:calc(100vh - 72px);overflow:auto;background:var(--fond2);flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 24px;border-bottom:1px solid var(--bord);display:none}
+  .nav-links.ouvert{display:flex}
+  .nav-links>li>a,.nav-links>li>button{width:100%;justify-content:space-between;padding:14px 10px;font-size:.95rem}
+  .sous-menu{position:static;transform:none;min-width:0;opacity:1;visibility:visible;box-shadow:none;border:none;background:rgba(255,255,255,.03);border-radius:12px;margin:0 6px 8px;display:none;padding:6px}
+  .sous-menu::before{display:none}
+  li.ouvert .sous-menu{display:block}
+  .btn-cta{justify-content:center;text-align:center;margin-top:10px}
+  .burger{display:block}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.001s!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Nav avec sous-menus ===== -->
+<header class="nav">
+  <div class="conteneur nav-inner">
+    <a href="index.html" class="marque" aria-label="CyMedia — Accueil">
+      <svg class="glyphe" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+      </svg>
+      <span class="nom">CYMEDIA<small>MARKETING AGENCY</small></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="preview.html">Services</a></li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Portfolio <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="work.html"><i></i>Portfolio — grille</a></li>
+            <li><a href="cymedia-portfolio.html"><i></i>Portfolio — cartes verre</a></li>
+            <li><a href="cymedia-portfolio-v2.html"><i></i>Portfolio — index éditorial</a></li>
+            <li><a href="cymedia-portfolio-v3.html"><i></i>Portfolio — cinématique</a></li>
+            <li><a href="cymedia-portfolio-v4.html"><i></i>Portfolio — mosaïque bento</a></li>
+            <li><a href="cymedia-portfolio-v5.html"><i></i>Portfolio — scrollytelling 3D</a></li>
+            <li><a href="cymedia-portfolio-v6.html"><i></i>Portfolio — showreel vidéo</a></li>
+            <li><a href="cymedia-portfolio-v7.html"><i></i>Portfolio — split-screen</a></li>
+            <li><a href="cymedia-portfolio-v8.html"><i></i>Portfolio — édition magazine</a></li>
+            <li><a href="cymedia-portfolio-v9.html"><i></i>Portfolio — galerie horizontale</a></li>
+            <li><a href="cymedia-portfolio-v10.html"><i></i>Portfolio — le feed social</a></li>
+            <li><a href="cymedia-portfolio-v11.html" class="actif" aria-current="page"><i></i>Portfolio — dashboard analytics</a></li>          
+            <li><a href="cymedia-portfolio-v12.html"><i></i>Portfolio — salle de montage</a></li>
+            <li><a href="cymedia-portfolio-v13.html"><i></i>Portfolio — le funnel</a></li>
+            <li><a href="cymedia-portfolio-v14.html"><i></i>Portfolio — quiz de diagnostic</a></li>
+            <li><a href="cymedia-portfolio-v15.html"><i></i>Portfolio — visite du studio</a></li>
+            <li><a href="cymedia-portfolio-v16.html"><i></i>Portfolio — Ligne Croissance</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Versions <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li class="titre-groupe">Pages d'accueil</li>
+            <li><a href="index.html"><i></i>Version 1</a></li>
+            <li><a href="v2.html"><i></i>Version 2</a></li>
+            <li><a href="v3.html"><i></i>Version 3</a></li>
+            <li><a href="v4.html"><i></i>Version 4</a></li>
+            <li><a href="v5.html"><i></i>Version 5</a></li>
+            <li class="separe" aria-hidden="true"></li>
+            <li><a href="clear_fab.html"><i></i>Version claire</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Carrousels <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="carousel_1.html"><i></i>Carrousel V1</a></li>
+            <li><a href="carousel_2.html"><i></i>Carrousel V2</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Tarifs</a></li>
+        <li><a href="mailto:contact@cymedia.ma" class="btn-cta">Réserver un appel</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="basculerMenu(this)"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== Application dashboard ===== -->
+<div class="app">
+  <!-- sidebar -->
+  <aside class="lateral">
+    <div class="titre-app"><i></i>CyMedia Analytics</div>
+    <button class="actif"><span class="ico">📊</span>Vue d'ensemble</button>
+    <button onclick="document.getElementById('campagnes').scrollIntoView({behavior:'smooth'})"><span class="ico">🚀</span>Campagnes</button>
+    <button onclick="afficherToast('Module Audiences — disponible lors de notre premier rendez-vous 😉')"><span class="ico">👥</span>Audiences</button>
+    <button onclick="afficherToast('Les créas, on préfère vous les montrer en vrai ✨')"><span class="ico">🎬</span>Créas</button>
+    <button onclick="afficherToast('Rapports automatiques chaque mois pour nos clients 📬')"><span class="ico">📑</span>Rapports</button>
+    <span class="spacer"></span>
+    <div class="carte-aide">
+      <b>Votre marque ici ?</b>
+      Ces chiffres sont de vrais résultats clients. Les prochains peuvent être les vôtres.
+      <a href="mailto:contact@cymedia.ma?subject=Audit%20gratuit">Demander un audit gratuit →</a>
+    </div>
+  </aside>
+
+  <!-- principal -->
+  <main class="principal">
+    <div class="barre-haut">
+      <div>
+        <h1>Vue d'ensemble — Portefeuille clients</h1>
+        <div class="sous">Données consolidées des études de cas CyMedia · mises à jour en continu</div>
+      </div>
+      <div class="outils">
+        <div class="periodes" id="periodes">
+          <button data-p="0" class="actif">30 j</button>
+          <button data-p="1">6 mois</button>
+          <button data-p="2">12 mois</button>
+        </div>
+        <button class="btn-export" onclick="afficherToast('Rapport exporté ✓ … enfin presque. Réservez un appel pour le vrai 😄')">⬇ Exporter</button>
+      </div>
+    </div>
+
+    <!-- KPI -->
+    <div class="kpis" id="kpis"></div>
+
+    <!-- graphes -->
+    <div class="rangee-graphes">
+      <div class="bloc">
+        <div class="bloc-titre">
+          <h2>Performance consolidée</h2>
+          <div class="legende-series">
+            <span><i style="background:#FF2E9C"></i>Engagement</span>
+            <span><i style="background:#7C5CFF"></i>Conversions</span>
+          </div>
+        </div>
+        <svg id="graphe-principal" viewBox="0 0 600 230" preserveAspectRatio="none"></svg>
+      </div>
+      <div class="bloc">
+        <div class="bloc-titre"><h2>Répartition par secteur</h2></div>
+        <div class="donut-zone">
+          <svg viewBox="0 0 120 120" id="donut"></svg>
+          <ul class="donut-leg" id="donut-leg"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- campagnes -->
+    <div class="bloc" id="campagnes">
+      <div class="bloc-titre">
+        <h2>Campagnes / Études de cas</h2>
+        <span class="legende-mini">Cliquez sur une ligne pour ouvrir le rapport</span>
+      </div>
+      <div class="table-zone">
+        <table>
+          <thead>
+            <tr><th>Client</th><th>Secteur</th><th>Statut</th><th>Résultat clé</th><th>ROAS</th><th>Objectif</th><th></th></tr>
+          </thead>
+          <tbody id="lignes"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== Panneau rapport ===== -->
+<div class="rapport-fond" id="rapport-fond" onclick="fermerRapport()"></div>
+<aside class="rapport" id="rapport" role="dialog" aria-modal="true" aria-labelledby="r-titre">
+  <button class="r-fermer" aria-label="Fermer" onclick="fermerRapport()">✕</button>
+  <div class="r-defile">
+    <div class="r-entete" id="r-entete"></div>
+    <h2 id="r-titre"></h2>
+    <p class="r-sous" id="r-sous"></p>
+    <div class="r-img"><img id="r-img" src="" alt=""></div>
+    <div class="r-graphe"><svg id="r-graphe" viewBox="0 0 300 110" preserveAspectRatio="none"></svg></div>
+    <div class="r-stats" id="r-stats"></div>
+    <p class="desc" id="r-desc"></p>
+    <div class="r-tags" id="r-tags"></div>
+    <a class="btn-grad" id="r-cta" href="#">Je veux ce rapport pour ma marque&nbsp;→</a>
+  </div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div class="conteneur pied">
+    <span>© 2026 CyMedia — Agence marketing · Tableau de bord de démonstration basé sur de vrais résultats.</span>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="preview.html">Services</a></li>
+      <li><a href="mailto:contact@cymedia.ma">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   DONNÉES
+   ============================================================ */
+const PROJETS=[
+ {nom:'Virelo',secteur:'E-commerce',seed:'virelo7',statut:'actif',cle:'+320\u00a0% engagement',roas:'8,7×',objectif:92,
+  desc:"Tunnel « du réseau social à la vente » reconstruit de bout en bout : contenus courts, retargeting créatif, preuves sociales. Le système vend 24h/24.",
+  stats:[['+320\u00a0%','Engagement'],['8,7×','ROAS'],['×2,4','C.A.']],
+  tags:['Publicité Meta','Reels & UGC','Email marketing'],graine:3},
+ {nom:'Mindset Pro',secteur:'Coaching',seed:'mindset3',statut:'actif',cle:'+185\u00a0% prospects',roas:'6,3×',objectif:84,
+  desc:"Écosystème complet : vidéos longues, extraits viraux, newsletter et communauté privée. Chaque canal nourrit le suivant.",
+  stats:[['+185\u00a0%','Prospects'],['6,3×','C.A.'],['12k','Membres']],
+  tags:['Scripts vidéo','YouTube & Shorts','Communauté'],graine:7},
+ {nom:'Taskly',secteur:'SaaS',seed:'taskly9',statut:'termine',cle:'+210\u00a0% inscriptions',roas:'7,2×',objectif:96,
+  desc:"Product-led growth : comparatifs SEO, démos vidéo, parrainage et onboarding optimisé. L'organique a dépassé le payant en 5 mois.",
+  stats:[['+210\u00a0%','Inscriptions'],['7,2×','Rétention'],['−31\u00a0%','CAC']],
+  tags:['SEO & contenu','Démos produit','Ads Google'],graine:11},
+ {nom:'Maison Safran',secteur:'Restauration',seed:'safran5',statut:'actif',cle:'2,1\u00a0M de vues',roas:'4,9×',objectif:78,
+  desc:"Identité appétissante, réels food viraux et réservation fluide depuis Instagram. La salle est désormais pleine.",
+  stats:[['+140\u00a0%','Réservations'],['×4','Abonnés'],['2,1\u00a0M','Vues']],
+  tags:['Branding','Réels food','Instagram Ads'],graine:5},
+ {nom:'Atlas Habitat',secteur:'Immobilier',seed:'atlas2',statut:'termine',cle:'−38\u00a0% coût/lead',roas:'5,1×',objectif:88,
+  desc:"Campagnes ciblées avec visites virtuelles, landing pages par programme et qualification automatique des prospects.",
+  stats:[['+95\u00a0%','Leads'],['−38\u00a0%','Coût/lead'],['34\u00a0%','Taux RDV']],
+  tags:['Génération de leads','Landing pages','CRM'],graine:9},
+ {nom:'Noor Bijoux',secteur:'E-commerce',seed:'noor4',statut:'actif',cle:'0→45k abonnés',roas:'5,4×',objectif:81,
+  desc:"Lancement de zéro : storytelling artisanal, coulisses de fabrication et micro-influence. Rentable dès le troisième mois.",
+  stats:[['0→45k','Abonnés'],['5,4×','ROAS'],['68\u00a0%','Ventes IG']],
+  tags:['Lancement de marque','Influence','E-boutique'],graine:13}
+];
+const KPIS=[
+ [{lbl:'Vues générées',val:48000000,fmt:v=>(v/1e6).toFixed(1).replace('.',',')+'\u00a0M',delta:'+12,4\u00a0%',haut:true,graine:2},
+  {lbl:'ROAS moyen',val:32,fmt:v=>'×'+(v/10).toFixed(1).replace('.',','),delta:'+0,4',haut:true,graine:4},
+  {lbl:'Leads livrés',val:18420,fmt:v=>Math.round(v).toLocaleString('fr-FR'),delta:'+8,9\u00a0%',haut:true,graine:6},
+  {lbl:'Coût d\u2019acquisition',val:31,fmt:v=>'−'+Math.round(v)+'\u00a0%',delta:'amélioration',haut:true,graine:8}],
+ [{lbl:'Vues générées',val:31200000,fmt:v=>(v/1e6).toFixed(1).replace('.',',')+'\u00a0M',delta:'+22,1\u00a0%',haut:true,graine:12},
+  {lbl:'ROAS moyen',val:29,fmt:v=>'×'+(v/10).toFixed(1).replace('.',','),delta:'+0,7',haut:true,graine:14},
+  {lbl:'Leads livrés',val:11260,fmt:v=>Math.round(v).toLocaleString('fr-FR'),delta:'+15,2\u00a0%',haut:true,graine:16},
+  {lbl:'Coût d\u2019acquisition',val:24,fmt:v=>'−'+Math.round(v)+'\u00a0%',delta:'amélioration',haut:true,graine:18}],
+ [{lbl:'Vues générées',val:48000000,fmt:v=>(v/1e6).toFixed(0)+'\u00a0M',delta:'+64\u00a0% sur l\u2019an',haut:true,graine:22},
+  {lbl:'ROAS moyen',val:32,fmt:v=>'×'+(v/10).toFixed(1).replace('.',','),delta:'+1,1',haut:true,graine:24},
+  {lbl:'Leads livrés',val:18420,fmt:v=>Math.round(v).toLocaleString('fr-FR'),delta:'+41\u00a0%',haut:true,graine:26},
+  {lbl:'Coût d\u2019acquisition',val:31,fmt:v=>'−'+Math.round(v)+'\u00a0%',delta:'amélioration',haut:true,graine:28}]
+];
+
+/* ----- pseudo-aléatoire déterministe ----- */
+function alea(graine){let s=graine;return()=>{s=(s*9301+49297)%233280;return s/233280;}}
+function serie(graine,n,base,amp,tendance){
+  const r=alea(graine);const pts=[];
+  for(let i=0;i<n;i++){pts.push(base+tendance*i+(r()-0.35)*amp);}
+  return pts;
+}
+const lisse=pts=>{ /* courbe lissée */ 
+  let d='';
+  pts.forEach((p,i)=>{
+    if(i===0){d='M'+p[0]+' '+p[1];return;}
+    const a=pts[i-1];const cx=(a[0]+p[0])/2;
+    d+=' C'+cx+' '+a[1]+' '+cx+' '+p[1]+' '+p[0]+' '+p[1];
+  });
+  return d;
+};
+
+/* ============================================================
+   KPI + sparklines
+   ============================================================ */
+const mouvementReduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const zoneKpis=document.getElementById('kpis');
+function rendreKpis(p){
+  zoneKpis.innerHTML='';
+  KPIS[p].forEach(k=>{
+    const pts=serie(k.graine,16,22,14,(k.haut?-0.6:0.6));
+    const poly=pts.map((v,i)=>[(i/(15))*86,Math.min(Math.max(v,4),30)]);
+    const div=document.createElement('div');
+    div.className='kpi';
+    div.innerHTML=`
+      <div class="lbl">${k.lbl}</div>
+      <div class="val" data-cible="${k.val}">0</div>
+      <span class="delta ${k.haut?'haut':'bas'}">▲ ${k.delta}</span>
+      <svg viewBox="0 0 86 32"><path d="${lisse(poly)}" fill="none" stroke="url(#gk)" stroke-width="2" stroke-linecap="round"/></svg>`;
+    zoneKpis.appendChild(div);
+    /* compteur */
+    const el=div.querySelector('.val');
+    if(mouvementReduit){el.textContent=k.fmt(k.val);return;}
+    const debut=performance.now();
+    (function pas(t){
+      const pr=Math.min((t-debut)/1100,1);
+      el.textContent=k.fmt(k.val*(1-Math.pow(1-pr,3)));
+      if(pr<1)requestAnimationFrame(pas);
+    })(debut);
+  });
+}
+
+/* dégradé commun pour sparklines */
+const defs=document.createElementNS('http://www.w3.org/2000/svg','svg');
+defs.setAttribute('width','0');defs.setAttribute('height','0');
+defs.innerHTML='<defs><linearGradient id="gk" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF2E9C"/><stop offset="1" stop-color="#7C5CFF"/></linearGradient><linearGradient id="aire1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(255,46,156,.35)"/><stop offset="1" stop-color="rgba(255,46,156,0)"/></linearGradient><linearGradient id="aire2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(124,92,255,.3)"/><stop offset="1" stop-color="rgba(124,92,255,0)"/></linearGradient></defs>';
+document.body.appendChild(defs);
+
+/* ============================================================
+   GRAPHE PRINCIPAL
+   ============================================================ */
+const NPTS=[30,26,24];
+const LABELS=[['S1','S2','S3','S4'],['Jan','Fév','Mar','Avr','Mai','Juin'],['T1','T2','T3','T4']];
+function rendreGraphe(p){
+  const svg=document.getElementById('graphe-principal');
+  const n=NPTS[p];
+  const W=600,H=230,M=26;
+  const s1=serie(40+p*3,n,150,70,-3.4).map(v=>Math.min(Math.max(v,30),H-30));
+  const s2=serie(80+p*5,n,180,60,-2.6).map(v=>Math.min(Math.max(v,40),H-24));
+  const X=i=>M+(i/(n-1))*(W-2*M);
+  const p1=s1.map((v,i)=>[X(i),v]);
+  const p2=s2.map((v,i)=>[X(i),v]);
+  const lignesGrille=[0.25,0.5,0.75].map(f=>`<line class="grille-svg" x1="${M}" x2="${W-M}" y1="${H*f}" y2="${H*f}"/>`).join('');
+  const labels=LABELS[p].map((l,i)=>`<text class="axe-txt" x="${M+(i/(LABELS[p].length-1))*(W-2*M)}" y="${H-6}" text-anchor="middle">${l}</text>`).join('');
+  const d1=lisse(p1),d2=lisse(p2);
+  svg.innerHTML=`
+    ${lignesGrille}${labels}
+    <path d="${d2} L ${W-M} ${H-18} L ${M} ${H-18} Z" fill="url(#aire2)"/>
+    <path d="${d1} L ${W-M} ${H-18} L ${M} ${H-18} Z" fill="url(#aire1)"/>
+    <path id="ligne2" d="${d2}" fill="none" stroke="#7C5CFF" stroke-width="2.4" stroke-linecap="round"/>
+    <path id="ligne1" d="${d1}" fill="none" stroke="#FF2E9C" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="${p1[n-1][0]}" cy="${p1[n-1][1]}" r="4" fill="#FF2E9C"/>
+    <circle cx="${p2[n-1][0]}" cy="${p2[n-1][1]}" r="4" fill="#7C5CFF"/>`;
+  /* animation de tracé */
+  if(!mouvementReduit){
+    ['ligne1','ligne2'].forEach(id=>{
+      const path=svg.querySelector('#'+id);
+      const L=path.getTotalLength();
+      path.style.strokeDasharray=L;
+      path.style.strokeDashoffset=L;
+      path.getBoundingClientRect();
+      path.style.transition='stroke-dashoffset 1.4s cubic-bezier(.22,.8,.26,1)';
+      path.style.strokeDashoffset='0';
+    });
+  }
+}
+
+/* ============================================================
+   DONUT
+   ============================================================ */
+function rendreDonut(){
+  const svg=document.getElementById('donut');
+  const data=[['E-commerce',34,'#FF2E9C'],['Coaching',22,'#7C5CFF'],['SaaS',18,'#3EE5E0'],['Restauration',14,'#FF7A45'],['Immobilier',12,'#9D5CFF']];
+  const C=2*Math.PI*44;let acc=0;
+  svg.innerHTML=data.map(d=>{
+    const seg=`<circle cx="60" cy="60" r="44" fill="none" stroke="${d[2]}" stroke-width="13"
+      stroke-dasharray="${C*d[1]/100-3} ${C-(C*d[1]/100-3)}" stroke-dashoffset="${-C*acc/100}"
+      transform="rotate(-90 60 60)" stroke-linecap="round"/>`;
+    acc+=d[1];return seg;
+  }).join('')+'<text class="donut-centre" x="60" y="58" text-anchor="middle">120+</text><text class="donut-centre-s" x="60" y="72" text-anchor="middle">projets</text>';
+  document.getElementById('donut-leg').innerHTML=data.map(d=>
+    `<li><i style="background:${d[2]}"></i>${d[0]}<b>${d[1]}\u00a0%</b></li>`).join('');
+}
+
+/* ============================================================
+   TABLE CAMPAGNES
+   ============================================================ */
+const lignes=document.getElementById('lignes');
+PROJETS.forEach((p,i)=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`
+    <td><span class="cellule-client"><img src="https://picsum.photos/seed/${p.seed}/80/80" alt=""><span>${p.nom}<small>avec CyMedia</small></span></span></td>
+    <td>${p.secteur}</td>
+    <td><span class="statut ${p.statut}">${p.statut==='actif'?'● Actif':'Terminé'}</span></td>
+    <td>${p.cle}</td>
+    <td class="roas">${p.roas}</td>
+    <td><span class="perf-barre"><i data-w="${p.objectif}"></i></span></td>
+    <td class="voir-rapport">→</td>`;
+  tr.addEventListener('click',()=>ouvrirRapport(i));
+  tr.setAttribute('tabindex','0');
+  tr.addEventListener('keydown',e=>{if(e.key==='Enter')ouvrirRapport(i)});
+  lignes.appendChild(tr);
+});
+/* barres d'objectif animées à l'apparition */
+const obsBarres=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.perf-barre i').forEach(b=>b.style.width=b.dataset.w+'%');
+      obsBarres.unobserve(e.target);
+    }
+  });
+},{threshold:.3});
+obsBarres.observe(document.getElementById('campagnes'));
+
+/* ============================================================
+   PANNEAU RAPPORT
+   ============================================================ */
+const rapport=document.getElementById('rapport');
+const rapportFond=document.getElementById('rapport-fond');
+function ouvrirRapport(i){
+  const p=PROJETS[i];
+  document.getElementById('r-entete').textContent='Rapport de campagne · '+p.secteur;
+  document.getElementById('r-titre').textContent=p.nom;
+  document.getElementById('r-sous').textContent='Statut : '+(p.statut==='actif'?'campagne active':'mission terminée')+' · ROAS '+p.roas;
+  document.getElementById('r-img').src='https://picsum.photos/seed/'+p.seed+'/800/420';
+  document.getElementById('r-img').alt='Projet '+p.nom;
+  document.getElementById('r-stats').innerHTML=p.stats.map(s=>'<div class="r-stat"><b>'+s[0]+'</b><span>'+s[1]+'</span></div>').join('');
+  document.getElementById('r-desc').textContent=p.desc;
+  document.getElementById('r-tags').innerHTML=p.tags.map(t=>'<span>'+t+'</span>').join('');
+  document.getElementById('r-cta').href='mailto:contact@cymedia.ma?subject=Rapport%20'+encodeURIComponent(p.nom);
+  /* mini graphe du rapport */
+  const svg=document.getElementById('r-graphe');
+  const pts=serie(p.graine,18,70,34,-2.6).map(v=>Math.min(Math.max(v,12),98));
+  const poly=pts.map((v,j)=>[8+(j/17)*284,v]);
+  const d=lisse(poly);
+  svg.innerHTML=`<path d="${d} L 292 104 L 8 104 Z" fill="url(#aire1)"/><path d="${d}" fill="none" stroke="url(#gk)" stroke-width="2.4" stroke-linecap="round"/><circle cx="${poly[17][0]}" cy="${poly[17][1]}" r="4" fill="#FF2E9C"/>`;
+  rapport.classList.add('ouvert');
+  rapportFond.classList.add('ouvert');
+  const barre=window.innerWidth-document.documentElement.clientWidth;
+  document.body.style.paddingRight=barre+'px';
+  document.body.classList.add('fige');
+  rapport.querySelector('.r-fermer').focus();
+}
+function fermerRapport(){
+  rapport.classList.remove('ouvert');
+  rapportFond.classList.remove('ouvert');
+  document.body.classList.remove('fige');
+  document.body.style.paddingRight='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')fermerRapport();});
+
+/* ============================================================
+   PÉRIODES + TOAST
+   ============================================================ */
+document.querySelectorAll('#periodes button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('#periodes button').forEach(x=>x.classList.remove('actif'));
+    b.classList.add('actif');
+    const p=+b.dataset.p;
+    rendreKpis(p);rendreGraphe(p);
+  });
+});
+let minuteurToast=null;
+function afficherToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('visible');
+  clearTimeout(minuteurToast);
+  minuteurToast=setTimeout(()=>t.classList.remove('visible'),3200);
+}
+
+/* ----- premier rendu ----- */
+rendreKpis(0);rendreGraphe(0);rendreDonut();
+
+/* ============================================================
+   MENU
+   ============================================================ */
+function basculerMenu(btn){
+  const m=document.getElementById('nav-links');
+  const o=m.classList.toggle('ouvert');
+  btn.setAttribute('aria-expanded',o);
+}
+document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav-links').classList.remove('ouvert')));
+function basculerSousMenu(btn){
+  const li=btn.parentElement;
+  const dejaOuvert=li.classList.contains('ouvert');
+  document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+    x.classList.remove('ouvert');
+    x.querySelector('button').setAttribute('aria-expanded','false');
+  });
+  if(!dejaOuvert){li.classList.add('ouvert');btn.setAttribute('aria-expanded','true');}
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.a-sous-menu')){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réalisations — CyMedia (édition magazine)</title>
+<meta name="description" content="Le cahier des réalisations CyMedia : six études de cas mises en page comme une revue de design.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#0B0B1E;
+  --fond2:#0D0D24;
+  --encre:#F2F1FA;
+  --sourdine:#9C9DC6;
+  --filet:rgba(255,255,255,.16);
+  --filet-doux:rgba(255,255,255,.09);
+  --bord:rgba(255,255,255,.09);
+  --rose:#FF2E9C;
+  --violet:#7C5CFF;
+  --grad:linear-gradient(90deg,#FF2E9C,#7C5CFF);
+  --serif:'Fraunces',serif;
+  --display:'Space Grotesk',sans-serif;
+  --corps:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--fond);color:var(--encre);font-family:var(--corps);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:4px}
+.conteneur{max-width:1180px;margin:0 auto;padding:0 28px}
+
+/* ============================================================
+   NAV AVEC SOUS-MENUS
+   ============================================================ */
+.nav{position:sticky;top:0;z-index:60;background:rgba(11,11,30,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--filet-doux)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.marque{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700}
+.marque .glyphe{width:36px;height:36px}
+.marque .nom{font-size:1rem;line-height:1}
+.marque .nom small{display:block;font-size:.48rem;font-weight:500;letter-spacing:.4em;color:var(--sourdine)}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a,.nav-links>li>button{display:flex;align-items:center;gap:6px;font-family:var(--corps);font-size:.9rem;font-weight:500;color:var(--sourdine);background:none;border:none;cursor:pointer;padding:10px 14px;border-radius:10px;transition:color .2s,background .2s}
+.nav-links>li>a:hover,.nav-links>li>button:hover,.nav-links>li.ouvert>button{color:#fff;background:rgba(255,255,255,.06)}
+.chevron{width:9px;height:9px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex:none}
+li.ouvert .chevron{transform:rotate(225deg) translateY(-1px)}
+.sous-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);min-width:255px;background:linear-gradient(168deg,rgba(30,26,60,.96),rgba(16,14,38,.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:8px;list-style:none;box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(124,92,255,.15),inset 0 1px 0 rgba(255,255,255,.12);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s}
+.sous-menu::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:rgba(30,26,60,.96);border-left:1px solid rgba(255,255,255,.14);border-top:1px solid rgba(255,255,255,.14)}
+li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+@media(hover:hover) and (min-width:721px){
+  .nav-links>li:hover .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .nav-links>li:hover>button{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-links>li:hover .chevron{transform:rotate(225deg) translateY(-1px)}
+}
+.sous-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.88rem;color:var(--sourdine);transition:color .2s,background .2s}
+.sous-menu a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.18),rgba(124,92,255,.14))}
+.sous-menu a i{font-style:normal;width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none;opacity:0;transition:opacity .2s}
+.sous-menu a:hover i{opacity:1}
+.sous-menu a.actif{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.22),rgba(124,92,255,.18))}
+.sous-menu a.actif i{opacity:1}
+.sous-menu .titre-groupe{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(156,157,198,.7);padding:8px 14px 4px}
+.sous-menu .separe{height:1px;background:rgba(255,255,255,.08);margin:6px 8px}
+.btn-cta{font-weight:600;font-size:.85rem;color:#fff!important;background:var(--grad);border-radius:999px;padding:10px 20px!important;box-shadow:0 0 22px rgba(255,46,156,.35);transition:transform .2s,box-shadow .2s}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(255,46,156,.5);background:var(--grad)!important}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:22px;height:2px;background:#fff;margin:5px 0;border-radius:2px}
+
+/* ============================================================
+   COUVERTURE — MASTHEAD
+   ============================================================ */
+.couverture{padding:64px 0 0;border-bottom:1px solid var(--filet)}
+.manchette{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--display);font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--sourdine);border-bottom:1px solid var(--filet);padding-bottom:14px}
+.manchette b{color:var(--rose)}
+.titre-revue{font-family:var(--serif);font-weight:700;font-size:clamp(3.4rem,11vw,9rem);line-height:.96;letter-spacing:-.02em;padding:34px 0 8px;text-transform:uppercase}
+.titre-revue em{font-style:italic;font-weight:400;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sous-revue{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;align-items:end;border-top:1px solid var(--filet);padding:22px 0 30px;font-size:.85rem;color:var(--sourdine)}
+.sous-revue .col b{display:block;font-family:var(--display);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--encre);margin-bottom:6px}
+.sous-revue .sommaire{list-style:none}
+.sous-revue .sommaire li{display:flex;justify-content:space-between;border-bottom:1px dotted var(--filet-doux);padding:3px 0}
+.sous-revue .sommaire a:hover{color:#fff}
+/* image de couverture pleine largeur */
+.image-couv{position:relative;margin-top:6px}
+.image-couv img{width:100%;height:min(64vh,560px);object-fit:cover;filter:saturate(1.05)}
+.image-couv::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,30,.25),rgba(11,11,30,0) 30%,rgba(11,11,30,.55) 100%),linear-gradient(115deg,rgba(255,46,156,.12),rgba(124,92,255,.12))}
+.image-couv .legende{position:absolute;left:28px;bottom:18px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#E9E9FB;z-index:1}
+.image-couv .legende i{font-style:normal;color:var(--rose)}
+
+/* ============================================================
+   SPREADS — ARTICLES
+   ============================================================ */
+.article{padding:84px 0;border-bottom:1px solid var(--filet);position:relative}
+/* en-tête courant + folio */
+.courant{display:flex;justify-content:space-between;font-family:var(--display);font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--sourdine);margin-bottom:44px}
+.courant .folio b{color:var(--encre)}
+/* grille du spread */
+.spread{display:grid;grid-template-columns:repeat(12,1fr);gap:26px;align-items:start}
+/* variante A : texte 5 col à gauche, image 7 col à droite décalée vers le haut */
+.va .txt{grid-column:1/6}
+.va .fig{grid-column:6/13;margin-top:-26px}
+/* variante B : image 6 col à gauche descendue, texte à droite */
+.vb .fig{grid-column:1/7;margin-top:34px}
+.vb .txt{grid-column:8/13}
+/* variante C : texte centre étroit, deux images décalées */
+.vc .fig{grid-column:1/6;margin-top:50px}
+.vc .txt{grid-column:6/11}
+.vc .fig2{grid-column:9/13;margin-top:-40px}
+/* texte d'article */
+.kicker{font-family:var(--display);font-size:.68rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--rose);margin-bottom:14px}
+.titre-article{font-family:var(--serif);font-weight:600;font-size:clamp(2.2rem,4.6vw,3.6rem);line-height:1.02;letter-spacing:-.015em;margin-bottom:22px}
+.titre-article em{font-style:italic;font-weight:400;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.chapeau{font-family:var(--serif);font-style:italic;font-size:1.08rem;color:#D6D6EE;margin-bottom:20px;border-left:2px solid var(--rose);padding-left:16px}
+.corps-txt{font-size:.92rem;color:#C3C4E2;column-gap:26px}
+.corps-txt p+p{margin-top:12px}
+.corps-txt .lettrine::first-letter{font-family:var(--serif);font-weight:700;font-size:3.3em;float:left;line-height:.82;padding:4px 10px 0 0;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* figures */
+.fig,.fig2{position:relative}
+.fig img,.fig2 img{width:100%;object-fit:cover;border:1px solid var(--filet-doux)}
+.fig img{height:min(60vh,520px)}
+.fig2 img{height:280px}
+.legende-fig{display:flex;justify-content:space-between;gap:14px;font-size:.7rem;color:var(--sourdine);border-top:1px solid var(--filet);margin-top:10px;padding-top:8px;letter-spacing:.05em}
+.legende-fig b{font-family:var(--display);letter-spacing:.18em;text-transform:uppercase;color:var(--encre)}
+/* fiche technique */
+.fiche{margin-top:26px;border-top:1px solid var(--filet)}
+.fiche-titre{font-family:var(--display);font-size:.64rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--sourdine);padding:10px 0 4px}
+.fiche dl{display:grid;grid-template-columns:1fr auto;font-size:.84rem}
+.fiche dt{color:var(--sourdine);border-bottom:1px dotted var(--filet-doux);padding:7px 0}
+.fiche dd{font-family:var(--display);font-weight:700;text-align:right;border-bottom:1px dotted var(--filet-doux);padding:7px 0;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fiche .services{font-size:.78rem;color:var(--sourdine);padding:10px 0 0}
+.fiche .services span{color:#E4DCFF}
+.lien-article{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:.88rem;color:#fff;margin-top:20px;border-bottom:2px solid var(--rose);padding-bottom:3px}
+.lien-article i{font-style:normal;transition:transform .25s}
+.lien-article:hover i{transform:translateX(6px)}
+/* label vertical en marge */
+.marge-verticale{position:absolute;top:84px;right:-6px;writing-mode:vertical-rl;font-family:var(--display);font-size:.62rem;letter-spacing:.34em;text-transform:uppercase;color:rgba(156,157,198,.55)}
+
+/* ============================================================
+   INTERLUDE — CITATION PLEINE PAGE
+   ============================================================ */
+.interlude{padding:110px 0;border-bottom:1px solid var(--filet);text-align:center;position:relative;overflow:hidden}
+.interlude::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:560px;height:560px;background:radial-gradient(circle,rgba(124,92,255,.16),transparent 65%);pointer-events:none}
+.interlude q{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.6rem,4vw,2.9rem);line-height:1.25;max-width:22ch;margin:0 auto;display:block;quotes:"\u00ab\u00a0" "\u00a0\u00bb";position:relative}
+.interlude q em{font-style:italic;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.interlude .source{margin-top:22px;font-family:var(--display);font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--sourdine)}
+
+/* ============================================================
+   OURS / COLOPHON + CTA
+   ============================================================ */
+.colophon{padding:84px 0 70px}
+.colophon-grille{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:34px;align-items:start}
+.colophon h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,4vw,3rem);line-height:1.05;margin-bottom:18px}
+.colophon h2 em{font-style:italic;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.colophon p{color:var(--sourdine);font-size:.92rem;margin-bottom:24px;max-width:38ch}
+.btn-grad{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:.95rem;padding:14px 30px;border-radius:999px;background:var(--grad);color:#fff;box-shadow:0 0 26px rgba(255,46,156,.4);transition:transform .2s,box-shadow .2s}
+.btn-grad:hover{transform:translateY(-2px);box-shadow:0 0 38px rgba(255,46,156,.6)}
+.ours{font-size:.82rem;color:var(--sourdine)}
+.ours b{display:block;font-family:var(--display);font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;color:var(--encre);margin-bottom:8px}
+.ours li{list-style:none;border-bottom:1px dotted var(--filet-doux);padding:5px 0;display:flex;justify-content:space-between}
+footer{border-top:1px solid var(--filet);padding:26px 0}
+.pied{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:var(--display);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--sourdine)}
+
+/* révélation */
+.reveler{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveler.visible{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media(min-width:761px){.corps-txt{columns:2}}
+@media(max-width:960px){
+  .spread{grid-template-columns:1fr;gap:30px}
+  .va .txt,.va .fig,.vb .txt,.vb .fig,.vc .txt,.vc .fig,.vc .fig2{grid-column:1/-1;margin-top:0}
+  .va .fig{order:-1}
+  .vc .fig2{display:none}
+  .marge-verticale{display:none}
+  .sous-revue{grid-template-columns:1fr;gap:20px}
+  .colophon-grille{grid-template-columns:1fr;gap:26px}
+}
+@media(max-width:720px){
+  .nav-links{position:fixed;inset:72px 0 auto 0;max-height:calc(100vh - 72px);overflow:auto;background:var(--fond2);flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 24px;border-bottom:1px solid var(--bord);display:none}
+  .nav-links.ouvert{display:flex}
+  .nav-links>li>a,.nav-links>li>button{width:100%;justify-content:space-between;padding:14px 10px;font-size:.95rem}
+  .sous-menu{position:static;transform:none;min-width:0;opacity:1;visibility:visible;box-shadow:none;border:none;background:rgba(255,255,255,.03);border-radius:12px;margin:0 6px 8px;display:none;padding:6px}
+  .sous-menu::before{display:none}
+  li.ouvert .sous-menu{display:block}
+  .btn-cta{justify-content:center;text-align:center;margin-top:10px}
+  .burger{display:block}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.001s!important}
+  .reveler{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Nav avec sous-menus ===== -->
+<header class="nav">
+  <div class="conteneur nav-inner">
+    <a href="index.html" class="marque" aria-label="CyMedia — Accueil">
+      <svg class="glyphe" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+      </svg>
+      <span class="nom">CYMEDIA<small>MARKETING AGENCY</small></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="preview.html">Services</a></li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Portfolio <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="work.html"><i></i>Portfolio — grille</a></li>
+            <li><a href="cymedia-portfolio.html"><i></i>Portfolio — cartes verre</a></li>
+            <li><a href="cymedia-portfolio-v2.html"><i></i>Portfolio — index éditorial</a></li>
+            <li><a href="cymedia-portfolio-v3.html"><i></i>Portfolio — cinématique</a></li>
+            <li><a href="cymedia-portfolio-v4.html"><i></i>Portfolio — mosaïque bento</a></li>
+            <li><a href="cymedia-portfolio-v5.html"><i></i>Portfolio — scrollytelling 3D</a></li>
+            <li><a href="cymedia-portfolio-v6.html"><i></i>Portfolio — showreel vidéo</a></li>
+            <li><a href="cymedia-portfolio-v7.html"><i></i>Portfolio — split-screen</a></li>
+            <li><a href="cymedia-portfolio-v8.html" class="actif" aria-current="page"><i></i>Portfolio — édition magazine</a></li>
+            <li><a href="cymedia-portfolio-v9.html"><i></i>Portfolio — galerie horizontale</a></li>
+            <li><a href="cymedia-portfolio-v10.html"><i></i>Portfolio — le feed social</a></li>
+            <li><a href="cymedia-portfolio-v11.html"><i></i>Portfolio — dashboard analytics</a></li>
+            <li><a href="cymedia-portfolio-v12.html"><i></i>Portfolio — salle de montage</a></li>
+            <li><a href="cymedia-portfolio-v13.html"><i></i>Portfolio — le funnel</a></li>
+            <li><a href="cymedia-portfolio-v14.html"><i></i>Portfolio — quiz de diagnostic</a></li>
+            <li><a href="cymedia-portfolio-v15.html"><i></i>Portfolio — visite du studio</a></li>
+            <li><a href="cymedia-portfolio-v16.html"><i></i>Portfolio — Ligne Croissance</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Versions <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li class="titre-groupe">Pages d'accueil</li>
+            <li><a href="index.html"><i></i>Version 1</a></li>
+            <li><a href="v2.html"><i></i>Version 2</a></li>
+            <li><a href="v3.html"><i></i>Version 3</a></li>
+            <li><a href="v4.html"><i></i>Version 4</a></li>
+            <li><a href="v5.html"><i></i>Version 5</a></li>
+            <li class="separe" aria-hidden="true"></li>
+            <li><a href="clear_fab.html"><i></i>Version claire</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Carrousels <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="carousel_1.html"><i></i>Carrousel V1</a></li>
+            <li><a href="carousel_2.html"><i></i>Carrousel V2</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Tarifs</a></li>
+        <li><a href="#contact" class="btn-cta">Réserver un appel</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="basculerMenu(this)"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== Couverture ===== -->
+<section class="couverture">
+  <div class="conteneur">
+    <div class="manchette">
+      <span>CyMedia <b>·</b> Cahier des réalisations</span>
+      <span>Édition Nº 06 — Été 2026</span>
+      <span>Marrakech, Maroc</span>
+    </div>
+    <h1 class="titre-revue">Réali-<br>sations <em>&amp; preuves.</em></h1>
+    <div class="sous-revue">
+      <div class="col">
+        <b>Dans ce numéro</b>
+        Six marques, six systèmes de croissance. Chaque étude de cas est racontée comme un article : le contexte, la méthode, les chiffres.
+      </div>
+      <div class="col">
+        <b>Sommaire</b>
+        <ul class="sommaire">
+          <li><a href="#a1">Virelo</a><span>P. 02</span></li>
+          <li><a href="#a2">Mindset Pro</a><span>P. 04</span></li>
+          <li><a href="#a3">Taskly</a><span>P. 06</span></li>
+          <li><a href="#a4">Maison Safran</a><span>P. 08</span></li>
+          <li><a href="#a5">Atlas Habitat</a><span>P. 10</span></li>
+          <li><a href="#a6">Noor Bijoux</a><span>P. 12</span></li>
+        </ul>
+      </div>
+      <div class="col">
+        <b>La rédaction</b>
+        Textes &amp; stratégie : l'équipe CyMedia. Direction artistique : studio interne. Impression : votre écran, en illimité.
+      </div>
+    </div>
+  </div>
+  <div class="image-couv">
+    <img src="https://picsum.photos/seed/couverture6/1800/900" alt="Visuel de couverture">
+    <span class="legende"><i>Fig. 00</i> — En couverture : le tournage du reel Virelo, studio CyMedia.</span>
+  </div>
+</section>
+
+<main id="articles"></main>
+
+<!-- ===== Colophon + CTA ===== -->
+<section class="colophon" id="contact">
+  <div class="conteneur colophon-grille">
+    <div class="reveler">
+      <h2>Le prochain numéro parlera <em>de vous.</em></h2>
+      <p>Réservez un appel découverte gratuit : nous analysons votre marque et repartons avec trois pistes concrètes.</p>
+      <a class="btn-grad" href="mailto:contact@cymedia.ma?subject=Nouveau%20projet">Démarrer un projet&nbsp;→</a>
+    </div>
+    <ul class="ours reveler">
+      <b>En chiffres</b>
+      <li><span>Projets livrés</span><span>120+</span></li>
+      <li><span>ROAS moyen</span><span>×3,2</span></li>
+      <li><span>Vues générées</span><span>48 M</span></li>
+      <li><span>Clients satisfaits</span><span>96 %</span></li>
+    </ul>
+    <ul class="ours reveler">
+      <b>Contact</b>
+      <li><span>Courriel</span><span>contact@cymedia.ma</span></li>
+      <li><span>Studio</span><span>Marrakech</span></li>
+      <li><span>Instagram</span><span>@cymedia</span></li>
+      <li><span>LinkedIn</span><span>/cymedia</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="conteneur pied">
+    <span>© 2026 CyMedia — Agence marketing</span>
+    <span>Cahier des réalisations · Édition Nº 06</span>
+    <span><a href="index.html">Accueil</a> &nbsp;·&nbsp; <a href="preview.html">Services</a></span>
+  </div>
+</footer>
+
+<script>
+const PROJETS=[
+ {nom:'Virelo',cat:'E-commerce',seed:'virelo7',page:'02',variante:'va',duree:'6 mois',annee:'2025',
+  titre:'Virelo, ou l\u2019art de vendre <em>pendant qu\u2019on dort.</em>',
+  chapeau:'Une marque de cosmétiques au produit irréprochable, mais dont les ventes plafonnaient. Le diagnostic : un tunnel qui fuyait de partout.',
+  corps:["Nous avons commencé par le haut de l'entonnoir : des contenus courts pensés pour capter l'attention dans les trois premières secondes, tournés dans notre studio. Puis le milieu : un retargeting créatif qui répond aux objections réelles des clientes, recueillies dans les commentaires et les messages privés.","Enfin le bas : des pages produit enrichies de preuves sociales et d'offres séquencées. Six mois plus tard, la marque dispose d'un système de vente qui fonctionne en continu, sans dépendre d'un seul canal ni d'un seul format."],
+  figcap:'Tournage du reel principal, studio CyMedia',
+  stats:[['Engagement','+320\u00a0%'],['ROAS','8,7×'],['Chiffre d\u2019affaires','×2,4']],
+  services:'Publicité Meta · Reels &amp; UGC · Stratégie de contenu · Email marketing'},
+ {nom:'Mindset Pro',cat:'Coaching',seed:'mindset3',page:'04',variante:'vb',duree:'8 mois',annee:'2025',
+  titre:'Mindset Pro : un coach, <em>quatre canaux,</em> une seule voix.',
+  chapeau:'Une vraie expertise, mais une audience éparpillée. Nous avons construit un écosystème où chaque canal nourrit le suivant.',
+  corps:["Les vidéos longues sur YouTube installent l'autorité. Les extraits viraux, découpés chaque semaine, amènent la portée. La newsletter entretient la relation, et la communauté privée transforme les abonnés en clients.","Le résultat dépasse les chiffres : le coach a retrouvé du temps. Le système produit, distribue et convertit pendant qu'il se concentre sur son métier — accompagner."],
+  figcap:'Captation de l\u2019épisode 24, format long',
+  stats:[['Prospects','+185\u00a0%'],['Chiffre d\u2019affaires','6,3×'],['Membres','12\u00a0000']],
+  services:'Scripts vidéo · YouTube &amp; Shorts · Newsletter · Communauté privée'},
+ {nom:'Taskly',cat:'SaaS',seed:'taskly9',page:'06',variante:'vc',seed2:'taskly-b2',duree:'10 mois',annee:'2024',
+  titre:'Taskly contre les géants : <em>le produit comme média.</em>',
+  chapeau:'Un outil de gestion de tâches face à des concurrents cent fois mieux financés. La réponse : le product-led growth.',
+  corps:["Plutôt que d'acheter l'attention à prix d'or, nous l'avons méritée : comparatifs SEO qui captent les recherches d'alternatives, démos vidéo qui montrent le produit en situation, programme de parrainage intégré.","L'onboarding a été repensé pixel par pixel pour transformer chaque essai gratuit en abonnement. En cinq mois, la croissance organique a dépassé la croissance payante."],
+  figcap:'Le tableau de bord, version 3',
+  stats:[['Inscriptions','+210\u00a0%'],['Rétention','7,2×'],['Coût d\u2019acquisition','−31\u00a0%']],
+  services:'SEO &amp; contenu · Démos produit · Growth consulting · Ads Google'},
+ {nom:'Maison Safran',cat:'Restauration',seed:'safran5',page:'08',variante:'va',duree:'5 mois',annee:'2025',
+  titre:'Maison Safran : quand la cuisine <em>devient contenu.</em>',
+  chapeau:'Un restaurant gastronomique de Marrakech, une cuisine d\u2019exception — et presque aucune existence en ligne.',
+  corps:["Nous avons d'abord donné à la marque une identité aussi soignée que ses assiettes. Puis nos équipes ont filmé : des réels food pensés pour l'appétit et l'algorithme, publiés à un rythme soutenu.","Le dernier maillon : un parcours de réservation fluide directement depuis Instagram. La salle est désormais pleine, et la liste d'attente est devenue un argument marketing."],
+  figcap:'Plat signature, shooting de juin',
+  stats:[['Réservations','+140\u00a0%'],['Abonnés','×4'],['Vues de réels','2,1\u00a0M']],
+  services:'Branding · Réels food · Shooting photo · Instagram Ads'},
+ {nom:'Atlas Habitat',cat:'Immobilier',seed:'atlas2',page:'10',variante:'vb',duree:'7 mois',annee:'2024',
+  titre:'Atlas Habitat : des leads <em>qualifiés à la chaîne.</em>',
+  chapeau:'Un promoteur immobilier qui dépendait entièrement du bouche-à-oreille. Il fallait industrialiser sans déshumaniser.',
+  corps:["Chaque programme immobilier a reçu sa landing page dédiée, alimentée par des campagnes ciblées et des visites virtuelles immersives qui pré-vendent le bien avant le premier appel.","Un système de qualification automatique trie les prospects avant transmission aux commerciaux : moins d'appels, mais des appels qui comptent. Le coût par lead a fondu de plus d'un tiers."],
+  figcap:'Visite virtuelle, programme Les Jardins',
+  stats:[['Leads qualifiés','+95\u00a0%'],['Coût par lead','−38\u00a0%'],['Taux de RDV','34\u00a0%']],
+  services:'Génération de leads · Landing pages · Visites virtuelles · CRM'},
+ {nom:'Noor Bijoux',cat:'E-commerce',seed:'noor4',page:'12',variante:'vc',seed2:'noor-b8',duree:'8 mois',annee:'2026',
+  titre:'Noor Bijoux : partir de zéro, <em>arriver rentable.</em>',
+  chapeau:'Une créatrice, un établi, aucun abonné. Huit mois plus tard : une marque qui vit de son artisanat.',
+  corps:["Le pari : montrer les mains plutôt que les bijoux. Les contenus de fabrication en coulisses ont construit une communauté attachée à la créatrice autant qu'à ses pièces.","Des collaborations avec des micro-influenceuses soigneusement choisies ont fait le reste. Rentabilité atteinte dès le troisième mois — sans un dirham de remise."],
+  figcap:'L\u2019atelier, série «\u00a0coulisses\u00a0»',
+  stats:[['Abonnés','0→45k'],['ROAS','5,4×'],['Ventes via Instagram','68\u00a0%']],
+  services:'Lancement de marque · Influence · Contenu coulisses · E-boutique'}
+];
+
+/* ----- rendu des articles ----- */
+const zone=document.getElementById('articles');
+PROJETS.forEach((p,i)=>{
+  const fig2=p.variante==='vc'?`
+    <figure class="fig2 reveler">
+      <img src="https://picsum.photos/seed/${p.seed2}/700/560" alt="" loading="lazy">
+      <figcaption class="legende-fig"><b>Fig. ${String(i+1).padStart(2,'0')}b</b><span>Détail de production</span></figcaption>
+    </figure>`:'';
+  const art=document.createElement('article');
+  art.className='article';
+  art.id='a'+(i+1);
+  art.innerHTML=`
+    <span class="marge-verticale" aria-hidden="true">CYMEDIA — RÉALISATIONS — ${p.annee}</span>
+    <div class="conteneur">
+      <div class="courant">
+        <span>Étude de cas · ${p.cat}</span>
+        <span class="folio">P.&nbsp;<b>${p.page}</b> — ${p.nom.toUpperCase()}</span>
+      </div>
+      <div class="spread ${p.variante}">
+        <div class="txt reveler">
+          <p class="kicker">Nº ${String(i+1).padStart(2,'0')} — ${p.cat}</p>
+          <h2 class="titre-article">${p.titre}</h2>
+          <p class="chapeau">${p.chapeau}</p>
+          <div class="corps-txt">
+            <p class="lettrine">${p.corps[0]}</p>
+            <p>${p.corps[1]}</p>
+          </div>
+          <div class="fiche">
+            <div class="fiche-titre">Fiche technique</div>
+            <dl>
+              ${p.stats.map(s=>`<dt>${s[0]}</dt><dd>${s[1]}</dd>`).join('')}
+              <dt>Durée de mission</dt><dd style="background:none;-webkit-text-fill-color:#fff;color:#fff">${p.duree}</dd>
+            </dl>
+            <p class="services">Services — <span>${p.services}</span></p>
+          </div>
+          <a class="lien-article" href="mailto:contact@cymedia.ma?subject=Projet%20${encodeURIComponent(p.nom)}">Discuter d'un projet similaire <i>→</i></a>
+        </div>
+        <figure class="fig reveler">
+          <img src="https://picsum.photos/seed/${p.seed}/1100/820" alt="Projet ${p.nom}" ${i>0?'loading="lazy"':''}>
+          <figcaption class="legende-fig"><b>Fig. ${String(i+1).padStart(2,'0')}</b><span>${p.figcap}</span><span>${p.annee}</span></figcaption>
+        </figure>
+        ${fig2}
+      </div>
+    </div>`;
+  zone.appendChild(art);
+  /* interlude citation après le 3e article */
+  if(i===2){
+    const inter=document.createElement('section');
+    inter.className='interlude';
+    inter.innerHTML=`
+      <div class="conteneur reveler">
+        <q>Nous ne faisons pas que du contenu. Nous fabriquons <em>l'attention.</em></q>
+        <p class="source">— Manifeste CyMedia, page intérieure</p>
+      </div>`;
+    zone.appendChild(inter);
+  }
+});
+
+/* ----- révélation ----- */
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}})},{threshold:.12});
+document.querySelectorAll('.reveler').forEach(el=>obs.observe(el));
+
+/* ============================================================
+   MENU
+   ============================================================ */
+function basculerMenu(btn){
+  const m=document.getElementById('nav-links');
+  const o=m.classList.toggle('ouvert');
+  btn.setAttribute('aria-expanded',o);
+}
+document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav-links').classList.remove('ouvert')));
+function basculerSousMenu(btn){
+  const li=btn.parentElement;
+  const dejaOuvert=li.classList.contains('ouvert');
+  document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+    x.classList.remove('ouvert');
+    x.querySelector('button').setAttribute('aria-expanded','false');
+  });
+  if(!dejaOuvert){li.classList.add('ouvert');btn.setAttribute('aria-expanded','true');}
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.a-sous-menu')){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+</script>
+</body>
+</html>

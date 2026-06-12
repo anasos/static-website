@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réalisations — CyMedia (le feed)</title>
+<meta name="description" content="Le portfolio CyMedia présenté comme un feed social : chaque projet est un post, chaque like est un vrai résultat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#08081A;
+  --fond2:#0D0D24;
+  --carte:#101028;
+  --bord:rgba(255,255,255,.1);
+  --texte:#F0F0FB;
+  --sourdine:#9C9DC6;
+  --rose:#FF2E9C;
+  --violet:#7C5CFF;
+  --grad:linear-gradient(45deg,#FF2E9C,#7C5CFF);
+  --anneau:conic-gradient(from 200deg,#FF2E9C,#7C5CFF,#3EE5E0,#FF2E9C);
+  --display:'Space Grotesk',sans-serif;
+  --corps:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--fond);color:var(--texte);font-family:var(--corps);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}
+.conteneur{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ============================================================
+   NAV AVEC SOUS-MENUS
+   ============================================================ */
+.nav{position:sticky;top:0;z-index:60;background:rgba(8,8,26,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.marque{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700}
+.marque .glyphe{width:36px;height:36px}
+.marque .nom{font-size:1rem;line-height:1}
+.marque .nom small{display:block;font-size:.48rem;font-weight:500;letter-spacing:.4em;color:var(--sourdine)}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a,.nav-links>li>button{display:flex;align-items:center;gap:6px;font-family:var(--corps);font-size:.9rem;font-weight:500;color:var(--sourdine);background:none;border:none;cursor:pointer;padding:10px 14px;border-radius:10px;transition:color .2s,background .2s}
+.nav-links>li>a:hover,.nav-links>li>button:hover,.nav-links>li.ouvert>button{color:#fff;background:rgba(255,255,255,.06)}
+.chevron{width:9px;height:9px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex:none}
+li.ouvert .chevron{transform:rotate(225deg) translateY(-1px)}
+.sous-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);min-width:262px;background:linear-gradient(168deg,rgba(30,26,60,.96),rgba(16,14,38,.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:8px;list-style:none;box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(124,92,255,.15),inset 0 1px 0 rgba(255,255,255,.12);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s}
+.sous-menu::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:rgba(30,26,60,.96);border-left:1px solid rgba(255,255,255,.14);border-top:1px solid rgba(255,255,255,.14)}
+li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+@media(hover:hover) and (min-width:721px){
+  .nav-links>li:hover .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .nav-links>li:hover>button{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-links>li:hover .chevron{transform:rotate(225deg) translateY(-1px)}
+}
+.sous-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.88rem;color:var(--sourdine);transition:color .2s,background .2s}
+.sous-menu a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.18),rgba(124,92,255,.14))}
+.sous-menu a i{font-style:normal;width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none;opacity:0;transition:opacity .2s}
+.sous-menu a:hover i{opacity:1}
+.sous-menu a.actif{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.22),rgba(124,92,255,.18))}
+.sous-menu a.actif i{opacity:1}
+.sous-menu .titre-groupe{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(156,157,198,.7);padding:8px 14px 4px}
+.sous-menu .separe{height:1px;background:rgba(255,255,255,.08);margin:6px 8px}
+.btn-cta{font-weight:600;font-size:.85rem;color:#fff!important;background:var(--grad);border-radius:999px;padding:10px 20px!important;box-shadow:0 0 22px rgba(255,46,156,.35);transition:transform .2s,box-shadow .2s}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(255,46,156,.5);background:var(--grad)!important}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:22px;height:2px;background:#fff;margin:5px 0;border-radius:2px}
+
+/* ============================================================
+   MISE EN PAGE FEED
+   ============================================================ */
+.page-feed{display:grid;grid-template-columns:minmax(0,500px) 320px;gap:40px;justify-content:center;padding:34px 24px 70px}
+.colonne-feed{min-width:0}
+
+/* ----- stories ----- */
+.stories{display:flex;gap:16px;overflow-x:auto;padding:6px 2px 16px;scrollbar-width:none}
+.stories::-webkit-scrollbar{display:none}
+.story{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:none;cursor:pointer}
+.story .anneau{width:64px;height:64px;border-radius:50%;padding:3px;background:var(--anneau);transition:transform .25s}
+.story:hover .anneau{transform:scale(1.07) rotate(8deg)}
+.story .anneau span{display:block;width:100%;height:100%;border-radius:50%;border:3px solid var(--fond);overflow:hidden;background:#1a1838}
+.story img{width:100%;height:100%;object-fit:cover}
+.story .pseudo-story{font-size:.64rem;color:var(--sourdine);max-width:68px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story.moi .anneau span{display:flex;align-items:center;justify-content:center}
+.story.moi svg{width:60%}
+
+/* ----- post ----- */
+.post{background:var(--carte);border:1px solid var(--bord);border-radius:18px;margin-bottom:26px;overflow:hidden}
+.post-tete{display:flex;align-items:center;gap:11px;padding:13px 15px}
+.avatar{width:38px;height:38px;border-radius:50%;padding:2px;background:var(--anneau);flex:none}
+.avatar span{display:block;width:100%;height:100%;border-radius:50%;overflow:hidden;border:2px solid var(--carte)}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.post-tete .qui{min-width:0}
+.post-tete .pseudo{font-weight:600;font-size:.88rem;display:flex;align-items:center;gap:6px}
+.verif{width:14px;height:14px;border-radius:50%;background:var(--grad);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:.55rem;flex:none}
+.post-tete .lieu{font-size:.7rem;color:var(--sourdine)}
+.post-tete .suivre{margin-left:auto;background:none;border:none;cursor:pointer;font-weight:600;font-size:.8rem;background-image:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* image */
+.post-image{position:relative;cursor:pointer;user-select:none}
+.post-image img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.post-image .tag-cat{position:absolute;top:12px;left:12px;font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:rgba(8,8,26,.55);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:6px 12px;backdrop-filter:blur(8px)}
+.post-image .stat-flot{position:absolute;right:12px;bottom:12px;background:rgba(8,8,26,.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:8px 14px;text-align:right}
+.post-image .stat-flot b{display:block;font-family:var(--display);font-size:1.1rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.1}
+.post-image .stat-flot span{font-size:.6rem;color:#D5D6EE}
+/* gros coeur au double-clic */
+.coeur-geant{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0);font-size:5.5rem;pointer-events:none;filter:drop-shadow(0 0 24px rgba(255,46,156,.8))}
+.coeur-geant.boum{animation:boum .9s ease forwards}
+@keyframes boum{15%{transform:translate(-50%,-50%) scale(1.15)}30%{transform:translate(-50%,-50%) scale(.95)}45%{transform:translate(-50%,-50%) scale(1.05)}80%{opacity:1}100%{transform:translate(-50%,-50%) scale(1.2);opacity:0}}
+/* actions */
+.post-actions{display:flex;align-items:center;gap:16px;padding:11px 15px 4px;font-size:1.35rem}
+.post-actions button{background:none;border:none;cursor:pointer;line-height:1;transition:transform .15s}
+.post-actions button:active{transform:scale(1.25)}
+.post-actions .aime.actif{animation:pop .35s ease}
+@keyframes pop{50%{transform:scale(1.4)}}
+.post-actions .enregistrer{margin-left:auto}
+/* compteurs + légende */
+.post-corps{padding:2px 15px 15px}
+.likes{font-weight:700;font-size:.88rem}
+.likes b{font-family:var(--display);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.legende{font-size:.86rem;margin-top:6px}
+.legende .pseudo{font-weight:600;margin-right:6px}
+.legende .hashtags{color:#8FB8FF}
+.metriques{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.metrique{font-size:.7rem;font-weight:600;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);border-radius:999px;padding:5px 11px;color:#E0E0F4}
+.metrique b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.voir-comms{display:block;background:none;border:none;cursor:pointer;color:var(--sourdine);font-size:.8rem;margin-top:10px;padding:0}
+.comms{margin-top:8px;display:none}
+.comms.ouvert{display:block}
+.comm{font-size:.82rem;margin-top:6px}
+.comm .pseudo{font-weight:600;margin-right:6px}
+.comm .emoji{margin-left:4px}
+.horodatage{font-size:.66rem;color:var(--sourdine);letter-spacing:.08em;text-transform:uppercase;margin-top:10px}
+/* post sponsorisé (CTA) */
+.post.sponso .post-tete .lieu{color:var(--rose)}
+.post.sponso .banniere-cta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 15px;background:linear-gradient(90deg,rgba(255,46,156,.16),rgba(124,92,255,.14));border-top:1px solid var(--bord);font-weight:600;font-size:.88rem}
+.post.sponso .banniere-cta a{display:inline-flex;align-items:center;gap:6px;background:var(--grad);color:#fff;border-radius:999px;padding:9px 18px;font-size:.8rem;box-shadow:0 0 18px rgba(255,46,156,.4)}
+
+/* ----- colonne droite ----- */
+.lateral{position:sticky;top:96px;align-self:start;display:flex;flex-direction:column;gap:22px}
+.carte-lat{background:var(--carte);border:1px solid var(--bord);border-radius:18px;padding:18px}
+.profil{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.profil .avatar{width:52px;height:52px}
+.profil .pseudo{font-weight:700;font-size:.95rem}
+.profil .lieu{font-size:.74rem;color:var(--sourdine)}
+.profil-stats{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;border-top:1px solid var(--bord);padding-top:12px}
+.profil-stats b{font-family:var(--display);font-size:1.05rem;display:block;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.profil-stats span{font-size:.64rem;color:var(--sourdine)}
+.titre-lat{font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--sourdine);margin-bottom:12px}
+.suggestion{display:flex;align-items:center;gap:11px;padding:7px 0}
+.suggestion .avatar{width:36px;height:36px}
+.suggestion .qui{flex:1;min-width:0}
+.suggestion .pseudo{font-size:.82rem;font-weight:600}
+.suggestion .info{font-size:.68rem;color:var(--sourdine)}
+.suggestion .suivre{background:none;border:none;cursor:pointer;font-weight:700;font-size:.76rem;background-image:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tendances{list-style:none}
+.tendances li{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem}
+.tendances li:last-child{border:none}
+.tendances .tag{font-weight:600;color:#8FB8FF;display:block}
+.tendances .vol{font-size:.66rem;color:var(--sourdine)}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid rgba(255,255,255,.07);padding:28px 0}
+.pied{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.84rem;color:var(--sourdine)}
+.pied ul{display:flex;gap:24px;list-style:none}
+.pied ul a:hover{color:#fff}
+
+/* révélation */
+.reveler{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.reveler.visible{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media(max-width:920px){
+  .page-feed{grid-template-columns:minmax(0,520px);}
+  .lateral{display:none}
+}
+@media(max-width:720px){
+  .nav-links{position:fixed;inset:72px 0 auto 0;max-height:calc(100vh - 72px);overflow:auto;background:var(--fond2);flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 24px;border-bottom:1px solid var(--bord);display:none}
+  .nav-links.ouvert{display:flex}
+  .nav-links>li>a,.nav-links>li>button{width:100%;justify-content:space-between;padding:14px 10px;font-size:.95rem}
+  .sous-menu{position:static;transform:none;min-width:0;opacity:1;visibility:visible;box-shadow:none;border:none;background:rgba(255,255,255,.03);border-radius:12px;margin:0 6px 8px;display:none;padding:6px}
+  .sous-menu::before{display:none}
+  li.ouvert .sous-menu{display:block}
+  .btn-cta{justify-content:center;text-align:center;margin-top:10px}
+  .burger{display:block}
+  .page-feed{padding:20px 12px 50px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.001s!important}
+  .reveler{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Nav avec sous-menus ===== -->
+<header class="nav">
+  <div class="conteneur nav-inner">
+    <a href="index.html" class="marque" aria-label="CyMedia — Accueil">
+      <svg class="glyphe" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+      </svg>
+      <span class="nom">CYMEDIA<small>MARKETING AGENCY</small></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="preview.html">Services</a></li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Portfolio <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="work.html"><i></i>Portfolio — grille</a></li>
+            <li><a href="cymedia-portfolio.html"><i></i>Portfolio — cartes verre</a></li>
+            <li><a href="cymedia-portfolio-v2.html"><i></i>Portfolio — index éditorial</a></li>
+            <li><a href="cymedia-portfolio-v3.html"><i></i>Portfolio — cinématique</a></li>
+            <li><a href="cymedia-portfolio-v4.html"><i></i>Portfolio — mosaïque bento</a></li>
+            <li><a href="cymedia-portfolio-v5.html"><i></i>Portfolio — scrollytelling 3D</a></li>
+            <li><a href="cymedia-portfolio-v6.html"><i></i>Portfolio — showreel vidéo</a></li>
+            <li><a href="cymedia-portfolio-v7.html"><i></i>Portfolio — split-screen</a></li>
+            <li><a href="cymedia-portfolio-v8.html"><i></i>Portfolio — édition magazine</a></li>
+            <li><a href="cymedia-portfolio-v9.html"><i></i>Portfolio — galerie horizontale</a></li>
+            <li><a href="cymedia-portfolio-v10.html" class="actif" aria-current="page"><i></i>Portfolio — le feed social</a></li>
+            <li><a href="cymedia-portfolio-v11.html"><i></i>Portfolio — dashboard analytics</a></li>
+            <li><a href="cymedia-portfolio-v12.html"><i></i>Portfolio — salle de montage</a></li>
+            <li><a href="cymedia-portfolio-v13.html"><i></i>Portfolio — le funnel</a></li>
+            <li><a href="cymedia-portfolio-v14.html"><i></i>Portfolio — quiz de diagnostic</a></li>
+            <li><a href="cymedia-portfolio-v15.html"><i></i>Portfolio — visite du studio</a></li>
+            <li><a href="cymedia-portfolio-v16.html"><i></i>Portfolio — Ligne Croissance</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Versions <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li class="titre-groupe">Pages d'accueil</li>
+            <li><a href="index.html"><i></i>Version 1</a></li>
+            <li><a href="v2.html"><i></i>Version 2</a></li>
+            <li><a href="v3.html"><i></i>Version 3</a></li>
+            <li><a href="v4.html"><i></i>Version 4</a></li>
+            <li><a href="v5.html"><i></i>Version 5</a></li>
+            <li class="separe" aria-hidden="true"></li>
+            <li><a href="clear_fab.html"><i></i>Version claire</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Carrousels <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="carousel_1.html"><i></i>Carrousel V1</a></li>
+            <li><a href="carousel_2.html"><i></i>Carrousel V2</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Tarifs</a></li>
+        <li><a href="mailto:contact@cymedia.ma" class="btn-cta">Réserver un appel</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="basculerMenu(this)"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== Feed ===== -->
+<div class="page-feed">
+
+  <!-- colonne centrale -->
+  <div class="colonne-feed">
+    <div class="stories" id="stories">
+      <button class="story moi" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <span class="anneau"><span>
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+          </svg>
+        </span></span>
+        <span class="pseudo-story">cymedia</span>
+      </button>
+    </div>
+
+    <div id="feed"></div>
+  </div>
+
+  <!-- colonne latérale -->
+  <aside class="lateral">
+    <div class="carte-lat">
+      <div class="profil">
+        <span class="avatar"><span>
+          <img src="https://picsum.photos/seed/cymedia-av/120/120" alt="">
+        </span></span>
+        <div>
+          <div class="pseudo">cymedia <span class="verif">✓</span></div>
+          <div class="lieu">Agence marketing · Marrakech</div>
+        </div>
+      </div>
+      <div class="profil-stats">
+        <div><b>120+</b><span>projets</span></div>
+        <div><b>48 M</b><span>vues générées</span></div>
+        <div><b>×3,2</b><span>ROAS moyen</span></div>
+      </div>
+    </div>
+
+    <div class="carte-lat">
+      <div class="titre-lat">Suggestions pour vous</div>
+      <div class="suggestion">
+        <span class="avatar"><span style="display:flex;align-items:center;justify-content:center;background:linear-gradient(45deg,#1c1838,#2a1f4e);font-family:var(--display);font-weight:700;font-size:.8rem">?</span></span>
+        <div class="qui">
+          <div class="pseudo">votre.marque</div>
+          <div class="info">Pourrait exploser en 2026</div>
+        </div>
+        <a class="suivre" href="mailto:contact@cymedia.ma?subject=Suivre%20ma%20marque">Booster</a>
+      </div>
+      <div class="suggestion">
+        <span class="avatar"><span><img src="https://picsum.photos/seed/sug1/80/80" alt=""></span></span>
+        <div class="qui">
+          <div class="pseudo">prochain.client</div>
+          <div class="info">Suivi par vos concurrents</div>
+        </div>
+        <a class="suivre" href="mailto:contact@cymedia.ma">Booster</a>
+      </div>
+    </div>
+
+    <div class="carte-lat">
+      <div class="titre-lat">Tendances chez CyMedia</div>
+      <ul class="tendances">
+        <li><span class="tag">#TunnelDeVente</span><span class="vol">8,7× ROAS chez Virelo</span></li>
+        <li><span class="tag">#ReelsFood</span><span class="vol">2,1 M de vues pour Maison Safran</span></li>
+        <li><span class="tag">#ProductLedGrowth</span><span class="vol">+210 % d'inscriptions chez Taskly</span></li>
+        <li><span class="tag">#LancementDeMarque</span><span class="vol">0→45k abonnés pour Noor</span></li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="conteneur pied">
+    <span>© 2026 CyMedia — Agence marketing · Les chiffres affichés sont nos vrais résultats clients.</span>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="preview.html">Services</a></li>
+      <li><a href="mailto:contact@cymedia.ma">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   DONNÉES — chaque projet est un post
+   ============================================================ */
+const PROJETS=[
+ {pseudo:'virelo.cosmetics',nom:'Virelo',cat:'E-commerce',seed:'virelo7',likes:89432,likeLabel:'interactions ce mois-ci',
+  legende:"Tunnel « du réseau social à la vente » reconstruit par @cymedia. Le système vend maintenant 24h/24 💸",
+  hashtags:'#ecommerce #ROAS #socialselling',
+  metriques:[['Engagement','+320\u00a0%'],['ROAS','8,7×'],['C.A.','×2,4']],
+  statFlot:['8,7×','ROAS'],nbComms:312,
+  comms:[['salma.b','On a doublé nos ventes en ligne, merci l\u2019équipe 🙌'],['ecom.daily','Le retargeting est chirurgical 🔥'],['yassine.dg','Étude de cas svp !']]},
+ {pseudo:'mindsetpro.coach',nom:'Mindset Pro',cat:'Coaching',seed:'mindset3',likes:54210,likeLabel:'nouveaux abonnés engagés',
+  legende:"Un écosystème complet monté avec @cymedia : YouTube, shorts, newsletter, communauté. Chaque canal nourrit le suivant 🧠",
+  hashtags:'#coaching #personalbrand #youtube',
+  metriques:[['Prospects','+185\u00a0%'],['C.A.','6,3×'],['Membres','12k']],
+  statFlot:['6,3×','C.A.'],nbComms:198,
+  comms:[['karim.m','La newsletter est devenue mon rendez-vous du lundi'],['growthfr','Le découpage en shorts est exemplaire 👏']]},
+ {pseudo:'taskly.app',nom:'Taskly',cat:'SaaS',seed:'taskly9',likes:38760,likeLabel:'essais gratuits lancés',
+  legende:"Product-led growth signé @cymedia : comparatifs SEO, démos vidéo, parrainage. L\u2019organique a dépassé le payant en 5 mois 📈",
+  hashtags:'#saas #plg #growthhacking',
+  metriques:[['Inscriptions','+210\u00a0%'],['Rétention','7,2×'],['CAC','−31\u00a0%']],
+  statFlot:['+210\u00a0%','Inscriptions'],nbComms:147,
+  comms:[['dev.sami','L\u2019onboarding est devenu une masterclass'],['saasfrance','Beau cas d\u2019école 👌']]},
+ {pseudo:'maison.safran',nom:'Maison Safran',cat:'Restauration',seed:'safran5',likes:127904,likeLabel:'vues sur le dernier réel',
+  legende:"Quand la cuisine devient contenu 🍽️ Réels food par @cymedia, réservation directe depuis Instagram. La salle est pleine.",
+  hashtags:'#foodporn #marrakech #reels',
+  metriques:[['Réservations','+140\u00a0%'],['Abonnés','×4'],['Vues','2,1\u00a0M']],
+  statFlot:['2,1\u00a0M','Vues de réels'],nbComms:486,
+  comms:[['foodie.mra','J\u2019ai réservé direct après avoir vu le réel 😍'],['chef.tables','La DA est magnifique'],['leila.eats','Le tajine de la vidéo 🤤']]},
+ {pseudo:'atlas.habitat',nom:'Atlas Habitat',cat:'Immobilier',seed:'atlas2',likes:21340,likeLabel:'visites virtuelles lancées',
+  legende:"Des leads qualifiés à la chaîne 🏗️ Visites virtuelles + landing pages par programme, qualification automatique. Merci @cymedia",
+  hashtags:'#immobilier #leadgen #proptech',
+  metriques:[['Leads','+95\u00a0%'],['Coût/lead','−38\u00a0%'],['Taux RDV','34\u00a0%']],
+  statFlot:['−38\u00a0%','Coût / lead'],nbComms:89,
+  comms:[['promoteur.ma','Le tri automatique des prospects change tout'],['btp.invest','Les visites 3D sont bluffantes']]},
+ {pseudo:'noor.bijoux',nom:'Noor Bijoux',cat:'E-commerce',seed:'noor4',likes:45120,likeLabel:'abonnés gagnés en 8 mois',
+  legende:"Partie de zéro il y a 8 mois ✨ Storytelling artisanal et coulisses d\u2019atelier orchestrés par @cymedia. Rentable dès le 3e mois.",
+  hashtags:'#handmade #bijoux #lancement',
+  metriques:[['Abonnés','0→45k'],['ROAS','5,4×'],['Ventes IG','68\u00a0%']],
+  statFlot:['5,4×','ROAS'],nbComms:264,
+  comms:[['noor.creatrice','Je vis enfin de mon artisanat 🥹'],['bijoux.lovers','Les vidéos d\u2019atelier sont hypnotiques']]}
+];
+
+/* ============================================================
+   RENDU : stories + posts
+   ============================================================ */
+const stories=document.getElementById('stories');
+const feed=document.getElementById('feed');
+
+PROJETS.forEach((p,i)=>{
+  /* story */
+  const st=document.createElement('button');
+  st.className='story';
+  st.innerHTML=`<span class="anneau"><span><img src="https://picsum.photos/seed/${p.seed}/120/120" alt=""></span></span><span class="pseudo-story">${p.pseudo}</span>`;
+  st.addEventListener('click',()=>document.getElementById('post-'+i).scrollIntoView({behavior:'smooth',block:'center'}));
+  stories.appendChild(st);
+
+  /* post */
+  const art=document.createElement('article');
+  art.className='post reveler';
+  art.id='post-'+i;
+  art.innerHTML=`
+    <div class="post-tete">
+      <span class="avatar"><span><img src="https://picsum.photos/seed/${p.seed}-av/100/100" alt=""></span></span>
+      <div class="qui">
+        <div class="pseudo">${p.pseudo} <span class="verif">✓</span></div>
+        <div class="lieu">${p.cat} · avec <b>cymedia</b></div>
+      </div>
+      <button class="suivre" onclick="window.location.href='mailto:contact@cymedia.ma?subject=Projet%20${encodeURIComponent(p.nom)}'">Voir le cas</button>
+    </div>
+    <div class="post-image" data-i="${i}">
+      <img src="https://picsum.photos/seed/${p.seed}/900/900" alt="Projet ${p.nom}" ${i>1?'loading="lazy"':''}>
+      <span class="tag-cat">${p.cat}</span>
+      <span class="stat-flot"><b>${p.statFlot[0]}</b><span>${p.statFlot[1]}</span></span>
+      <span class="coeur-geant" aria-hidden="true">❤️</span>
+    </div>
+    <div class="post-actions">
+      <button class="aime" aria-label="J'aime" data-i="${i}">🤍</button>
+      <button aria-label="Commenter" onclick="basculerComms(${i})">💬</button>
+      <button aria-label="Partager" onclick="window.location.href='mailto:?subject=Regarde%20ce%20projet%20CyMedia&body=${encodeURIComponent('Étude de cas '+p.nom+' par CyMedia — contact@cymedia.ma')}'">📤</button>
+      <button class="enregistrer" aria-label="Enregistrer">🔖</button>
+    </div>
+    <div class="post-corps">
+      <div class="likes"><b data-cible="${p.likes}" class="compteur-likes">0</b> ${p.likeLabel}</div>
+      <p class="legende"><span class="pseudo">${p.pseudo}</span>${p.legende} <span class="hashtags">${p.hashtags}</span></p>
+      <div class="metriques">${p.metriques.map(m=>`<span class="metrique">${m[0]} <b>${m[1]}</b></span>`).join('')}</div>
+      <button class="voir-comms" onclick="basculerComms(${i})">Voir les ${p.nbComms} commentaires</button>
+      <div class="comms" id="comms-${i}">
+        ${p.comms.map(c=>`<p class="comm"><span class="pseudo">${c[0]}</span>${c[1]}</p>`).join('')}
+      </div>
+      <div class="horodatage">Étude de cas · ${p.nom} · CyMedia</div>
+    </div>`;
+  feed.appendChild(art);
+});
+
+/* ----- post sponsorisé final ----- */
+const sponso=document.createElement('article');
+sponso.className='post sponso reveler';
+sponso.innerHTML=`
+  <div class="post-tete">
+    <span class="avatar"><span style="display:flex;align-items:center;justify-content:center;background:#15132f">
+      <svg viewBox="0 0 100 100" style="width:60%" aria-hidden="true">
+        <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+      </svg>
+    </span></span>
+    <div class="qui">
+      <div class="pseudo">cymedia <span class="verif">✓</span></div>
+      <div class="lieu">Sponsorisé · forcément 😏</div>
+    </div>
+  </div>
+  <div class="post-image">
+    <img src="https://picsum.photos/seed/votre-marque3/900/900" alt="Votre marque ici">
+    <span class="tag-cat">Votre marque ici</span>
+    <span class="stat-flot"><b>+???\u00a0%</b><span>À écrire ensemble</span></span>
+    <span class="coeur-geant" aria-hidden="true">❤️</span>
+  </div>
+  <div class="post-corps" style="padding-top:12px">
+    <p class="legende"><span class="pseudo">cymedia</span>Ce post pourrait montrer VOS résultats. Le prochain projet du feed, c'est le vôtre. <span class="hashtags">#VotreMarque #Croissance</span></p>
+  </div>
+  <div class="banniere-cta">
+    <span>Prêt à apparaître dans ce feed&nbsp;?</span>
+    <a href="mailto:contact@cymedia.ma?subject=Je%20veux%20appara%C3%AEtre%20dans%20le%20feed">Démarrer&nbsp;→</a>
+  </div>`;
+feed.appendChild(sponso);
+
+/* ============================================================
+   INTERACTIONS
+   ============================================================ */
+/* like bouton */
+document.querySelectorAll('.aime').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const actif=b.classList.toggle('actif');
+    b.textContent=actif?'❤️':'🤍';
+    const compteur=b.closest('.post').querySelector('.compteur-likes');
+    if(compteur){
+      const v=parseInt(compteur.textContent.replace(/\s/g,''))||0;
+      compteur.textContent=(v+(actif?1:-1)).toLocaleString('fr-FR');
+    }
+  });
+});
+/* double-clic sur l'image = gros coeur + like */
+document.querySelectorAll('.post-image').forEach(z=>{
+  z.addEventListener('dblclick',()=>{
+    const coeur=z.querySelector('.coeur-geant');
+    coeur.classList.remove('boum');void coeur.offsetWidth;coeur.classList.add('boum');
+    const btn=z.closest('.post').querySelector('.aime');
+    if(btn&&!btn.classList.contains('actif'))btn.click();
+  });
+});
+/* commentaires */
+function basculerComms(i){
+  document.getElementById('comms-'+i).classList.toggle('ouvert');
+}
+/* compteur de likes animé à l'entrée dans le viewport */
+const mouvementReduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function animerCompteur(el){
+  const cible=parseInt(el.dataset.cible);
+  if(mouvementReduit){el.textContent=cible.toLocaleString('fr-FR');return;}
+  const debut=performance.now(),duree=1400;
+  function pas(t){
+    const p=Math.min((t-debut)/duree,1);
+    const e=1-Math.pow(1-p,3); /* ease-out */
+    el.textContent=Math.round(cible*e).toLocaleString('fr-FR');
+    if(p<1)requestAnimationFrame(pas);
+  }
+  requestAnimationFrame(pas);
+}
+const obsCompteurs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){animerCompteur(e.target);obsCompteurs.unobserve(e.target);}
+  });
+},{threshold:.6});
+document.querySelectorAll('.compteur-likes').forEach(c=>obsCompteurs.observe(c));
+
+/* révélation des posts */
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}})},{threshold:.08});
+document.querySelectorAll('.reveler').forEach(el=>obs.observe(el));
+
+/* ============================================================
+   MENU
+   ============================================================ */
+function basculerMenu(btn){
+  const m=document.getElementById('nav-links');
+  const o=m.classList.toggle('ouvert');
+  btn.setAttribute('aria-expanded',o);
+}
+document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav-links').classList.remove('ouvert')));
+function basculerSousMenu(btn){
+  const li=btn.parentElement;
+  const dejaOuvert=li.classList.contains('ouvert');
+  document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+    x.classList.remove('ouvert');
+    x.querySelector('button').setAttribute('aria-expanded','false');
+  });
+  if(!dejaOuvert){li.classList.add('ouvert');btn.setAttribute('aria-expanded','true');}
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.a-sous-menu')){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+</script>
+</body>
+</html>
