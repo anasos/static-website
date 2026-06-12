@@ -57,6 +57,12 @@ li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) tra
   .nav-links>li:hover>button{color:#fff;background:rgba(255,255,255,.06)}
   .nav-links>li:hover .chevron{transform:rotate(225deg) translateY(-1px)}
 }
+
+.sous-menu{max-height:calc(100vh - 110px);overflow-y:auto;overscroll-behavior:contain}
+.sous-menu{scrollbar-width:thin;scrollbar-color:rgba(255,46,156,.5) transparent}
+.sous-menu::-webkit-scrollbar{width:6px}
+.sous-menu::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#FF2E9C,#7C5CFF);border-radius:99px}
+
 .sous-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.88rem;color:var(--sourdine);transition:color .2s,background .2s}
 .sous-menu a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.18),rgba(124,92,255,.14))}
 .sous-menu a i{font-style:normal;width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none;opacity:0;transition:opacity .2s}
@@ -294,7 +300,7 @@ body.rapide footer{display:block}
             <li><a href="cymedia-portfolio-v14.html"><i></i>Portfolio — quiz de diagnostic</a></li>
             <li><a href="cymedia-portfolio-v15.html"><i></i>Portfolio — visite du studio (3D)</a></li>
             <li><a href="cymedia-portfolio-v16.html"><i></i>Portfolio — Ligne Croissance</a></li>
-            <li><a href="cymedia-portfolio-v18.html"><i></i>Portfolio — Ligne Croissance</a></li>
+            <li><a href="cymedia-portfolio-v18.html"><i></i>Portfolio — Ligne Croissance V2</a></li>
             <li><a href="cymedia-portfolio-v19.html" class="actif" aria-current="page"><i></i>Portfolio — studio 2D</a></li>
           </ul>
         </li>
