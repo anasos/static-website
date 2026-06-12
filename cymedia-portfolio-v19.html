@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réalisations — CyMedia (studio 2D)</title>
+<meta name="description" content="Visitez le studio CyMedia en 2D : un personnage marche de salle en salle, chaque salle est un projet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#070716;
+  --fond2:#0D0D24;
+  --mur:#10102a;
+  --sol:#0b0b20;
+  --bord:rgba(255,255,255,.1);
+  --texte:#F0F0FB;
+  --sourdine:#9C9DC6;
+  --rose:#FF2E9C;
+  --violet:#7C5CFF;
+  --cyan:#3EE5E0;
+  --orange:#FF7A45;
+  --grad:linear-gradient(90deg,#FF2E9C,#7C5CFF);
+  --display:'Space Grotesk',sans-serif;
+  --corps:'Inter',sans-serif;
+  --h-sol:120px; /* hauteur du sol depuis le bas */
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--fond);color:var(--texte);font-family:var(--corps);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:8px}
+.conteneur{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ============================================================
+   NAV AVEC SOUS-MENUS
+   ============================================================ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:80;background:rgba(7,7,22,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.marque{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700}
+.marque .glyphe{width:36px;height:36px}
+.marque .nom{font-size:1rem;line-height:1}
+.marque .nom small{display:block;font-size:.48rem;font-weight:500;letter-spacing:.4em;color:var(--sourdine)}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a,.nav-links>li>button{display:flex;align-items:center;gap:6px;font-family:var(--corps);font-size:.9rem;font-weight:500;color:var(--sourdine);background:none;border:none;cursor:pointer;padding:10px 14px;border-radius:10px;transition:color .2s,background .2s}
+.nav-links>li>a:hover,.nav-links>li>button:hover,.nav-links>li.ouvert>button{color:#fff;background:rgba(255,255,255,.06)}
+.chevron{width:9px;height:9px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex:none}
+li.ouvert .chevron{transform:rotate(225deg) translateY(-1px)}
+.sous-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);min-width:280px;background:linear-gradient(168deg,rgba(30,26,60,.96),rgba(16,14,38,.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:8px;list-style:none;box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(124,92,255,.15),inset 0 1px 0 rgba(255,255,255,.12);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s;max-height:70vh;overflow:auto}
+.sous-menu::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:rgba(30,26,60,.96);border-left:1px solid rgba(255,255,255,.14);border-top:1px solid rgba(255,255,255,.14)}
+li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+@media(hover:hover) and (min-width:721px){
+  .nav-links>li:hover .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .nav-links>li:hover>button{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-links>li:hover .chevron{transform:rotate(225deg) translateY(-1px)}
+}
+.sous-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.88rem;color:var(--sourdine);transition:color .2s,background .2s}
+.sous-menu a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.18),rgba(124,92,255,.14))}
+.sous-menu a i{font-style:normal;width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none;opacity:0;transition:opacity .2s}
+.sous-menu a:hover i{opacity:1}
+.sous-menu a.actif{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.22),rgba(124,92,255,.18))}
+.sous-menu a.actif i{opacity:1}
+.sous-menu .titre-groupe{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(156,157,198,.7);padding:8px 14px 4px}
+.sous-menu .separe{height:1px;background:rgba(255,255,255,.08);margin:6px 8px}
+.btn-cta{font-weight:600;font-size:.85rem;color:#fff!important;background:var(--grad);border-radius:999px;padding:10px 20px!important;box-shadow:0 0 22px rgba(255,46,156,.35);transition:transform .2s,box-shadow .2s}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(255,46,156,.5);background:var(--grad)!important}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:22px;height:2px;background:#fff;margin:5px 0;border-radius:2px}
+
+/* ============================================================
+   SCÈNE 2D
+   ============================================================ */
+.scene{position:fixed;inset:0;z-index:1;overflow:hidden;background:linear-gradient(180deg,#060614 0%,#0a0a20 55%,#0d0d26 100%)}
+/* texte lointain en parallaxe */
+.lointain{position:absolute;bottom:calc(var(--h-sol) + 200px);left:0;white-space:nowrap;font-family:var(--display);font-weight:700;font-size:150px;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.05);user-select:none;will-change:transform}
+/* monde qui défile */
+.monde{position:absolute;top:0;bottom:0;left:0;will-change:transform}
+/* mur + sol */
+.fond-mur{position:absolute;left:0;right:0;top:0;bottom:var(--h-sol);background:
+  linear-gradient(180deg,rgba(255,255,255,.03) 0 2px,transparent 2px) top/100% 110px,
+  var(--mur)}
+.fond-mur::after{content:"";position:absolute;left:0;right:0;bottom:0;height:14px;background:#171738;box-shadow:0 -1px 0 rgba(255,255,255,.08)} /* plinthe */
+.fond-sol{position:absolute;left:0;right:0;bottom:0;height:var(--h-sol);background:
+  repeating-linear-gradient(90deg,rgba(255,255,255,.045) 0 2px,transparent 2px 130px),
+  linear-gradient(180deg,#13132e,var(--sol))}
+/* lumière d'ambiance d'une salle */
+.halo-salle{position:absolute;bottom:0;height:88%;border-radius:50% 50% 0 0;filter:blur(60px);opacity:.2;pointer-events:none}
+/* porte entre les salles */
+.porte{position:absolute;bottom:var(--h-sol);width:120px;height:330px;background:linear-gradient(180deg,#0a0a1c,#0e0e24);border:3px solid #1d1d42;border-bottom:none;border-radius:14px 14px 0 0;box-shadow:inset 0 0 30px rgba(0,0,0,.6)}
+.porte::before{content:"";position:absolute;inset:12px 12px 0;border:2px solid rgba(255,255,255,.07);border-bottom:none;border-radius:8px 8px 0 0}
+.porte::after{content:"";position:absolute;right:18px;top:52%;width:10px;height:10px;border-radius:50%;background:#3a3a6e}
+.porte .enseigne{position:absolute;left:50%;top:-46px;transform:translateX(-50%);font-family:var(--display);font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:#0c0c22;border:1px solid var(--bord);border-radius:8px;padding:7px 12px;white-space:nowrap}
+.porte .enseigne i{font-style:normal;color:var(--rose)}
+/* néon de salle */
+.neon{position:absolute;top:96px;font-family:var(--display);font-weight:700;font-size:1.7rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;text-shadow:0 0 14px var(--acc,#FF2E9C),0 0 38px var(--acc,#FF2E9C);white-space:nowrap}
+.neon small{display:block;font-size:.62rem;letter-spacing:.3em;color:var(--sourdine);text-shadow:none}
+/* cadres au mur */
+.cadre{position:absolute;background:#0c0c20;border:3px solid #23234c;border-radius:6px;padding:6px;box-shadow:0 14px 34px rgba(0,0,0,.5),0 0 22px var(--acc-d,rgba(255,46,156,.18))}
+.cadre img{width:100%;height:100%;object-fit:cover;border-radius:2px}
+.cadre::after{content:"";position:absolute;left:50%;top:-26px;width:2px;height:26px;background:rgba(255,255,255,.15)}
+/* carte projet */
+.carte-salle{position:absolute;width:330px;background:linear-gradient(168deg,rgba(28,24,58,.94),rgba(13,12,32,.96));border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:17px 19px;box-shadow:0 26px 60px rgba(0,0,0,.6),0 0 36px var(--acc-d,rgba(255,46,156,.16));opacity:0;transform:translateY(22px) scale(.96);transition:opacity .5s ease,transform .5s cubic-bezier(.34,1.4,.64,1)}
+.carte-salle.visible{opacity:1;transform:none}
+.carte-salle .badge{display:inline-flex;font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--acc-f,rgba(255,46,156,.18));border:1px solid var(--acc-b,rgba(255,46,156,.5));border-radius:999px;padding:4px 11px;margin-bottom:8px}
+.carte-salle h2{font-family:var(--display);font-weight:700;font-size:1.4rem;margin-bottom:6px}
+.carte-salle p{font-size:.78rem;color:#C9CAEA;margin-bottom:11px}
+.carte-salle .stats{display:flex;gap:13px;margin-bottom:10px}
+.carte-salle .stats b{font-family:var(--display);font-size:1rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block;line-height:1.1}
+.carte-salle .stats span{font-size:.55rem;color:var(--sourdine)}
+.carte-salle .tags{display:flex;gap:6px;flex-wrap:wrap}
+.carte-salle .tags span{font-size:.58rem;font-weight:600;color:#E4DCFF;background:rgba(124,92,255,.15);border:1px solid rgba(124,92,255,.4);border-radius:999px;padding:3px 9px}
+.btn-grad{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.88rem;padding:12px 24px;border-radius:999px;background:var(--grad);color:#fff;border:none;cursor:pointer;box-shadow:0 0 24px rgba(255,46,156,.5);transition:transform .2s}
+.btn-grad:hover{transform:translateY(-2px) scale(1.03)}
+
+/* ----- décors ----- */
+/* ring light */
+.deco-ring{position:absolute;bottom:var(--h-sol);width:150px;height:300px}
+.deco-ring .cercle{position:absolute;top:0;left:50%;transform:translateX(-50%);width:140px;height:140px;border-radius:50%;border:11px solid #f2f2f8;box-shadow:0 0 40px rgba(255,46,156,.8),inset 0 0 30px rgba(255,46,156,.55);background:radial-gradient(circle,rgba(255,46,156,.2),transparent 70%)}
+.deco-ring .pied{position:absolute;top:135px;left:50%;width:5px;height:130px;background:#1d1d42;transform:translateX(-50%)}
+.deco-ring .base{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:90px;height:7px;border-radius:4px;background:#1d1d42}
+/* lampes suspendues */
+.deco-lampe{position:absolute;top:0;width:60px}
+.deco-lampe .fil{width:2px;height:170px;background:rgba(255,255,255,.18);margin:0 auto}
+.deco-lampe .abat{width:54px;height:34px;background:#1d1d42;border-radius:6px 6px 50% 50%;margin:0 auto;position:relative}
+.deco-lampe .ampoule{position:absolute;left:50%;top:30px;transform:translateX(-50%);width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 50% 30%,#FFE2B0,#FF7A45 65%,transparent 75%);box-shadow:0 0 38px rgba(255,150,70,.85);animation:vaciller 3.4s ease-in-out infinite}
+@keyframes vaciller{50%{box-shadow:0 0 26px rgba(255,150,70,.6)}}
+/* bureau tech */
+.deco-bureau{position:absolute;bottom:var(--h-sol);width:300px;height:190px}
+.deco-bureau .plateau{position:absolute;bottom:96px;left:0;right:0;height:9px;background:#1d1d42;border-radius:4px}
+.deco-bureau .pied-b{position:absolute;bottom:0;width:7px;height:96px;background:#191938}
+.deco-bureau .pied-b.g{left:14px}.deco-bureau .pied-b.d{right:14px}
+.deco-bureau .ecran{position:absolute;bottom:108px;width:120px;height:78px;background:#0b0b1e;border:2px solid rgba(62,229,224,.55);border-radius:7px;box-shadow:0 0 24px rgba(62,229,224,.35);display:flex;align-items:flex-end;gap:5px;padding:8px}
+.deco-bureau .ecran.e2{left:150px;width:96px;height:64px;bottom:104px}
+.deco-bureau .ecran i{flex:1;background:linear-gradient(180deg,#3EE5E0,#7C5CFF);border-radius:2px 2px 0 0;animation:onduler 2.4s ease-in-out infinite}
+@keyframes onduler{50%{transform:scaleY(.6)}}
+/* comptoir accueil */
+.deco-accueil{position:absolute;bottom:var(--h-sol);width:260px;height:120px;background:linear-gradient(180deg,#191938,#13132c);border-radius:12px 12px 0 0;border:2px solid #23234c;border-bottom:none}
+.deco-accueil::before{content:"";position:absolute;top:-9px;left:-8px;right:-8px;height:9px;background:#23234c;border-radius:6px}
+.deco-accueil .logo-acc{position:absolute;left:50%;top:30px;transform:translateX(-50%);width:54px;height:54px}
+/* plante */
+.deco-plante{position:absolute;bottom:var(--h-sol);width:60px;height:120px}
+.deco-plante .pot{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:44px;height:36px;background:#1d1d42;border-radius:4px 4px 8px 8px}
+.deco-plante .feuille{position:absolute;bottom:30px;left:50%;width:9px;height:80px;background:linear-gradient(180deg,#3EE58B,#1d7a4d);border-radius:50% 50% 0 0;transform-origin:bottom}
+.deco-plante .feuille:nth-child(2){transform:translateX(-50%) rotate(-24deg)}
+.deco-plante .feuille:nth-child(3){transform:translateX(-50%) rotate(0deg);height:92px}
+.deco-plante .feuille:nth-child(4){transform:translateX(-50%) rotate(24deg)}
+/* salle de réunion */
+.deco-table{position:absolute;bottom:var(--h-sol);width:380px;height:130px}
+.deco-table .plateau{position:absolute;bottom:78px;left:0;right:0;height:11px;background:linear-gradient(90deg,#1d1d42,#26265a,#1d1d42);border-radius:6px}
+.deco-table .pied-t{position:absolute;bottom:0;width:9px;height:78px;background:#191938}
+.deco-table .pied-t.g{left:30px}.deco-table .pied-t.d{right:30px}
+.chaise2d{position:absolute;bottom:var(--h-sol);width:54px;height:104px}
+.chaise2d .dossier{position:absolute;left:4px;top:0;width:9px;height:64px;background:#1d1d42;border-radius:5px}
+.chaise2d .assise{position:absolute;left:4px;top:58px;width:44px;height:9px;background:#1d1d42;border-radius:4px}
+.chaise2d .pied-c{position:absolute;top:64px;width:6px;height:40px;background:#191938}
+.chaise2d .pied-c.g{left:8px}.chaise2d .pied-c.d{right:4px}
+.chaise2d.libre .dossier,.chaise2d.libre .assise{background:#2a1640;border:1.5px solid var(--rose);box-shadow:0 0 22px rgba(255,46,156,.65)}
+.chaise2d.libre::after{content:"Réservée pour vous";position:absolute;left:50%;top:-40px;transform:translateX(-50%);font-family:var(--display);font-size:.58rem;font-weight:700;letter-spacing:.12em;color:#FFD9EE;background:rgba(255,46,156,.16);border:1px solid rgba(255,46,156,.55);border-radius:999px;padding:5px 11px;white-space:nowrap;animation:flotte-tag 2.4s ease-in-out infinite}
+@keyframes flotte-tag{50%{transform:translateX(-50%) translateY(-6px)}}
+
+/* ============================================================
+   LE PERSONNAGE
+   ============================================================ */
+.perso{position:absolute;bottom:calc(var(--h-sol) - 6px);left:30%;width:64px;height:150px;z-index:10;transform:translateX(-50%) scaleX(var(--dir,1));transition:transform .25s}
+.perso .ombre{position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);width:64px;height:12px;border-radius:50%;background:rgba(0,0,0,.5);filter:blur(3px)}
+.corps-p{position:absolute;inset:0;animation:respirer 3s ease-in-out infinite}
+@keyframes respirer{50%{transform:translateY(-2px)}}
+.perso.marche .corps-p{animation:trotter .55s ease-in-out infinite}
+@keyframes trotter{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.tete-p{position:absolute;top:0;left:50%;transform:translateX(-50%);width:34px;height:34px;border-radius:50%;background:#E8C49A}
+.cheveux{position:absolute;top:-3px;left:-2px;right:-2px;height:18px;border-radius:18px 18px 4px 4px;background:#1c1a30}
+.casque{position:absolute;top:8px;left:-6px;width:9px;height:14px;border-radius:4px;background:var(--rose);box-shadow:0 0 10px rgba(255,46,156,.7)}
+.casque::after{content:"";position:absolute;top:-9px;left:4px;width:32px;height:12px;border:3px solid var(--rose);border-bottom:none;border-radius:14px 14px 0 0}
+.buste{position:absolute;top:32px;left:50%;transform:translateX(-50%);width:42px;height:52px;border-radius:13px 13px 9px 9px;background:linear-gradient(160deg,#7C5CFF,#5234c9)}
+.buste::after{content:"";position:absolute;left:50%;top:7px;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff 28%,transparent 30%),#FF2E9C;box-shadow:0 0 8px rgba(255,46,156,.6)} /* logo c sur le hoodie */
+.bras{position:absolute;top:35px;width:10px;height:42px;border-radius:6px;background:#6a4de8;transform-origin:top center}
+.bras.g{left:7px}.bras.d{right:7px;background:#5a3fd4}
+.jambe{position:absolute;top:80px;width:12px;height:48px;border-radius:6px;background:#23233f;transform-origin:top center}
+.jambe.g{left:16px}.jambe.d{right:16px;background:#1b1b33}
+.jambe::after{content:"";position:absolute;bottom:-7px;left:-3px;width:21px;height:10px;border-radius:6px 10px 4px 4px;background:#f2f2f8} /* basket */
+.perso.marche .jambe.g{animation:pas .55s ease-in-out infinite}
+.perso.marche .jambe.d{animation:pas .55s ease-in-out -.275s infinite}
+@keyframes pas{0%,100%{transform:rotate(26deg)}50%{transform:rotate(-26deg)}}
+.perso.marche .bras.g{animation:balancer .55s ease-in-out -.275s infinite}
+.perso.marche .bras.d{animation:balancer .55s ease-in-out infinite}
+@keyframes balancer{0%,100%{transform:rotate(-30deg)}50%{transform:rotate(30deg)}}
+
+/* ============================================================
+   HUD
+   ============================================================ */
+.hud{position:fixed;z-index:70}
+.etiquette-lieu{left:50%;top:88px;transform:translateX(-50%);font-family:var(--display);font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(7,7,22,.55);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:9px 20px;backdrop-filter:blur(10px);white-space:nowrap}
+.etiquette-lieu b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.plan2d{left:50%;bottom:22px;transform:translateX(-50%);display:flex;gap:6px;background:rgba(7,7,22,.6);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 10px;backdrop-filter:blur(10px)}
+.plan2d button{position:relative;width:46px;height:13px;border-radius:99px;background:rgba(255,255,255,.12);border:none;cursor:pointer;overflow:hidden;transition:background .3s}
+.plan2d button:hover{background:rgba(255,255,255,.28)}
+.plan2d button.fait{background:rgba(255,46,156,.4)}
+.plan2d button .nom-p{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-family:var(--display);font-size:.58rem;font-weight:600;color:#fff;background:rgba(16,14,38,.95);border:1px solid rgba(255,255,255,.16);border-radius:7px;padding:4px 9px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .25s}
+.plan2d button:hover .nom-p{opacity:1}
+.curseur-plan{position:absolute;top:50%;width:15px;height:15px;border-radius:50%;background:var(--grad);transform:translate(-50%,-50%);box-shadow:0 0 12px rgba(255,46,156,.8);pointer-events:none;transition:left .12s linear}
+.indice2d{left:30%;bottom:calc(var(--h-sol) + 175px);transform:translateX(-50%);color:var(--sourdine);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;display:flex;align-items:center;gap:9px;transition:opacity .5s;position:fixed}
+.indice2d i{font-style:normal;animation:pousser 1.4s ease-in-out infinite;display:inline-block}
+@keyframes pousser{50%{transform:translateX(8px)}}
+.btn-rapide{left:22px;bottom:22px;font-size:.74rem;font-weight:600;color:var(--sourdine);background:rgba(7,7,22,.55);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:9px 16px;cursor:pointer;backdrop-filter:blur(10px);transition:color .2s,border-color .2s}
+.btn-rapide:hover{color:#fff;border-color:rgba(255,46,156,.5)}
+
+.espaceur{position:relative;z-index:0;pointer-events:none}
+
+/* ============================================================
+   MODE RAPIDE
+   ============================================================ */
+.liste-rapide{display:none;position:relative;z-index:5;padding:120px 0 70px}
+body.rapide .scene,body.rapide .hud,body.rapide .espaceur,body.rapide .indice2d{display:none}
+body.rapide .liste-rapide{display:block}
+.liste-rapide h1{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,4.4vw,3rem);margin-bottom:8px}
+.txt-grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.liste-rapide .sous{color:var(--sourdine);margin-bottom:30px}
+.salle-rapide{display:grid;grid-template-columns:150px 1fr;gap:18px;background:rgba(255,255,255,.04);border:1px solid var(--bord);border-radius:18px;padding:18px;margin-bottom:14px;align-items:center}
+.salle-rapide img{width:100%;height:104px;object-fit:cover;border-radius:12px}
+.salle-rapide h3{font-family:var(--display);font-size:1.15rem;margin-bottom:4px}
+.salle-rapide p{font-size:.82rem;color:var(--sourdine);margin-bottom:8px}
+.salle-rapide .stats{display:flex;gap:16px}
+.salle-rapide .stats b{font-family:var(--display);font-size:.95rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block}
+.salle-rapide .stats span{font-size:.58rem;color:var(--sourdine)}
+
+footer{position:relative;z-index:5;border-top:1px solid rgba(255,255,255,.07);padding:24px 0;background:var(--fond);display:none}
+body.rapide footer{display:block}
+.pied{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.84rem;color:var(--sourdine)}
+.pied ul{display:flex;gap:24px;list-style:none}
+
+/* ---------- responsive ---------- */
+@media(max-width:760px){
+  :root{--h-sol:96px}
+  .perso{width:52px;height:122px;left:26%}
+  .perso .jambe{top:64px;height:40px}
+  .perso .buste{top:26px;width:35px;height:43px}
+  .perso .tete-p{width:28px;height:28px}
+  .perso .bras{top:29px;height:34px}
+  .carte-salle{width:248px;padding:13px 14px}
+  .carte-salle p{display:none}
+  .neon{font-size:1.15rem;top:90px}
+  .indice2d{left:26%}
+  .salle-rapide{grid-template-columns:1fr}
+  .salle-rapide img{height:150px}
+}
+@media(max-width:720px){
+  .nav-links{position:fixed;inset:72px 0 auto 0;max-height:calc(100vh - 72px);overflow:auto;background:var(--fond2);flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 24px;border-bottom:1px solid var(--bord);display:none;z-index:90}
+  .nav-links.ouvert{display:flex}
+  .nav-links>li>a,.nav-links>li>button{width:100%;justify-content:space-between;padding:14px 10px;font-size:.95rem}
+  .sous-menu{position:static;transform:none;min-width:0;opacity:1;visibility:visible;box-shadow:none;border:none;background:rgba(255,255,255,.03);border-radius:12px;margin:0 6px 8px;display:none;padding:6px;max-height:none}
+  .sous-menu::before{display:none}
+  li.ouvert .sous-menu{display:block}
+  .btn-cta{justify-content:center;text-align:center;margin-top:10px}
+  .burger{display:block}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Nav avec sous-menus ===== -->
+<header class="nav">
+  <div class="conteneur nav-inner">
+    <a href="index.html" class="marque" aria-label="CyMedia — Accueil">
+      <svg class="glyphe" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+      </svg>
+      <span class="nom">CYMEDIA<small>MARKETING AGENCY</small></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="preview.html">Services</a></li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Portfolio <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="work.html"><i></i>Portfolio — grille</a></li>
+            <li><a href="cymedia-portfolio.html"><i></i>Portfolio — cartes verre</a></li>
+            <li><a href="cymedia-portfolio-v2.html"><i></i>Portfolio — index éditorial</a></li>
+            <li><a href="cymedia-portfolio-v3.html"><i></i>Portfolio — cinématique</a></li>
+            <li><a href="cymedia-portfolio-v4.html"><i></i>Portfolio — mosaïque bento</a></li>
+            <li><a href="cymedia-portfolio-v5.html"><i></i>Portfolio — scrollytelling 3D</a></li>
+            <li><a href="cymedia-portfolio-v6.html"><i></i>Portfolio — showreel vidéo</a></li>
+            <li><a href="cymedia-portfolio-v7.html"><i></i>Portfolio — split-screen</a></li>
+            <li><a href="cymedia-portfolio-v8.html"><i></i>Portfolio — édition magazine</a></li>
+            <li><a href="cymedia-portfolio-v9.html"><i></i>Portfolio — galerie horizontale</a></li>
+            <li><a href="cymedia-portfolio-v10.html"><i></i>Portfolio — le feed social</a></li>
+            <li><a href="cymedia-portfolio-v11.html"><i></i>Portfolio — dashboard analytics</a></li>
+            <li><a href="cymedia-portfolio-v12.html"><i></i>Portfolio — salle de montage</a></li>
+            <li><a href="cymedia-portfolio-v13.html"><i></i>Portfolio — le funnel</a></li>
+            <li><a href="cymedia-portfolio-v14.html"><i></i>Portfolio — quiz de diagnostic</a></li>
+            <li><a href="cymedia-portfolio-v15.html"><i></i>Portfolio — visite du studio (3D)</a></li>
+            <li><a href="cymedia-portfolio-v16.html"><i></i>Portfolio — Ligne Croissance</a></li>
+            <li><a href="cymedia-portfolio-v18.html"><i></i>Portfolio — Ligne Croissance</a></li>
+            <li><a href="cymedia-portfolio-v19.html" class="actif" aria-current="page"><i></i>Portfolio — studio 2D</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Versions <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li class="titre-groupe">Pages d'accueil</li>
+            <li><a href="index.html"><i></i>Version 1</a></li>
+            <li><a href="v2.html"><i></i>Version 2</a></li>
+            <li><a href="v3.html"><i></i>Version 3</a></li>
+            <li><a href="v4.html"><i></i>Version 4</a></li>
+            <li><a href="v5.html"><i></i>Version 5</a></li>
+            <li class="separe" aria-hidden="true"></li>
+            <li><a href="clear_fab.html"><i></i>Version claire</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Carrousels <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="carousel_1.html"><i></i>Carrousel V1</a></li>
+            <li><a href="carousel_2.html"><i></i>Carrousel V2</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">À propos</a></li>
+        <li><a href="mailto:contact@cymedia.ma" class="btn-cta">Réserver un appel</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="basculerMenu(this)"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== Scène ===== -->
+<div class="scene" id="scene" aria-hidden="true">
+  <div class="lointain" id="lointain">STUDIO CYMEDIA — STUDIO CYMEDIA — STUDIO CYMEDIA —</div>
+  <div class="monde" id="monde"></div>
+  <!-- personnage -->
+  <div class="perso" id="perso">
+    <span class="ombre"></span>
+    <div class="corps-p">
+      <span class="bras g"></span>
+      <span class="jambe g"></span>
+      <span class="jambe d"></span>
+      <span class="buste"></span>
+      <span class="bras d"></span>
+      <span class="tete-p"><span class="cheveux"></span><span class="casque"></span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HUD ===== -->
+<div class="hud etiquette-lieu" id="etiquette">Hall d'accueil — <b>Studio CyMedia</b></div>
+<div class="hud indice2d" id="indice2d">Défiler pour marcher <i>→</i></div>
+<nav class="hud plan2d" id="plan2d" aria-label="Plan du studio"><span class="curseur-plan" id="curseur-plan"></span></nav>
+<button class="hud btn-rapide" onclick="basculerRapide()" id="btn-rapide">⚡ Visite rapide</button>
+
+<div class="espaceur" id="espaceur"></div>
+
+<!-- ===== Mode rapide ===== -->
+<section class="liste-rapide">
+  <div class="conteneur">
+    <h1>Le studio, version <span class="txt-grad">express.</span></h1>
+    <p class="sous">Les trois salles de la visite, sans la marche. <button class="btn-rapide" style="position:static" onclick="basculerRapide()">↩ Revenir à la visite</button></p>
+    <div id="liste-salles"></div>
+    <a class="btn-grad" href="mailto:contact@cymedia.ma?subject=Visite%20du%20studio">Réserver ma place en salle de réunion&nbsp;→</a>
+  </div>
+</section>
+
+<footer>
+  <div class="conteneur pied">
+    <span>© 2026 CyMedia — Agence marketing</span>
+    <ul><li><a href="index.html">Accueil</a></li><li><a href="mailto:contact@cymedia.ma">Contact</a></li></ul>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   CONFIG DES SALLES
+   ============================================================ */
+const SALLES=[
+ {id:'accueil',type:'accueil',w:1000,nom:'Hall d\u2019accueil',hud:'Hall d\u2019accueil — <b>Studio CyMedia</b>'},
+ {id:'virelo',w:1500,nom:'Virelo',cat:'E-commerce · Studio de tournage',hud:'Salle 01 — <b>Virelo</b>',
+  acc:'255,46,156',couleur:'#FF2E9C',seed:'virelo7',seed2:'virelo-b1',decor:'ring',
+  desc:'Le plateau où sont nés les contenus Virelo. Tunnel social-to-sale : le système vend 24h/24.',
+  stats:[['8,7×','ROAS'],['+320\u00a0%','Engag.'],['×2,4','C.A.']],tags:['Meta Ads','UGC','Email']},
+ {id:'safran',w:1500,nom:'Maison Safran',cat:'Restauration · Salle gourmande',hud:'Salle 02 — <b>Maison Safran</b>',
+  acc:'255,122,69',couleur:'#FF7A45',seed:'safran5',seed2:'safran-b3',decor:'lampes',
+  desc:'Lumière chaude : ici, la cuisine est devenue contenu. Réservation directe depuis Instagram.',
+  stats:[['+140\u00a0%','Réserv.'],['×4','Abonnés'],['2,1\u00a0M','Vues']],tags:['Branding','Réels food','IG Ads']},
+ {id:'taskly',w:1500,nom:'Taskly',cat:'SaaS · Salle des machines',hud:'Salle 03 — <b>Taskly</b>',
+  acc:'62,229,224',couleur:'#3EE5E0',seed:'taskly9',seed2:'taskly-b7',decor:'ecran',
+  desc:'L\u2019open-space des données. L\u2019organique a dépassé le payant en cinq mois.',
+  stats:[['+210\u00a0%','Inscript.'],['7,2×','Rétention'],['−31\u00a0%','CAC']],tags:['SEO','Démos','Ads Google']},
+ {id:'reunion',type:'reunion',w:1500,nom:'Salle de réunion',hud:'Salle de réunion — <b>à vous de jouer</b>'}
+];
+const PORTE=170; /* largeur du sas de porte entre deux salles */
+
+/* ============================================================
+   CONSTRUCTION DU MONDE
+   ============================================================ */
+const monde=document.getElementById('monde');
+let X=0;
+const bornes=[]; /* [debut,fin] de chaque salle */
+let html='<div class="fond-mur"></div><div class="fond-sol"></div>';
+SALLES.forEach((s,i)=>{
+  const x0=X;
+  bornes.push([x0,x0+s.w]);
+  const cx=x0+s.w/2;
+  if(s.type==='accueil'){
+    html+=`
+      <div class="neon" style="left:${cx-200}px;--acc:#FF2E9C">Studio CyMedia<small>Visite des réalisations · 3 salles</small></div>
+      <div class="deco-accueil" style="left:${cx-130}px">
+        <svg class="logo-acc" viewBox="0 0 100 100"><path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/><circle cx="50" cy="50" r="11" fill="#FF2E9C"/></svg>
+      </div>
+      <div class="deco-plante" style="left:${x0+90}px"><span class="feuille"></span><span class="feuille"></span><span class="feuille"></span><span class="pot"></span></div>
+      <div class="deco-plante" style="left:${x0+s.w-150}px"><span class="feuille"></span><span class="feuille"></span><span class="feuille"></span><span class="pot"></span></div>`;
+  }else if(s.type==='reunion'){
+    html+=`
+      <div class="halo-salle" style="left:${cx-450}px;width:900px;background:radial-gradient(circle,rgba(255,46,156,.9),transparent 65%)"></div>
+      <div class="neon" style="left:${cx-230}px;--acc:#FF2E9C">Salle de réunion<small>Votre projet commence ici</small></div>
+      <div class="deco-table" style="left:${cx-190}px"><span class="plateau"></span><span class="pied-t g"></span><span class="pied-t d"></span></div>
+      <div class="chaise2d" style="left:${cx-300}px;transform:scaleX(-1)"><span class="dossier"></span><span class="assise"></span><span class="pied-c g"></span><span class="pied-c d"></span></div>
+      <div class="chaise2d libre" style="left:${cx+250}px"><span class="dossier"></span><span class="assise"></span><span class="pied-c g"></span><span class="pied-c d"></span></div>
+      <div class="carte-salle" id="carte-${i}" style="left:${cx-165}px;top:170px;--acc-d:rgba(255,46,156,.2);--acc-f:rgba(255,46,156,.18);--acc-b:rgba(255,46,156,.5);text-align:center">
+        <span class="badge">Fin de la visite</span>
+        <h2>Cette place est pour <span class="txt-grad">vous.</span></h2>
+        <p>La visite se termine où tous nos projets commencent : autour de cette table.</p>
+        <a class="btn-grad" href="mailto:contact@cymedia.ma?subject=Je%20prends%20la%20chaise">Prendre la chaise&nbsp;→</a>
+      </div>`;
+  }else{
+    html+=`
+      <div class="halo-salle" style="left:${cx-450}px;width:900px;background:radial-gradient(circle,rgba(${s.acc},.9),transparent 65%)"></div>
+      <div class="neon" style="left:${x0+70}px;--acc:${s.couleur}">${s.nom}<small>${s.cat}</small></div>
+      <div class="cadre" style="left:${x0+90}px;top:215px;width:230px;height:158px;--acc-d:rgba(${s.acc},.22)"><img src="https://picsum.photos/seed/${s.seed}/460/320" alt="Projet ${s.nom}" loading="lazy"></div>
+      <div class="cadre" style="left:${x0+s.w-300}px;top:200px;width:200px;height:140px;--acc-d:rgba(${s.acc},.22)"><img src="https://picsum.photos/seed/${s.seed2}/400/280" alt="" loading="lazy"></div>
+      <div class="carte-salle" id="carte-${i}" style="left:${cx-110}px;top:155px;--acc-d:rgba(${s.acc},.18);--acc-f:rgba(${s.acc},.18);--acc-b:rgba(${s.acc},.55)">
+        <span class="badge">${s.cat}</span>
+        <h2>${s.nom}</h2>
+        <p>${s.desc}</p>
+        <div class="stats">${s.stats.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>
+        <div class="tags">${s.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+      </div>`;
+    /* décor thématique */
+    if(s.decor==='ring')html+=`<div class="deco-ring" style="left:${x0+s.w-490}px"><span class="cercle"></span><span class="pied"></span><span class="base"></span></div>`;
+    if(s.decor==='lampes')html+=`
+      <div class="deco-lampe" style="left:${x0+390}px"><span class="fil"></span><span class="abat"></span><span class="ampoule"></span></div>
+      <div class="deco-lampe" style="left:${x0+s.w-480}px"><span class="fil" style="height:140px"></span><span class="abat"></span><span class="ampoule"></span></div>`;
+    if(s.decor==='ecran')html+=`
+      <div class="deco-bureau" style="left:${x0+s.w-560}px">
+        <span class="ecran" style="left:0"><i style="height:48%"></i><i style="height:78%;animation-delay:.3s"></i><i style="height:60%;animation-delay:.6s"></i><i style="height:92%;animation-delay:.9s"></i></span>
+        <span class="ecran e2"><i style="height:65%;animation-delay:.2s"></i><i style="height:88%;animation-delay:.5s"></i><i style="height:52%;animation-delay:.8s"></i></span>
+        <span class="plateau"></span><span class="pied-b g"></span><span class="pied-b d"></span>
+      </div>`;
+  }
+  X+=s.w;
+  /* porte vers la salle suivante */
+  if(i<SALLES.length-1){
+    const suiv=SALLES[i+1];
+    html+=`<div class="porte" style="left:${X+PORTE/2-60}px"><span class="enseigne">→ <i>${suiv.type==='reunion'?'Salle de réunion':'Salle 0'+(i+1)+' · '+suiv.nom}</i></span></div>`;
+    X+=PORTE;
+  }
+});
+const LARGEUR_MONDE=X+300;
+monde.innerHTML=html;
+monde.style.width=LARGEUR_MONDE+'px';
+
+/* ============================================================
+   MARCHE PILOTÉE PAR LE SCROLL
+   ============================================================ */
+const mouvementReduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const espaceur=document.getElementById('espaceur');
+const perso=document.getElementById('perso');
+const lointain=document.getElementById('lointain');
+const etiquette=document.getElementById('etiquette');
+const indice2d=document.getElementById('indice2d');
+let xCam=0,xCible=0,maxX=0,salleCourante=-1,derniereDir=1;
+
+function mesurer(){
+  maxX=Math.max(LARGEUR_MONDE-window.innerWidth,1);
+  espaceur.style.height=(maxX+window.innerHeight)+'px';
+}
+function cible(){xCible=Math.min(Math.max(window.scrollY,0),maxX);}
+function boucle(){
+  const avant=xCam;
+  xCam+=(xCible-xCam)*(mouvementReduit?1:.1);
+  const vitesse=xCam-avant;
+  monde.style.transform='translateX('+(-xCam)+'px)';
+  lointain.style.transform='translateX('+(-xCam*.3)+'px)';
+  /* marche + direction */
+  const enMarche=Math.abs(vitesse)>.25;
+  perso.classList.toggle('marche',enMarche);
+  if(enMarche){
+    const dir=vitesse>0?1:-1;
+    if(dir!==derniereDir){derniereDir=dir;perso.style.setProperty('--dir',dir);}
+  }
+  /* salle courante : position du personnage dans le monde */
+  const xPerso=xCam+window.innerWidth*(window.innerWidth<=760?.26:.30);
+  let s=0;
+  bornes.forEach((b,i)=>{if(xPerso>=b[0]-60)s=i;});
+  if(s!==salleCourante){
+    salleCourante=s;
+    etiquette.innerHTML=SALLES[s].hud;
+    const carte=document.getElementById('carte-'+s);
+    if(carte)carte.classList.add('visible');
+    [...plan2d.querySelectorAll('button')].forEach((b,i)=>b.classList.toggle('fait',i<=s));
+  }
+  indice2d.style.opacity=xCam>180?0:1;
+  document.getElementById('curseur-plan').style.left=(8+(xCam/maxX)*(plan2d.clientWidth-16))+'px';
+  requestAnimationFrame(boucle);
+}
+window.addEventListener('scroll',cible,{passive:true});
+window.addEventListener('resize',()=>{mesurer();cible();});
+mesurer();cible();requestAnimationFrame(boucle);
+
+/* plan cliquable */
+const plan2d=document.getElementById('plan2d');
+SALLES.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.innerHTML='<span class="nom-p">'+s.nom+'</span>';
+  b.setAttribute('aria-label',s.nom);
+  b.addEventListener('click',()=>{
+    const centre=(bornes[i][0]+bornes[i][1])/2-window.innerWidth/2;
+    window.scrollTo({top:Math.min(Math.max(centre,0),maxX),behavior:'smooth'});
+  });
+  plan2d.appendChild(b);
+});
+
+/* ============================================================
+   MODE RAPIDE
+   ============================================================ */
+const listeSalles=document.getElementById('liste-salles');
+SALLES.filter(s=>!s.type).forEach((s,i)=>{
+  const d=document.createElement('article');
+  d.className='salle-rapide';
+  d.innerHTML=`
+    <img src="https://picsum.photos/seed/${s.seed}/420/280" alt="Projet ${s.nom}">
+    <div>
+      <h3>Salle 0${i+1} — ${s.nom}</h3>
+      <p>${s.desc}</p>
+      <div class="stats">${s.stats.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>
+    </div>`;
+  listeSalles.appendChild(d);
+});
+function basculerRapide(){
+  const rapide=document.body.classList.toggle('rapide');
+  document.getElementById('btn-rapide').textContent=rapide?'🚶 Visite immersive':'⚡ Visite rapide';
+  window.scrollTo(0,0);
+}
+if(mouvementReduit)document.body.classList.add('rapide');
+
+/* ============================================================
+   MENU
+   ============================================================ */
+function basculerMenu(btn){
+  const m=document.getElementById('nav-links');
+  const o=m.classList.toggle('ouvert');
+  btn.setAttribute('aria-expanded',o);
+}
+document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav-links').classList.remove('ouvert')));
+function basculerSousMenu(btn){
+  const li=btn.parentElement;
+  const dejaOuvert=li.classList.contains('ouvert');
+  document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+    x.classList.remove('ouvert');
+    x.querySelector('button').setAttribute('aria-expanded','false');
+  });
+  if(!dejaOuvert){li.classList.add('ouvert');btn.setAttribute('aria-expanded','true');}
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.a-sous-menu')){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+</script>
+</body>
+</html>

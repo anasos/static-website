@@ -119,6 +119,33 @@ li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) tra
 .fiche.cote-d::before{left:-28px}
 
 /* ============================================================
+   PHOTOS POLAROID — surgissent à l'arrivée du train
+   ============================================================ */
+.photo-station{position:absolute;width:clamp(120px,19%,200px);pointer-events:none;z-index:4}
+.polaroid{background:#F4F2EC;padding:7px 7px 0;border-radius:4px;box-shadow:0 18px 40px rgba(0,0,0,.55),0 0 30px rgba(255,46,156,.18);transform:scale(0) rotate(-14deg);opacity:0}
+.photo-station.vue .polaroid{animation:apparaitre-photo .8s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes apparaitre-photo{
+  0%{transform:scale(.15) rotate(-16deg);opacity:0}
+  55%{transform:scale(1.09) rotate(var(--rot,4deg));opacity:1}
+  75%{transform:scale(.96) rotate(var(--rot,4deg))}
+  100%{transform:scale(1) rotate(var(--rot,4deg));opacity:1}
+}
+.polaroid::before{content:"";position:absolute;top:-9px;left:50%;transform:translateX(-50%) rotate(-3deg);width:54px;height:18px;background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.18);border-radius:2px;backdrop-filter:blur(2px)} /* scotch */
+.polaroid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px;display:block}
+.polaroid figcaption{font-family:var(--display);font-weight:700;font-size:.62rem;color:#1c1a30;text-align:center;padding:6px 2px 8px;letter-spacing:.04em}
+.polaroid figcaption small{display:block;font-family:var(--corps);font-weight:500;font-size:.54rem;color:#6b6880;letter-spacing:.08em}
+@media(max-width:640px){
+  .photo-station{width:clamp(86px,16%,130px)}
+  .polaroid{padding:5px 5px 0}
+  .polaroid figcaption{font-size:.52rem;padding:4px 2px 6px}
+  .polaroid figcaption small{display:none}
+  .polaroid::before{width:36px;height:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .photo-station .polaroid{transform:scale(1) rotate(var(--rot,4deg));opacity:1;animation:none}
+}
+
+/* ============================================================
    TERMINUS CTA
    ============================================================ */
 .terminus-cta{text-align:center;padding:30px 24px 80px;max-width:620px;margin:0 auto}
@@ -193,8 +220,8 @@ footer{border-top:1px solid rgba(255,255,255,.07);padding:26px 0}
             <li><a href="cymedia-portfolio-v13.html"><i></i>Portfolio — le funnel</a></li>
             <li><a href="cymedia-portfolio-v14.html"><i></i>Portfolio — quiz de diagnostic</a></li>
             <li><a href="cymedia-portfolio-v15.html"><i></i>Portfolio — visite du studio</a></li>
-            <li><a href="cymedia-portfolio-v16.html" class="actif" aria-current="page"><i></i>Portfolio — Ligne Croissance</a></li>
-            <li><a href="cymedia-portfolio-v18.html"><i></i>Portfolio — Ligne Croissance V2</a></li>
+            <li><a href="cymedia-portfolio-v16.html"><i></i>Portfolio — Ligne Croissance</a></li>
+            <li><a href="cymedia-portfolio-v18.html" class="actif" aria-current="page"><i></i>Portfolio — Ligne Croissance V2</a></li>
             <li><a href="cymedia-portfolio-v19.html"><i></i>Portfolio — studio 2D</a></li>
           </ul>
         </li>
@@ -305,19 +332,19 @@ footer{border-top:1px solid rgba(255,255,255,.07);padding:26px 0}
 const SERVICES={ads:'#FF2E9C',brand:'#7C5CFF',seo:'#3EE5E0',video:'#FF7A45',leads:'#3EE58B'};
 const STATIONS=[
  {nom:'Départ',x:500,y:110,type:'depart',sous:'Toute croissance commence ici'},
- {nom:'Virelo',x:790,y:520,cat:'E-commerce',desc:'Tunnel social-to-sale reconstruit : le système vend 24h/24.',
+ {nom:'Virelo',x:790,y:520,cat:'E-commerce',seed:'virelo7',desc:'Tunnel social-to-sale reconstruit : le système vend 24h/24.',
   stats:[['8,7×','ROAS'],['+320\u00a0%','Engag.']],corresp:['ads','video']},
- {nom:'Mindset Pro',x:210,y:950,cat:'Coaching',desc:'Écosystème YouTube + newsletter + communauté privée.',
+ {nom:'Mindset Pro',x:210,y:950,cat:'Coaching',seed:'mindset3',desc:'Écosystème YouTube + newsletter + communauté privée.',
   stats:[['+185\u00a0%','Prospects'],['6,3×','C.A.']],corresp:['video','brand']},
- {nom:'Taskly',x:790,y:1380,cat:'SaaS',desc:'Product-led growth : l\u2019organique a dépassé le payant.',
+ {nom:'Taskly',x:790,y:1380,cat:'SaaS',seed:'taskly9',desc:'Product-led growth : l\u2019organique a dépassé le payant.',
   stats:[['+210\u00a0%','Inscriptions'],['−31\u00a0%','CAC']],corresp:['seo','leads']},
- {nom:'Maison Safran',x:210,y:1810,cat:'Restauration',desc:'Réels food viraux, réservation depuis Instagram.',
+ {nom:'Maison Safran',x:210,y:1810,cat:'Restauration',seed:'safran5',desc:'Réels food viraux, réservation depuis Instagram.',
   stats:[['+140\u00a0%','Réserv.'],['2,1\u00a0M','Vues']],corresp:['video','brand','ads']},
- {nom:'Atlas Habitat',x:790,y:2240,cat:'Immobilier',desc:'Visites virtuelles + qualification automatique des leads.',
+ {nom:'Atlas Habitat',x:790,y:2240,cat:'Immobilier',seed:'atlas2',desc:'Visites virtuelles + qualification automatique des leads.',
   stats:[['+95\u00a0%','Leads'],['−38\u00a0%','Coût/lead']],corresp:['leads','seo']},
- {nom:'Noor Bijoux',x:210,y:2670,cat:'E-commerce',desc:'Lancement de zéro, rentable dès le troisième mois.',
+ {nom:'Noor Bijoux',x:210,y:2670,cat:'E-commerce',seed:'noor4',desc:'Lancement de zéro, rentable dès le troisième mois.',
   stats:[['0→45k','Abonnés'],['5,4×','ROAS']],corresp:['brand','ads','video']},
- {nom:'Votre Marque',x:500,y:3180,type:'terminus',sous:'Terminus — correspondance avec votre futur'}
+ {nom:'Votre Marque',x:500,y:3180,type:'terminus',seed:'votre-marque3',sous:'Terminus — correspondance avec votre futur'}
 ];
 
 /* ============================================================
@@ -408,8 +435,34 @@ STATIONS.forEach((s,i)=>{
       <div class="corresp-f">Correspondances : ${s.corresp.map(c=>`<i style="background:${SERVICES[c]}"></i>`).join('')}</div>`;
     zoneFiches.appendChild(f);
   }
+
+  /* photo polaroid qui surgit à l'arrivée du train */
+  if(s.seed){
+    const ph=document.createElement('figure');
+    ph.className='photo-station';
+    ph.dataset.i=i;
+    if(s.type==='terminus'){
+      /* terminus : photo sur le côté pour ne pas couvrir le titre */
+      ph.style.left='69%';
+      ph.style.top=(s.y/3450*100)+'%';
+      ph.style.transform='translate(-50%,-58%)';
+    }else{
+      /* clients : photo au-dessus de la station */
+      ph.style.left=(s.x/1000*100)+'%';
+      ph.style.top=(s.y/3450*100)+'%';
+      ph.style.transform='translate(-50%,-116%)';
+    }
+    const rot=(s.x<500?1:-1)*(3+(i%3)*2);
+    ph.innerHTML=`
+      <div class="polaroid" style="--rot:${s.type==='terminus'?8:rot}deg">
+        <img src="https://picsum.photos/seed/${s.seed}/440/330" alt="${s.type==='terminus'?'Votre marque, bientôt ici':'Projet '+s.nom}" loading="lazy">
+        <figcaption>${s.type==='terminus'?'Votre marque ?':s.nom}<small>${s.type==='terminus'?'à shooter prochainement':s.cat+' · arrêt desservi'}</small></figcaption>
+      </div>`;
+    zoneFiches.appendChild(ph);
+  }
 });
-const fiches=[...zoneFiches.children];
+const fiches=[...zoneFiches.querySelectorAll('.fiche')];
+const photos=[...zoneFiches.querySelectorAll('.photo-station')];
 const stationsSvg=[...gStations.children];
 
 /* révélation des fiches */
@@ -452,6 +505,11 @@ function rendre(){
     g.classList.toggle('actif',actif);
     const f=fiches.find(x=>+x.dataset.i===i);
     if(f)f.classList.toggle('actif',actif&&lg<longueursStations[i]+260);
+    /* la photo surgit à l'arrivée du train et reste affichée */
+    if(actif){
+      const ph=photos.find(x=>+x.dataset.i===i);
+      if(ph&&!ph.classList.contains('vue'))ph.classList.add('vue');
+    }
   });
   requestAnimationFrame(rendre);
 }
