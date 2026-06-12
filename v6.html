@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyMedia — Agence marketing (V6)</title>
+<meta name="description" content="Dites-nous votre objectif — vendre, générer des leads ou construire une audience — et la page s'adapte à votre marque.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#08081A;
+  --fond2:#0D0D24;
+  --bord:rgba(255,255,255,.1);
+  --texte:#F0F0FB;
+  --sourdine:#9C9DC6;
+  --rose:#FF2E9C;
+  --violet:#7C5CFF;
+  --grad:linear-gradient(90deg,#FF2E9C,#7C5CFF);
+  --display:'Space Grotesk',sans-serif;
+  --corps:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--fond);color:var(--texte);font-family:var(--corps);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:8px}
+.conteneur{max-width:1180px;margin:0 auto;padding:0 24px}
+.txt-grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* halos */
+.atmosphere{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.atmosphere span{position:absolute;border-radius:50%;filter:blur(90px)}
+.a1{width:560px;height:560px;top:-160px;right:-140px;background:rgba(124,92,255,.22);animation:derive 15s ease-in-out infinite alternate}
+.a2{width:480px;height:480px;bottom:-160px;left:-150px;background:rgba(255,46,156,.16);animation:derive 18s ease-in-out 2s infinite alternate-reverse}
+@keyframes derive{from{transform:translate(0,0)}to{transform:translate(46px,-36px) scale(1.08)}}
+
+/* ============================================================
+   NAV AVEC SOUS-MENUS
+   ============================================================ */
+.nav{position:sticky;top:0;z-index:60;background:rgba(8,8,26,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.marque{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700}
+.marque .glyphe{width:36px;height:36px}
+.marque .nom{font-size:1rem;line-height:1}
+.marque .nom small{display:block;font-size:.48rem;font-weight:500;letter-spacing:.4em;color:var(--sourdine)}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a,.nav-links>li>button{display:flex;align-items:center;gap:6px;font-family:var(--corps);font-size:.9rem;font-weight:500;color:var(--sourdine);background:none;border:none;cursor:pointer;padding:10px 14px;border-radius:10px;transition:color .2s,background .2s}
+.nav-links>li>a:hover,.nav-links>li>button:hover,.nav-links>li.ouvert>button{color:#fff;background:rgba(255,255,255,.06)}
+.chevron{width:9px;height:9px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex:none}
+li.ouvert .chevron{transform:rotate(225deg) translateY(-1px)}
+.sous-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);min-width:280px;max-height:calc(100vh - 110px);overflow-y:auto;overscroll-behavior:contain;background:linear-gradient(168deg,rgba(30,26,60,.96),rgba(16,14,38,.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:8px;list-style:none;box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(124,92,255,.15),inset 0 1px 0 rgba(255,255,255,.12);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s;scrollbar-width:thin;scrollbar-color:rgba(255,46,156,.5) transparent}
+.sous-menu::-webkit-scrollbar{width:6px}
+.sous-menu::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#FF2E9C,#7C5CFF);border-radius:99px}
+.sous-menu::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:rgba(30,26,60,.96);border-left:1px solid rgba(255,255,255,.14);border-top:1px solid rgba(255,255,255,.14)}
+li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+@media(hover:hover) and (min-width:721px){
+  .nav-links>li:hover .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .nav-links>li:hover>button{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-links>li:hover .chevron{transform:rotate(225deg) translateY(-1px)}
+}
+.sous-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.88rem;color:var(--sourdine);transition:color .2s,background .2s}
+.sous-menu a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.18),rgba(124,92,255,.14))}
+.sous-menu a i{font-style:normal;width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none;opacity:0;transition:opacity .2s}
+.sous-menu a:hover i{opacity:1}
+.sous-menu a.actif{color:#fff;background:linear-gradient(90deg,rgba(255,46,156,.22),rgba(124,92,255,.18))}
+.sous-menu a.actif i{opacity:1}
+.sous-menu .titre-groupe{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(156,157,198,.7);padding:8px 14px 4px}
+.sous-menu .separe{height:1px;background:rgba(255,255,255,.08);margin:6px 8px}
+.btn-cta{font-weight:600;font-size:.85rem;color:#fff!important;background:var(--grad);border-radius:999px;padding:10px 20px!important;box-shadow:0 0 22px rgba(255,46,156,.35);transition:transform .2s,box-shadow .2s}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(255,46,156,.5);background:var(--grad)!important}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:22px;height:2px;background:#fff;margin:5px 0;border-radius:2px}
+
+/* ============================================================
+   HERO « CHOISIS TON OBJECTIF »
+   ============================================================ */
+.hero{padding:72px 0 50px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--rose);margin-bottom:18px}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--rose);box-shadow:0 0 10px var(--rose)}
+.hero h1{font-family:var(--display);font-weight:700;font-size:clamp(2.3rem,6vw,4.4rem);line-height:1.06;letter-spacing:-.02em;max-width:18ch;margin:0 auto}
+.hero .sous-hero{color:var(--sourdine);font-size:1.05rem;max-width:540px;margin:18px auto 30px}
+/* zone qui se fond lors du changement */
+.fondu{transition:opacity .3s ease}
+.fondu.cache{opacity:0}
+/* boutons objectifs */
+.objectifs{display:flex;gap:13px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
+.obj{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,.05);border:1.5px solid var(--bord);border-radius:16px;padding:15px 22px;cursor:pointer;transition:border-color .25s,background .25s,transform .25s,box-shadow .25s;text-align:left}
+.obj:hover{transform:translateY(-3px);border-color:rgba(255,46,156,.55)}
+.obj.actif{border-color:transparent;background:linear-gradient(var(--fond2),var(--fond2)) padding-box,var(--grad) border-box;box-shadow:0 0 26px rgba(255,46,156,.3)}
+.obj .emo{font-size:1.5rem}
+.obj b{display:block;font-family:var(--display);font-size:.98rem}
+.obj span{font-size:.7rem;color:var(--sourdine)}
+.hero .actions{display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap}
+.btn-grad{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:1rem;padding:15px 32px;border-radius:999px;background:var(--grad);color:#fff;box-shadow:0 0 28px rgba(255,46,156,.45);transition:transform .2s,box-shadow .2s}
+.btn-grad:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(255,46,156,.65)}
+.lien-doux{color:var(--sourdine);font-size:.9rem;text-decoration:underline;text-underline-offset:5px;transition:color .2s}
+.lien-doux:hover{color:#fff}
+
+/* ============================================================
+   BARRE DE PREUVE — COMPTEURS VIVANTS
+   ============================================================ */
+.preuves{border-top:1px solid var(--bord);border-bottom:1px solid var(--bord);background:rgba(255,255,255,.025)}
+.preuves-grille{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:26px 0}
+.preuve{text-align:center}
+.preuve b{font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,3vw,2rem);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block;line-height:1.15;font-variant-numeric:tabular-nums}
+.preuve span{font-size:.72rem;color:var(--sourdine)}
+.preuve .vivant{display:inline-flex;align-items:center;gap:6px}
+.preuve .vivant::before{content:"";width:7px;height:7px;border-radius:50%;background:#3EE58B;box-shadow:0 0 9px #3EE58B;animation:pulse 1.8s infinite}
+@keyframes pulse{50%{opacity:.3}}
+
+/* ============================================================
+   SECTIONS COMMUNES
+   ============================================================ */
+section{padding:74px 0}
+.tete-section{text-align:center;max-width:620px;margin:0 auto 42px}
+.tete-section h2{font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,4.2vw,2.8rem);line-height:1.1;margin-bottom:12px}
+.tete-section p{color:var(--sourdine)}
+
+/* services */
+.services-grille{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.service{position:relative;background:rgba(255,255,255,.04);border:1px solid var(--bord);border-radius:18px;padding:24px 22px;transition:transform .3s,border-color .3s,box-shadow .3s,order 0s}
+.service:hover{transform:translateY(-5px);border-color:rgba(124,92,255,.5)}
+.service .ico{width:46px;height:46px;border-radius:14px;background:rgba(255,46,156,.12);border:1px solid rgba(255,46,156,.4);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:14px}
+.service h3{font-family:var(--display);font-size:1.05rem;margin-bottom:7px}
+.service p{font-size:.82rem;color:var(--sourdine)}
+.service .badge-reco{position:absolute;top:-11px;right:14px;font-family:var(--display);font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--grad);border-radius:999px;padding:5px 12px;box-shadow:0 0 16px rgba(255,46,156,.5);opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
+.service.reco{border-color:rgba(255,46,156,.55);box-shadow:0 0 30px rgba(255,46,156,.14)}
+.service.reco .badge-reco{opacity:1;transform:none}
+
+/* mini portfolio */
+.cas-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cas{background:rgba(255,255,255,.04);border:1px solid var(--bord);border-radius:18px;overflow:hidden;transition:transform .3s,border-color .3s,opacity .35s}
+.cas:hover{transform:translateY(-6px);border-color:rgba(255,46,156,.5)}
+.cas img{width:100%;height:160px;object-fit:cover}
+.cas .corps{padding:15px 17px 17px}
+.cas .badge-cas{display:inline-flex;font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#FFD9EE;background:rgba(255,46,156,.16);border:1px solid rgba(255,46,156,.5);border-radius:999px;padding:4px 10px;margin-bottom:8px}
+.cas h3{font-family:var(--display);font-size:1.1rem;margin-bottom:4px}
+.cas .pourquoi-cas{font-size:.74rem;color:var(--sourdine);margin-bottom:10px}
+.cas .stats{display:flex;gap:14px}
+.cas .stats b{font-family:var(--display);font-size:.95rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block;line-height:1.1}
+.cas .stats span{font-size:.55rem;color:var(--sourdine)}
+.centre-section{text-align:center;margin-top:30px}
+
+/* témoignage */
+.temoignage{max-width:720px;margin:0 auto;text-align:center}
+.temoignage q{font-family:var(--display);font-weight:600;font-size:clamp(1.2rem,2.8vw,1.7rem);line-height:1.35;quotes:"\u00ab\u00a0" "\u00a0\u00bb";display:block}
+.temoignage q em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.temoignage .auteur{margin-top:16px;font-size:.84rem;color:var(--sourdine)}
+.temoignage .auteur b{color:#fff}
+
+/* CTA final */
+.cta-final{text-align:center;background:linear-gradient(168deg,rgba(255,46,156,.1),rgba(124,92,255,.08));border-top:1px solid var(--bord)}
+.cta-final h2{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,4.6vw,3.2rem);line-height:1.08;margin-bottom:12px}
+.cta-final p{color:var(--sourdine);max-width:480px;margin:0 auto 28px}
+.cta-final .note{font-size:.74rem;margin-top:14px}
+
+footer{border-top:1px solid rgba(255,255,255,.07);padding:26px 0}
+.pied{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.84rem;color:var(--sourdine)}
+.pied ul{display:flex;gap:24px;list-style:none}
+.pied ul a:hover{color:#fff}
+
+/* révélation */
+.reveler{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveler.visible{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media(max-width:980px){.services-grille{grid-template-columns:1fr 1fr}.preuves-grille{grid-template-columns:1fr 1fr;gap:22px}}
+@media(max-width:720px){
+  .cas-grille{grid-template-columns:1fr}
+  .objectifs{flex-direction:column;align-items:stretch}
+  .nav-links{position:fixed;inset:72px 0 auto 0;max-height:calc(100vh - 72px);overflow:auto;background:var(--fond2);flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 24px;border-bottom:1px solid var(--bord);display:none}
+  .nav-links.ouvert{display:flex}
+  .nav-links>li>a,.nav-links>li>button{width:100%;justify-content:space-between;padding:14px 10px;font-size:.95rem}
+  .sous-menu{position:static;transform:none;min-width:0;max-height:none;overflow:visible;opacity:1;visibility:visible;box-shadow:none;border:none;background:rgba(255,255,255,.03);border-radius:12px;margin:0 6px 8px;display:none;padding:6px}
+  .sous-menu::before{display:none}
+  li.ouvert .sous-menu{display:block}
+  .btn-cta{justify-content:center;text-align:center;margin-top:10px}
+  .burger{display:block}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.001s!important}
+  .reveler{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="atmosphere" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
+
+<!-- ===== Nav avec sous-menus ===== -->
+<header class="nav">
+  <div class="conteneur nav-inner">
+    <a href="index.html" class="marque" aria-label="CyMedia — Accueil">
+      <svg class="glyphe" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+      </svg>
+      <span class="nom">CYMEDIA<small>MARKETING AGENCY</small></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="preview.html">Services</a></li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Portfolio <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="work.html"><i></i>Portfolio — grille</a></li>
+            <li><a href="cymedia-portfolio.html"><i></i>Portfolio — cartes verre</a></li>
+            <li><a href="cymedia-portfolio-v2.html"><i></i>Portfolio — index éditorial</a></li>
+            <li><a href="cymedia-portfolio-v3.html"><i></i>Portfolio — cinématique</a></li>
+            <li><a href="cymedia-portfolio-v4.html"><i></i>Portfolio — mosaïque bento</a></li>
+            <li><a href="cymedia-portfolio-v5.html"><i></i>Portfolio — scrollytelling 3D</a></li>
+            <li><a href="cymedia-portfolio-v6.html"><i></i>Portfolio — showreel vidéo</a></li>
+            <li><a href="cymedia-portfolio-v7.html"><i></i>Portfolio — split-screen</a></li>
+            <li><a href="cymedia-portfolio-v8.html"><i></i>Portfolio — édition magazine</a></li>
+            <li><a href="cymedia-portfolio-v9.html"><i></i>Portfolio — galerie horizontale</a></li>
+            <li><a href="cymedia-portfolio-v10.html"><i></i>Portfolio — le feed social</a></li>
+            <li><a href="cymedia-portfolio-v11.html"><i></i>Portfolio — dashboard analytics</a></li>
+            <li><a href="cymedia-portfolio-v12.html"><i></i>Portfolio — salle de montage</a></li>
+            <li><a href="cymedia-portfolio-v13.html"><i></i>Portfolio — le funnel</a></li>
+            <li><a href="cymedia-portfolio-v14.html"><i></i>Portfolio — quiz de diagnostic</a></li>
+            <li><a href="cymedia-portfolio-v15.html"><i></i>Portfolio — visite du studio (3D)</a></li>
+            <li><a href="cymedia-portfolio-v16.html"><i></i>Portfolio — Ligne Croissance</a></li>
+            <li><a href="cymedia-portfolio-v17.html"><i></i>Portfolio — studio 2D</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Versions <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li class="titre-groupe">Pages d'accueil</li>
+            <li><a href="index.html"><i></i>Version 1</a></li>
+            <li><a href="v2.html"><i></i>Version 2</a></li>
+            <li><a href="v3.html"><i></i>Version 3</a></li>
+            <li><a href="v4.html"><i></i>Version 4</a></li>
+            <li><a href="v5.html"><i></i>Version 5</a></li>
+            <li><a href="v6.html"><i></i>Version 6</a></li>
+            <li><a href="v7.html"><i></i>Version 7</a></li>
+            <li><a href="v8.html"><i></i>Version 8</a></li>
+            <li class="separe" aria-hidden="true"></li>
+            <li><a href="clear_fab.html"><i></i>Version claire</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Carrousels <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="carousel_1.html"><i></i>Carrousel V1</a></li>
+            <li><a href="carousel_2.html"><i></i>Carrousel V2</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Tarifs</a></li>
+        <li><a href="#contact" class="btn-cta">Réserver un appel</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="basculerMenu(this)"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero conteneur">
+  <p class="eyebrow">Agence marketing · Marrakech</p>
+  <h1 class="fondu" id="h-titre">Vous voulez quoi, <span class="txt-grad">exactement&nbsp;?</span></h1>
+  <p class="sous-hero fondu" id="h-sous">Choisissez votre objectif — cette page va s'adapter à votre marque. Oui, dès maintenant.</p>
+
+  <div class="objectifs" role="group" aria-label="Choisissez votre objectif">
+    <button class="obj" data-obj="vendre"><span class="emo">💸</span><span><b>Vendre plus en ligne</b><span>Du trafic qui devient du chiffre</span></span></button>
+    <button class="obj" data-obj="leads"><span class="emo">🧲</span><span><b>Générer des leads</b><span>Des prospects qualifiés en continu</span></span></button>
+    <button class="obj" data-obj="audience"><span class="emo">📣</span><span><b>Construire une audience</b><span>Une communauté qui vous suit</span></span></button>
+  </div>
+
+  <div class="actions">
+    <a class="btn-grad fondu" id="h-cta" href="mailto:contact@cymedia.ma?subject=Appel%20d%C3%A9couverte">Réserver un appel découverte&nbsp;→</a>
+    <a class="lien-doux" href="#services">ou découvrez tout ↓</a>
+  </div>
+</section>
+
+<!-- ===== PREUVES VIVANTES ===== -->
+<div class="preuves">
+  <div class="conteneur preuves-grille">
+    <div class="preuve"><b id="compteur-vues">48 000 000</b><span class="vivant">vues générées — en direct</span></div>
+    <div class="preuve"><b data-cible="120" data-suffixe="+">0</b><span>projets livrés</span></div>
+    <div class="preuve"><b data-cible="32" data-format="roas">0</b><span>ROAS moyen</span></div>
+    <div class="preuve"><b data-cible="96" data-suffixe="\u00a0%">0</b><span>clients satisfaits</span></div>
+  </div>
+</div>
+
+<!-- ===== SERVICES ===== -->
+<section id="services">
+  <div class="conteneur">
+    <div class="tete-section reveler">
+      <h2>Ce qu'on fait <span class="txt-grad">vraiment bien.</span></h2>
+      <p class="fondu" id="s-sous">Quatre expertises, un seul but : transformer l'attention en résultats.</p>
+    </div>
+    <div class="services-grille">
+      <article class="service reveler" data-service="ads">
+        <span class="badge-reco">Recommandé pour vous</span>
+        <span class="ico">🎯</span>
+        <h3>Publicité sociale</h3>
+        <p>Meta, TikTok, Google : des campagnes qui paient leur loyer. Retargeting créatif inclus.</p>
+      </article>
+      <article class="service reveler" data-service="contenu">
+        <span class="badge-reco">Recommandé pour vous</span>
+        <span class="ico">🎬</span>
+        <h3>Contenu & réels</h3>
+        <p>Tournage en studio, scripts qui accrochent en 3 secondes, montage qui retient.</p>
+      </article>
+      <article class="service reveler" data-service="leads">
+        <span class="badge-reco">Recommandé pour vous</span>
+        <span class="ico">🧲</span>
+        <h3>Génération de leads</h3>
+        <p>Landing pages, aimants à prospects, qualification automatique avant le premier appel.</p>
+      </article>
+      <article class="service reveler" data-service="brand">
+        <span class="badge-reco">Recommandé pour vous</span>
+        <span class="ico">✨</span>
+        <h3>Branding & social</h3>
+        <p>Identité, ligne éditoriale et gestion de communauté : une marque qu'on reconnaît.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MINI PORTFOLIO ===== -->
+<section style="padding-top:0">
+  <div class="conteneur">
+    <div class="tete-section reveler">
+      <h2 class="fondu" id="p-titre">Des preuves, pas des promesses.</h2>
+      <p>Trois études de cas choisies pour vous — la sélection change selon votre objectif.</p>
+    </div>
+    <div class="cas-grille" id="cas-grille"></div>
+    <div class="centre-section reveler">
+      <a class="lien-doux" href="cymedia-portfolio-v14.html">Voir toutes nos réalisations (et faire le diagnostic complet) →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TÉMOIGNAGE ===== -->
+<section style="padding-top:10px">
+  <div class="conteneur temoignage reveler">
+    <q class="fondu" id="t-quote">On a doublé le chiffre d'affaires en six mois. <em>Le tunnel vend pendant qu'on dort.</em></q>
+    <p class="auteur fondu" id="t-auteur"><b>Sofia R.</b> — Fondatrice, Virelo</p>
+  </div>
+</section>
+
+<!-- ===== CTA FINAL ===== -->
+<section class="cta-final" id="contact">
+  <div class="conteneur reveler">
+    <h2 class="fondu" id="c-titre">Prêt à passer aux <span class="txt-grad">résultats&nbsp;?</span></h2>
+    <p>Appel découverte gratuit de 30 minutes. Trois recommandations concrètes, que vous signiez ou non.</p>
+    <a class="btn-grad fondu" id="c-cta" href="mailto:contact@cymedia.ma?subject=Appel%20d%C3%A9couverte">Réserver mon appel&nbsp;→</a>
+    <p class="note" style="color:var(--sourdine)">Réponse sous 24 h · Sans engagement</p>
+  </div>
+</section>
+
+<footer>
+  <div class="conteneur pied">
+    <span>© 2026 CyMedia — Agence marketing</span>
+    <ul>
+      <li><a href="preview.html">Services</a></li>
+      <li><a href="work.html">Réalisations</a></li>
+      <li><a href="mailto:contact@cymedia.ma">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   PERSONNALISATION PAR OBJECTIF
+   ============================================================ */
+const CAS={
+ virelo:{nom:'Virelo',cat:'E-commerce',seed:'virelo7',stats:[['8,7×','ROAS'],['×2,4','C.A.']],
+  pourquoi:{vendre:'Tunnel social-to-sale : le système vend 24h/24.',audience:'+320\u00a0% d\u2019engagement avant même de vendre.',leads:'Un retargeting qui transforme les curieux.'}},
+ noor:{nom:'Noor Bijoux',cat:'E-commerce',seed:'noor4',stats:[['0→45k','Abonnés'],['5,4×','ROAS']],
+  pourquoi:{vendre:'68\u00a0% des ventes directement via Instagram.',audience:'De zéro à 45 000 abonnés en huit mois.',leads:'Une communauté qui se transforme en clientes.'}},
+ safran:{nom:'Maison Safran',cat:'Restauration',seed:'safran5',stats:[['+140\u00a0%','Réserv.'],['2,1\u00a0M','Vues']],
+  pourquoi:{vendre:'+140\u00a0% de réservations depuis Instagram.',audience:'2,1 M de vues sur les réels food.',leads:'La salle pleine, la liste d\u2019attente aussi.'}},
+ atlas:{nom:'Atlas Habitat',cat:'Immobilier',seed:'atlas2',stats:[['+95\u00a0%','Leads'],['−38\u00a0%','Coût/lead']],
+  pourquoi:{leads:'Qualification automatique : que des prospects sérieux.',vendre:'34\u00a0% des RDV aboutissent.',audience:'Des visites virtuelles qui font parler.'}},
+ taskly:{nom:'Taskly',cat:'SaaS',seed:'taskly9',stats:[['+210\u00a0%','Inscript.'],['−31\u00a0%','CAC']],
+  pourquoi:{leads:'+210\u00a0% d\u2019inscriptions qualifiées.',vendre:'7,2× de rétention : ils restent et paient.',audience:'Le contenu SEO qui attire tout seul.'}},
+ mindset:{nom:'Mindset Pro',cat:'Coaching',seed:'mindset3',stats:[['+185\u00a0%','Prospects'],['12k','Membres']],
+  pourquoi:{audience:'Un écosystème : YouTube, newsletter, communauté.',leads:'+185\u00a0% de prospects entrants.',vendre:'6,3× de chiffre d\u2019affaires.'}}
+};
+const PROFILS={
+ vendre:{
+  titre:'On transforme vos vues en <span class="txt-grad">ventes.</span>',
+  sous:'Tunnels social-to-sale, retargeting créatif, pages qui convertissent : votre boutique mérite un système qui vend 24h/24.',
+  cta:'Je veux vendre plus&nbsp;→',sujet:'Je%20veux%20vendre%20plus%20en%20ligne',
+  services:['ads','contenu'],cas:['virelo','noor','safran'],
+  pTitre:'Des marques qui vendent <span class="txt-grad">grâce à nous.</span>',
+  quote:'On a doublé le chiffre d\u2019affaires en six mois. <em>Le tunnel vend pendant qu\u2019on dort.</em>',auteur:'<b>Sofia R.</b> — Fondatrice, Virelo',
+  cTitre:'Votre prochaine vente se prépare <span class="txt-grad">maintenant.</span>'},
+ leads:{
+  titre:'Des prospects qualifiés, <span class="txt-grad">en continu.</span>',
+  sous:'Landing pages dédiées, aimants à prospects et qualification automatique : vos commerciaux n\u2019appellent plus que des gens intéressés.',
+  cta:'Je veux des leads&nbsp;→',sujet:'Je%20veux%20g%C3%A9n%C3%A9rer%20des%20leads',
+  services:['leads','ads'],cas:['atlas','taskly','mindset'],
+  pTitre:'Des pipelines pleins, <span class="txt-grad">preuves à l\u2019appui.</span>',
+  quote:'Le tri automatique des prospects a tout changé : <em>moins d\u2019appels, mais des appels qui comptent.</em>',auteur:'<b>Karim A.</b> — Directeur, Atlas Habitat',
+  cTitre:'Vos futurs clients sont déjà en ligne. <span class="txt-grad">Allons les chercher.</span>'},
+ audience:{
+  titre:'Une audience qui vous <span class="txt-grad">appartient.</span>',
+  sous:'Formats signatures, rythme tenable, communauté engagée : on construit l\u2019actif le plus précieux de votre marque — l\u2019attention.',
+  cta:'Je veux une audience&nbsp;→',sujet:'Je%20veux%20construire%20une%20audience',
+  services:['contenu','brand'],cas:['mindset','noor','safran'],
+  pTitre:'Des communautés bâties <span class="txt-grad">de zéro.</span>',
+  quote:'Je vis enfin de mon artisanat. <em>La communauté est attachée à la créatrice autant qu\u2019aux pièces.</em>',auteur:'<b>Noor</b> — Créatrice, Noor Bijoux',
+  cTitre:'Votre communauté n\u2019attend que <span class="txt-grad">d\u2019exister.</span>'}
+};
+
+const grilleCas=document.getElementById('cas-grille');
+function rendreCas(cles,obj){
+  grilleCas.innerHTML=cles.map(k=>{
+    const c=CAS[k];
+    return `
+    <a class="cas reveler visible" href="cymedia-portfolio-v14.html">
+      <img src="https://picsum.photos/seed/${c.seed}/600/360" alt="Projet ${c.nom}" loading="lazy">
+      <div class="corps">
+        <span class="badge-cas">${c.cat}</span>
+        <h3>${c.nom}</h3>
+        <p class="pourquoi-cas">${c.pourquoi[obj]||c.pourquoi.vendre}</p>
+        <div class="stats">${c.stats.map(s=>`<div><b>${s[0]}</b><span>${s[1]}</span></div>`).join('')}</div>
+      </div>
+    </a>`;
+  }).join('');
+}
+
+function fondre(el,maj){
+  el.classList.add('cache');
+  setTimeout(()=>{maj();el.classList.remove('cache');},300);
+}
+let objCourant=null;
+function appliquerObjectif(obj){
+  if(obj===objCourant)return;
+  objCourant=obj;
+  const p=PROFILS[obj];
+  document.querySelectorAll('.obj').forEach(b=>b.classList.toggle('actif',b.dataset.obj===obj));
+  fondre(document.getElementById('h-titre'),()=>document.getElementById('h-titre').innerHTML=p.titre);
+  fondre(document.getElementById('h-sous'),()=>document.getElementById('h-sous').textContent=p.sous);
+  fondre(document.getElementById('h-cta'),()=>{
+    const cta=document.getElementById('h-cta');
+    cta.innerHTML=p.cta;cta.href='mailto:contact@cymedia.ma?subject='+p.sujet;
+  });
+  document.getElementById('s-sous').textContent='Nos quatre expertises — les badges indiquent les priorités pour votre objectif.';
+  document.querySelectorAll('.service').forEach(s=>s.classList.toggle('reco',p.services.includes(s.dataset.service)));
+  fondre(document.getElementById('p-titre'),()=>document.getElementById('p-titre').innerHTML=p.pTitre);
+  rendreCas(p.cas,obj);
+  fondre(document.getElementById('t-quote'),()=>document.getElementById('t-quote').innerHTML=p.quote);
+  fondre(document.getElementById('t-auteur'),()=>document.getElementById('t-auteur').innerHTML=p.auteur);
+  fondre(document.getElementById('c-titre'),()=>document.getElementById('c-titre').innerHTML=p.cTitre);
+  fondre(document.getElementById('c-cta'),()=>{
+    const c=document.getElementById('c-cta');
+    c.innerHTML=p.cta;c.href='mailto:contact@cymedia.ma?subject='+p.sujet;
+  });
+}
+document.querySelectorAll('.obj').forEach(b=>b.addEventListener('click',()=>appliquerObjectif(b.dataset.obj)));
+/* sélection neutre par défaut : on affiche un mix */
+rendreCas(['virelo','atlas','mindset'],'vendre');
+
+/* ============================================================
+   COMPTEURS
+   ============================================================ */
+const mouvementReduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* compteur de vues "en direct" */
+const elVues=document.getElementById('compteur-vues');
+const BASE_VUES=48000000;
+const debutSession=performance.now();
+function majVues(){
+  const v=BASE_VUES+Math.floor((performance.now()-debutSession)/1000*2.7);
+  elVues.textContent=v.toLocaleString('fr-FR');
+}
+if(!mouvementReduit)setInterval(majVues,400);
+majVues();
+/* compteurs à cible (à l'apparition) */
+function animerCible(el){
+  const cible=+el.dataset.cible;
+  const fmt=v=>{
+    if(el.dataset.format==='roas')return '×'+(v/10).toFixed(1).replace('.',',');
+    return Math.round(v)+(el.dataset.suffixe||'').replace('\\u00a0','\u00a0');
+  };
+  if(mouvementReduit){el.textContent=fmt(cible);return;}
+  const debut=performance.now();
+  (function pas(t){
+    const p=Math.min((t-debut)/1200,1);
+    el.textContent=fmt(cible*(1-Math.pow(1-p,3)));
+    if(p<1)requestAnimationFrame(pas);
+  })(debut);
+}
+const obsC=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){animerCible(e.target);obsC.unobserve(e.target);}});
+},{threshold:.6});
+document.querySelectorAll('[data-cible]').forEach(c=>obsC.observe(c));
+
+/* révélations */
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}})},{threshold:.12});
+document.querySelectorAll('.reveler').forEach(el=>obs.observe(el));
+
+/* ============================================================
+   MENU
+   ============================================================ */
+function basculerMenu(btn){
+  const m=document.getElementById('nav-links');
+  const o=m.classList.toggle('ouvert');
+  btn.setAttribute('aria-expanded',o);
+}
+document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav-links').classList.remove('ouvert')));
+function basculerSousMenu(btn){
+  const li=btn.parentElement;
+  const dejaOuvert=li.classList.contains('ouvert');
+  document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+    x.classList.remove('ouvert');
+    x.querySelector('button').setAttribute('aria-expanded','false');
+  });
+  if(!dejaOuvert){li.classList.add('ouvert');btn.setAttribute('aria-expanded','true');}
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.a-sous-menu')){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+</script>
+</body>
+</html>

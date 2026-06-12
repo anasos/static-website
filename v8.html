@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyMedia — Agence marketing (V8 · cinéma clair)</title>
+<meta name="description" content="CyMedia présente : la version lumière du film. Même mise en scène, palette crème et encre.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papier:#F6F4ED;
+  --papier2:#FFFFFF;
+  --encre:#16142E;
+  --sourdine:#6E6C8A;
+  --bord:rgba(22,20,46,.12);
+  --rose:#FF2E9C;
+  --violet:#7C5CFF;
+  --grad:linear-gradient(90deg,#FF2E9C,#7C5CFF);
+  --display:'Space Grotesk',sans-serif;
+  --serif:'Fraunces',serif;
+  --corps:'Inter',sans-serif;
+  --lb:11vh;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--papier);color:var(--encre);font-family:var(--corps);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:8px}
+.conteneur{max-width:1180px;margin:0 auto;padding:0 24px}
+.txt-grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ============================================================
+   NAV AVEC SOUS-MENUS (version claire)
+   ============================================================ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:90;background:linear-gradient(180deg,rgba(246,244,237,.85),transparent);transition:background .4s,box-shadow .4s}
+.nav.opaque{background:rgba(255,255,255,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--bord);box-shadow:0 10px 30px rgba(22,20,46,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.marque{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;color:var(--encre)}
+.marque .glyphe{width:36px;height:36px}
+.marque .nom{font-size:1rem;line-height:1}
+.marque .nom small{display:block;font-size:.48rem;font-weight:500;letter-spacing:.4em;color:var(--sourdine)}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a,.nav-links>li>button{display:flex;align-items:center;gap:6px;font-family:var(--corps);font-size:.9rem;font-weight:500;color:var(--sourdine);background:none;border:none;cursor:pointer;padding:10px 14px;border-radius:10px;transition:color .2s,background .2s}
+.nav-links>li>a:hover,.nav-links>li>button:hover,.nav-links>li.ouvert>button{color:var(--encre);background:rgba(22,20,46,.05)}
+.chevron{width:9px;height:9px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex:none}
+li.ouvert .chevron{transform:rotate(225deg) translateY(-1px)}
+.sous-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);min-width:280px;max-height:calc(100vh - 110px);overflow-y:auto;overscroll-behavior:contain;background:linear-gradient(168deg,#ffffff,#f6f3ec);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--bord);border-radius:16px;padding:8px;list-style:none;box-shadow:0 24px 60px rgba(22,20,46,.16),0 0 40px rgba(124,92,255,.08);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s;scrollbar-width:thin;scrollbar-color:rgba(255,46,156,.5) transparent}
+.sous-menu::-webkit-scrollbar{width:6px}
+.sous-menu::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#FF2E9C,#7C5CFF);border-radius:99px}
+.sous-menu::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:#fff;border-left:1px solid var(--bord);border-top:1px solid var(--bord)}
+li.ouvert .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+@media(hover:hover) and (min-width:721px){
+  .nav-links>li:hover .sous-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .nav-links>li:hover>button{color:var(--encre);background:rgba(22,20,46,.05)}
+  .nav-links>li:hover .chevron{transform:rotate(225deg) translateY(-1px)}
+}
+.sous-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.88rem;color:var(--sourdine);transition:color .2s,background .2s}
+.sous-menu a:hover{color:var(--encre);background:linear-gradient(90deg,rgba(255,46,156,.1),rgba(124,92,255,.08))}
+.sous-menu a i{font-style:normal;width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none;opacity:0;transition:opacity .2s}
+.sous-menu a:hover i{opacity:1}
+.sous-menu a.actif{color:var(--encre);background:linear-gradient(90deg,rgba(255,46,156,.14),rgba(124,92,255,.1))}
+.sous-menu a.actif i{opacity:1}
+.sous-menu .titre-groupe{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(110,108,138,.8);padding:8px 14px 4px}
+.sous-menu .separe{height:1px;background:rgba(22,20,46,.08);margin:6px 8px}
+.btn-cta{font-weight:600;font-size:.85rem;color:#fff!important;background:var(--grad);border-radius:999px;padding:10px 20px!important;box-shadow:0 8px 22px rgba(255,46,156,.3);transition:transform .2s,box-shadow .2s}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(255,46,156,.45);background:var(--grad)!important}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:22px;height:2px;background:var(--encre);margin:5px 0;border-radius:2px}
+
+/* ============================================================
+   HABILLAGE CINÉMA CLAIR
+   ============================================================ */
+.letterbox{position:fixed;left:0;right:0;height:var(--lb);background:var(--encre);z-index:80;pointer-events:none;transition:height .1s linear}
+.letterbox.haut{top:0}
+.letterbox.bas{bottom:0}
+.grain{position:fixed;inset:-100px;z-index:75;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");animation:scintiller .5s steps(3) infinite;mix-blend-mode:multiply}
+@keyframes scintiller{0%{transform:translate(0,0)}33%{transform:translate(-30px,18px)}66%{transform:translate(22px,-26px)}100%{transform:translate(0,0)}}
+.hud-cine{position:fixed;z-index:85;font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(22,20,46,.65);pointer-events:none}
+.hud-presente{left:26px;top:calc(var(--lb) + 14px)}
+.hud-scene{right:26px;top:calc(var(--lb) + 14px)}
+.hud-scene b{color:var(--encre)}
+.hud-tc{left:26px;bottom:calc(var(--lb) + 14px);font-variant-numeric:tabular-nums}
+.hud-tc i{font-style:normal;color:var(--rose)}
+.hud-defiler{right:26px;bottom:calc(var(--lb) + 14px);display:flex;align-items:center;gap:10px;transition:opacity .5s}
+.hud-defiler .fil{width:42px;height:1px;background:linear-gradient(90deg,transparent,var(--rose));position:relative;overflow:hidden}
+.hud-defiler .fil::after{content:"";position:absolute;left:-12px;top:0;width:12px;height:1px;background:var(--encre);animation:filer 1.6s ease-in-out infinite}
+@keyframes filer{to{left:50px}}
+
+/* ============================================================
+   SCÈNES (palette lumière)
+   ============================================================ */
+.scene{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;will-change:transform,filter;background:var(--papier)}
+.scene .decor{position:absolute;inset:-6%;background-size:cover;background-position:center;animation:kenburns 22s ease-in-out infinite alternate;filter:saturate(1.04)}
+@keyframes kenburns{from{transform:scale(1) translate(0,0)}to{transform:scale(1.1) translate(-1.6%,1.4%)}}
+.scene .voile{position:absolute;inset:0;background:
+  radial-gradient(110% 85% at 50% 52%,rgba(246,244,237,.55) 0%,rgba(246,244,237,.93) 78%),
+  linear-gradient(180deg,rgba(246,244,237,.7),rgba(246,244,237,.35) 45%,rgba(246,244,237,.85))}
+.scene .voile.teinte-rose{background:
+  radial-gradient(110% 85% at 50% 52%,rgba(255,255,255,.5) 0%,rgba(248,243,240,.94) 78%),
+  linear-gradient(115deg,rgba(255,46,156,.1),rgba(124,92,255,.1)),
+  linear-gradient(180deg,rgba(246,244,237,.65),rgba(246,244,237,.85))}
+.scene .contenu-scene{position:relative;z-index:2;text-align:center;max-width:880px;padding:0 28px}
+.no-scene{font-family:var(--display);font-size:.66rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--rose);margin-bottom:22px}
+.scene h2,.scene h1{font-family:var(--display);font-weight:700;font-size:clamp(2.3rem,6.4vw,4.8rem);line-height:1.04;letter-spacing:-.02em;color:var(--encre)}
+.scene .serif{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
+.scene .replique{font-size:clamp(1rem,2vw,1.2rem);color:#46445f;max-width:48ch;margin:22px auto 0}
+.mot{display:inline-block;opacity:0;transform:translateY(26px);filter:blur(6px)}
+.scene.jouee .mot{animation:apparaitre-mot .8s cubic-bezier(.22,.8,.26,1) forwards;animation-delay:var(--d,0s)}
+@keyframes apparaitre-mot{to{opacity:1;transform:none;filter:none}}
+.battre{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.battre.d2{transition-delay:.25s}.battre.d3{transition-delay:.5s}.battre.d4{transition-delay:.75s}
+.scene.jouee .battre{opacity:1;transform:none}
+
+/* scène méthode : trois temps (papier) */
+.temps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px;text-align:left}
+.temp{background:rgba(255,255,255,.86);backdrop-filter:blur(8px);border:1px solid var(--bord);border-radius:16px;padding:20px;box-shadow:0 16px 40px rgba(22,20,46,.08)}
+.temp .num{font-family:var(--serif);font-style:italic;font-size:1.6rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.temp h3{font-family:var(--display);font-size:1.05rem;margin:6px 0 6px;color:var(--encre)}
+.temp p{font-size:.8rem;color:var(--sourdine)}
+
+/* box office */
+.boxoffice{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}
+.bo{border-top:1.5px solid rgba(22,20,46,.25);padding-top:14px}
+.bo b{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5vw,3.4rem);line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block;font-variant-numeric:tabular-nums}
+.bo span{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sourdine)}
+.casting{display:flex;gap:16px;justify-content:center;margin-top:38px}
+.affiche{position:relative;width:170px;border-radius:12px;overflow:hidden;border:1px solid var(--bord);box-shadow:0 24px 50px rgba(22,20,46,.22);transform:rotate(var(--r,0deg));transition:transform .35s;background:#fff}
+.affiche:hover{transform:rotate(0) translateY(-8px) scale(1.04);z-index:2}
+.affiche img{width:100%;height:225px;object-fit:cover}
+.affiche::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(12,10,30,.82))}
+.affiche figcaption{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:10px;font-family:var(--display);font-weight:700;font-size:.76rem;text-align:center;color:#fff}
+.affiche figcaption small{display:block;font-weight:500;font-size:.58rem;color:#FFB8DD;letter-spacing:.08em}
+
+/* scène finale */
+.btn-action{display:inline-flex;align-items:center;gap:12px;font-family:var(--display);font-weight:700;font-size:1.05rem;padding:18px 38px;border-radius:999px;background:var(--grad);color:#fff;box-shadow:0 16px 38px rgba(255,46,156,.4);transition:transform .25s,box-shadow .25s;margin-top:34px}
+.btn-action:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 22px 54px rgba(255,46,156,.55)}
+.btn-action .clap{font-size:1.3rem}
+.scene .mention{margin-top:18px;font-size:.72rem;color:var(--sourdine);letter-spacing:.08em}
+
+/* générique (reste sombre : la salle se rallume après) */
+.generique{position:relative;background:var(--encre);color:#EDEAF8;padding:90px 0 70px;text-align:center;z-index:2}
+.generique .ligne-gen{font-family:var(--display);font-size:.8rem;letter-spacing:.26em;text-transform:uppercase;color:#9C9DC6;padding:7px 0}
+.generique .ligne-gen b{color:#fff}
+.generique .pied-gen{margin-top:34px;font-size:.74rem;color:#9C9DC6}
+.generique .pied-gen a:hover{color:#fff}
+
+/* ---------- responsive ---------- */
+@media(max-width:860px){
+  :root{--lb:7vh}
+  .temps{grid-template-columns:1fr;text-align:center}
+  .boxoffice{grid-template-columns:1fr;gap:26px}
+  .casting{flex-wrap:wrap}
+  .affiche{width:140px}.affiche img{height:185px}
+  .hud-presente,.hud-tc{left:14px}.hud-scene,.hud-defiler{right:14px}
+}
+@media(max-width:720px){
+  .nav-links{position:fixed;inset:72px 0 auto 0;max-height:calc(100vh - 72px);overflow:auto;background:#fbfaf6;flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 24px;border-bottom:1px solid var(--bord);display:none}
+  .nav-links.ouvert{display:flex}
+  .nav-links>li>a,.nav-links>li>button{width:100%;justify-content:space-between;padding:14px 10px;font-size:.95rem}
+  .sous-menu{position:static;transform:none;min-width:0;max-height:none;overflow:visible;opacity:1;visibility:visible;box-shadow:none;border:none;background:rgba(22,20,46,.04);border-radius:12px;margin:0 6px 8px;display:none;padding:6px}
+  .sous-menu::before{display:none}
+  li.ouvert .sous-menu{display:block}
+  .btn-cta{justify-content:center;text-align:center;margin-top:10px}
+  .burger{display:block}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.001s!important}
+  .mot,.battre{opacity:1!important;transform:none!important;filter:none!important}
+  .grain{display:none}
+  .scene .decor{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- habillage cinéma -->
+<div class="letterbox haut" aria-hidden="true"></div>
+<div class="letterbox bas" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="hud-cine hud-presente">CyMedia présente</div>
+<div class="hud-cine hud-scene" id="hud-scene">Ouverture <b>· 01/05</b></div>
+<div class="hud-cine hud-tc" id="hud-tc"><i>●</i> 00:00 / 02:46</div>
+<div class="hud-cine hud-defiler" id="hud-defiler">Défiler <span class="fil"></span></div>
+
+<!-- ===== Nav avec sous-menus ===== -->
+<header class="nav" id="nav">
+  <div class="conteneur nav-inner">
+    <a href="index.html" class="marque" aria-label="CyMedia — Accueil">
+      <svg class="glyphe" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M78 30 A34 34 0 1 0 78 70" fill="none" stroke="#16142E" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="11" fill="#FF2E9C"/>
+      </svg>
+      <span class="nom">CYMEDIA<small>MARKETING AGENCY</small></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="preview.html">Services</a></li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Portfolio <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="work.html"><i></i>Portfolio — grille</a></li>
+            <li><a href="cymedia-portfolio.html"><i></i>Portfolio — cartes verre</a></li>
+            <li><a href="cymedia-portfolio-v2.html"><i></i>Portfolio — index éditorial</a></li>
+            <li><a href="cymedia-portfolio-v3.html"><i></i>Portfolio — cinématique</a></li>
+            <li><a href="cymedia-portfolio-v4.html"><i></i>Portfolio — mosaïque bento</a></li>
+            <li><a href="cymedia-portfolio-v5.html"><i></i>Portfolio — scrollytelling 3D</a></li>
+            <li><a href="cymedia-portfolio-v6.html"><i></i>Portfolio — showreel vidéo</a></li>
+            <li><a href="cymedia-portfolio-v7.html"><i></i>Portfolio — split-screen</a></li>
+            <li><a href="cymedia-portfolio-v8.html"><i></i>Portfolio — édition magazine</a></li>
+            <li><a href="cymedia-portfolio-v9.html"><i></i>Portfolio — galerie horizontale</a></li>
+            <li><a href="cymedia-portfolio-v10.html"><i></i>Portfolio — le feed social</a></li>
+            <li><a href="cymedia-portfolio-v11.html"><i></i>Portfolio — dashboard analytics</a></li>
+            <li><a href="cymedia-portfolio-v12.html"><i></i>Portfolio — salle de montage</a></li>
+            <li><a href="cymedia-portfolio-v13.html"><i></i>Portfolio — le funnel</a></li>
+            <li><a href="cymedia-portfolio-v14.html"><i></i>Portfolio — quiz de diagnostic</a></li>
+            <li><a href="cymedia-portfolio-v15.html"><i></i>Portfolio — visite du studio (3D)</a></li>
+            <li><a href="cymedia-portfolio-v16.html"><i></i>Portfolio — Ligne Croissance</a></li>
+            <li><a href="cymedia-portfolio-v17.html"><i></i>Portfolio — studio 2D</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Versions <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li class="titre-groupe">Pages d'accueil</li>
+            <li><a href="index.html"><i></i>Version 1</a></li>
+            <li><a href="v2.html"><i></i>Version 2</a></li>
+            <li><a href="v3.html"><i></i>Version 3</a></li>
+            <li><a href="v4.html"><i></i>Version 4</a></li>
+            <li><a href="v5.html"><i></i>Version 5</a></li>
+            <li><a href="v6.html"><i></i>Version 6 — objectif</a></li>
+            <li><a href="v7.html"><i></i>Version 7 — cinéma</a></li>
+            <li><a href="v8.html" class="actif" aria-current="page"><i></i>Version 8 — cinéma clair</a></li>
+            <li class="separe" aria-hidden="true"></li>
+            <li><a href="clear_fab.html"><i></i>Version claire</a></li>
+          </ul>
+        </li>
+
+        <li class="a-sous-menu">
+          <button type="button" aria-expanded="false" onclick="basculerSousMenu(this)">Carrousels <span class="chevron"></span></button>
+          <ul class="sous-menu">
+            <li><a href="carousel_1.html"><i></i>Carrousel V1</a></li>
+            <li><a href="carousel_2.html"><i></i>Carrousel V2</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">À propos</a></li>
+        <li><a href="mailto:contact@cymedia.ma" class="btn-cta">Réserver un appel</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="basculerMenu(this)"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ============ OUVERTURE ============ -->
+<section class="scene" data-scene="Ouverture">
+  <div class="decor" style="background-image:url('https://picsum.photos/seed/cine-ouverture/1700/1000')"></div>
+  <div class="voile"></div>
+  <div class="contenu-scene">
+    <p class="no-scene battre">CyMedia · Marrakech · 2026</p>
+    <h1 id="titre-ouverture">
+      <span class="mot" style="--d:.1s">L'attention</span>
+      <span class="mot" style="--d:.35s">ne</span>
+      <span class="mot" style="--d:.5s">s'achète</span>
+      <span class="mot" style="--d:.65s">plus.</span><br>
+      <span class="mot serif" style="--d:1.2s">Elle</span>
+      <span class="mot serif" style="--d:1.4s">se</span>
+      <span class="mot serif txt-grad" style="--d:1.6s">mérite.</span>
+    </h1>
+    <p class="replique battre d4">Nous sommes l'agence qui la mérite pour vous — en images, en histoires, en chiffres.</p>
+  </div>
+</section>
+
+<!-- ============ SCÈNE 01 — LE PROBLÈME ============ -->
+<section class="scene" data-scene="Le problème">
+  <div class="decor" style="background-image:url('https://picsum.photos/seed/cine-probleme/1700/1000')"></div>
+  <div class="voile"></div>
+  <div class="contenu-scene">
+    <p class="no-scene battre">Scène 01 — Le problème</p>
+    <h2 class="battre d2">Votre marque a <span class="serif txt-grad">8 secondes.</span></h2>
+    <p class="replique battre d3">C'est le temps qu'un regard vous accorde avant de glisser vers autre chose. La plupart des marques le gaspillent en parlant d'elles-mêmes.</p>
+    <p class="replique battre d4" style="color:var(--encre);font-weight:600">Pas les nôtres.</p>
+  </div>
+</section>
+
+<!-- ============ SCÈNE 02 — LA MÉTHODE ============ -->
+<section class="scene" data-scene="La méthode">
+  <div class="decor" style="background-image:url('https://picsum.photos/seed/cine-methode/1700/1000')"></div>
+  <div class="voile teinte-rose"></div>
+  <div class="contenu-scene">
+    <p class="no-scene battre">Scène 02 — La méthode</p>
+    <h2 class="battre d2">Trois temps. <span class="serif">Comme au cinéma.</span></h2>
+    <div class="temps">
+      <div class="temp battre d2"><span class="num">I.</span><h3>Capter</h3><p>Des contenus tournés en studio qui arrêtent le pouce dans les 3 premières secondes. L'accroche est un métier.</p></div>
+      <div class="temp battre d3"><span class="num">II.</span><h3>Retenir</h3><p>Histoires, formats signatures, retargeting créatif : l'attention captée devient une relation.</p></div>
+      <div class="temp battre d4"><span class="num">III.</span><h3>Convertir</h3><p>Tunnels, pages, données. La relation devient du chiffre — mesuré, prouvé, répété.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCÈNE 03 — LES PREUVES ============ -->
+<section class="scene" data-scene="Les preuves">
+  <div class="decor" style="background-image:url('https://picsum.photos/seed/cine-preuves/1700/1000')"></div>
+  <div class="voile"></div>
+  <div class="contenu-scene">
+    <p class="no-scene battre">Scène 03 — Le box-office</p>
+    <h2 class="battre d2">Les chiffres font <span class="serif txt-grad">l'applaudimètre.</span></h2>
+    <div class="boxoffice">
+      <div class="bo battre d2"><b data-cible="48" data-fmt="M">0</b><span>vues générées</span></div>
+      <div class="bo battre d3"><b data-cible="120" data-fmt="+">0</b><span>projets produits</span></div>
+      <div class="bo battre d4"><b data-cible="32" data-fmt="roas">0</b><span>ROAS moyen</span></div>
+    </div>
+    <div class="casting">
+      <figure class="affiche battre d2" style="--r:-4deg"><img src="https://picsum.photos/seed/virelo7/360/480" alt="Virelo"><figcaption>VIRELO<small>8,7× ROAS · E-commerce</small></figcaption></figure>
+      <figure class="affiche battre d3" style="--r:2deg"><img src="https://picsum.photos/seed/safran5/360/480" alt="Maison Safran"><figcaption>MAISON SAFRAN<small>2,1 M de vues · Restauration</small></figcaption></figure>
+      <figure class="affiche battre d4" style="--r:-2deg"><img src="https://picsum.photos/seed/noor4/360/480" alt="Noor Bijoux"><figcaption>NOOR BIJOUX<small>0→45k abonnés · Lancement</small></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCÈNE FINALE ============ -->
+<section class="scene" data-scene="Votre histoire">
+  <div class="decor" style="background-image:url('https://picsum.photos/seed/cine-finale/1700/1000')"></div>
+  <div class="voile teinte-rose"></div>
+  <div class="contenu-scene">
+    <p class="no-scene battre">Scène finale — la vôtre</p>
+    <h2 class="battre d2">Votre histoire mérite une <span class="serif txt-grad">mise en scène.</span></h2>
+    <p class="replique battre d3">Appel découverte gratuit, 30 minutes. On repère les scènes, on écrit le scénario, vous gardez le premier rôle.</p>
+    <a class="btn-action battre d4" href="mailto:contact@cymedia.ma?subject=Action%20%F0%9F%8E%AC%20%E2%80%94%20mon%20premier%20%C3%A9pisode"><span class="clap">🎬</span> Action — tourner le premier épisode</a>
+    <p class="mention battre d4">Réponse sous 24 h · Sans engagement · Pop-corn non fourni</p>
+  </div>
+</section>
+
+<!-- ============ GÉNÉRIQUE ============ -->
+<footer class="generique">
+  <div class="conteneur">
+    <p class="ligne-gen">Réalisé par <b>CyMedia</b></p>
+    <p class="ligne-gen">Avec <b>Virelo</b> · <b>Mindset Pro</b> · <b>Taskly</b> · <b>Maison Safran</b> · <b>Atlas Habitat</b> · <b>Noor Bijoux</b></p>
+    <p class="ligne-gen">Direction artistique <b>Studio interne</b> — Données <b>vérifiées sur pièces</b></p>
+    <p class="ligne-gen">Aucun budget publicitaire n'a été gaspillé durant ce tournage</p>
+    <p class="pied-gen">© 2026 CyMedia — <a href="preview.html">Services</a> · <a href="work.html">Réalisations</a> · <a href="mailto:contact@cymedia.ma">Contact</a></p>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   MOTEUR CINÉMA
+   ============================================================ */
+const scenes=[...document.querySelectorAll('.scene')];
+const hudScene=document.getElementById('hud-scene');
+const hudTc=document.getElementById('hud-tc');
+const hudDefiler=document.getElementById('hud-defiler');
+const nav=document.getElementById('nav');
+const mouvementReduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const DUREE_FILM=166;
+
+let tique=false;
+function surScroll(){
+  if(tique)return;tique=true;
+  requestAnimationFrame(()=>{appliquer();tique=false;});
+}
+function appliquer(){
+  const vh=window.innerHeight;
+  const total=document.body.scrollHeight-vh;
+  const pGlobal=Math.min(Math.max(window.scrollY/Math.max(total,1),0),1);
+
+  const lbMax=window.innerWidth<=860?7:11;
+  const lb=Math.max(3.2,lbMax-(pGlobal*4)*lbMax);
+  document.documentElement.style.setProperty('--lb',Math.max(3.2,Math.min(lb,lbMax))+'vh');
+
+  const t=Math.round(pGlobal*DUREE_FILM);
+  const mm=String(Math.floor(t/60)).padStart(2,'0');
+  const ss=String(t%60).padStart(2,'0');
+  hudTc.innerHTML='<i>●</i> '+mm+':'+ss+' / 02:46';
+
+  hudDefiler.style.opacity=window.scrollY>140?0:1;
+  nav.classList.toggle('opaque',window.scrollY>80);
+
+  scenes.forEach((sc,i)=>{
+    const suiv=scenes[i+1];
+    if(!suiv){sc.style.transform='';sc.style.filter='';return;}
+    const top=suiv.getBoundingClientRect().top;
+    const p=Math.min(Math.max(1-top/vh,0),1);
+    sc.style.transform='scale('+(1-p*.07)+') translateY('+(-p*26)+'px)';
+    sc.style.filter='brightness('+(1-p*.18)+') blur('+(p*2)+'px)';
+  });
+
+  let courante=0;
+  scenes.forEach((sc,i)=>{
+    const r=sc.getBoundingClientRect();
+    if(r.top<=vh*.45)courante=i;
+  });
+  scenes.forEach((sc,i)=>{
+    if(i<=courante&&!sc.classList.contains('jouee')){
+      sc.classList.add('jouee');
+      if(i===3)lancerBoxoffice();
+    }
+  });
+  hudScene.innerHTML=scenes[courante].dataset.scene+' <b>· '+String(courante+1).padStart(2,'0')+'/'+String(scenes.length).padStart(2,'0')+'</b>';
+}
+window.addEventListener('scroll',surScroll,{passive:true});
+window.addEventListener('resize',appliquer);
+appliquer();
+setTimeout(()=>scenes[0].classList.add('jouee'),150);
+
+let boFait=false;
+function lancerBoxoffice(){
+  if(boFait)return;boFait=true;
+  document.querySelectorAll('.bo b').forEach(el=>{
+    const cible=+el.dataset.cible;
+    const fmt=v=>{
+      if(el.dataset.fmt==='M')return Math.round(v)+'\u00a0M';
+      if(el.dataset.fmt==='roas')return '×'+(v/10).toFixed(1).replace('.',',');
+      return Math.round(v)+'+';
+    };
+    if(mouvementReduit){el.textContent=fmt(cible);return;}
+    const debut=performance.now();
+    (function pas(t){
+      const p=Math.min((t-debut)/1400,1);
+      el.textContent=fmt(cible*(1-Math.pow(1-p,3)));
+      if(p<1)requestAnimationFrame(pas);
+    })(debut);
+  });
+}
+
+/* ============================================================
+   MENU
+   ============================================================ */
+function basculerMenu(btn){
+  const m=document.getElementById('nav-links');
+  const o=m.classList.toggle('ouvert');
+  btn.setAttribute('aria-expanded',o);
+}
+document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav-links').classList.remove('ouvert')));
+function basculerSousMenu(btn){
+  const li=btn.parentElement;
+  const dejaOuvert=li.classList.contains('ouvert');
+  document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+    x.classList.remove('ouvert');
+    x.querySelector('button').setAttribute('aria-expanded','false');
+  });
+  if(!dejaOuvert){li.classList.add('ouvert');btn.setAttribute('aria-expanded','true');}
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.a-sous-menu')){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.a-sous-menu.ouvert').forEach(x=>{
+      x.classList.remove('ouvert');
+      x.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  }
+});
+</script>
+</body>
+</html>
