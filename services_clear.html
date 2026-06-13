@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — CyMedia, agence marketing</title>
+<meta name="description" content="Stratégie, publicité, réseaux sociaux, création de contenu, SEO, email, génération de leads : les services CyMedia avec de vraies preuves chiffrées.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --encre:#1B2566;
+  --encre-fonce:#141C4F;
+  --magenta:#C52A8E;
+  --magenta-doux:#F7E3F0;
+  --papier:#FBFBFE;
+  --brume:#EEF1FB;
+  --ardoise:#5B628F;
+  --blanc:#FFFFFF;
+  --rayon:22px;
+  --display:'Baloo 2',system-ui,sans-serif;
+  --corps:'Figtree',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--corps);color:var(--encre);background:var(--papier);line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--magenta);outline-offset:3px;border-radius:6px}
+.conteneur{max-width:1140px;margin:0 auto;padding:0 24px}
+
+/* ============================================================
+   NAV — identique à la home avec menu complet
+   ============================================================ */
+.nav{position:sticky;top:0;z-index:50;background:rgba(251,251,254,.88);backdrop-filter:blur(12px);border-bottom:1px solid rgba(27,37,102,.08)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:76px}
+.nav-logo img{height:38px;width:auto}
+.nav-liens{display:flex;align-items:center;gap:34px;list-style:none}
+.nav-liens a{font-weight:600;font-size:.95rem;color:var(--encre);position:relative}
+.nav-liens a.actif{color:var(--magenta)}
+.nav-liens a:not(.btn)::after{content:"";position:absolute;left:50%;bottom:-7px;width:6px;height:6px;border-radius:50%;background:var(--magenta);transform:translateX(-50%) scale(0);transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+.nav-liens a:not(.btn):hover::after,.nav-liens a.actif:not(.btn)::after{transform:translateX(-50%) scale(1)}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:24px;height:3px;border-radius:3px;background:var(--encre);margin:5px 0}
+
+/* ============================================================
+   BOUTONS
+   ============================================================ */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--corps);font-weight:700;font-size:1rem;padding:14px 28px;border-radius:999px;border:2px solid transparent;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s,color .2s}
+.btn-plein{background:var(--magenta);color:#fff;box-shadow:0 8px 24px rgba(197,42,142,.28)}
+.btn-plein:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(197,42,142,.36)}
+.btn-ligne{border-color:var(--encre);color:var(--encre);background:transparent}
+.btn-ligne:hover{background:var(--encre);color:#fff}
+
+/* ============================================================
+   EN-TÊTE DE PAGE
+   ============================================================ */
+.entete{padding:64px 0 48px;text-align:center;background:linear-gradient(180deg,var(--brume),var(--papier))}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.82rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--magenta);margin-bottom:18px}
+.eyebrow::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--magenta)}
+.entete h1{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.1;letter-spacing:-.01em;max-width:20ch;margin:0 auto 16px}
+.entete h1 .pt{color:var(--magenta)}
+.entete p{color:var(--ardoise);max-width:580px;margin:0 auto 30px;font-size:1.05rem}
+/* ancres rapides */
+.ancres{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.ancres a{font-family:var(--corps);font-size:.82rem;font-weight:700;color:var(--encre);background:#fff;border:1.5px solid rgba(27,37,102,.14);border-radius:999px;padding:9px 17px;transition:border-color .2s,background .2s,transform .2s,box-shadow .2s}
+.ancres a:hover{border-color:var(--magenta);background:var(--magenta-doux);transform:translateY(-2px);box-shadow:0 6px 16px rgba(197,42,142,.14)}
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+.services{padding:56px 0 24px}
+.service{display:grid;grid-template-columns:56px 1fr 260px;gap:28px;align-items:start;background:#fff;border:1.5px solid rgba(27,37,102,.08);border-radius:var(--rayon);padding:30px;margin-bottom:18px;scroll-margin-top:96px;transition:box-shadow .3s,transform .3s}
+.service:hover{box-shadow:0 18px 48px rgba(27,37,102,.1);transform:translateY(-3px)}
+.service .icone{width:54px;height:54px;border-radius:16px;background:var(--magenta-doux);display:flex;align-items:center;justify-content:center;flex:none}
+.service .icone svg{width:26px;height:26px;stroke:var(--magenta);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.service h2{font-family:var(--display);font-weight:800;font-size:1.32rem;margin-bottom:5px;color:var(--encre)}
+.service .probleme{font-size:.88rem;color:var(--ardoise);font-style:italic;margin-bottom:13px;border-left:3px solid var(--magenta-doux);padding-left:10px}
+.service .inclus{font-size:.93rem;color:#3b4070}
+.service .inclus b{display:block;font-family:var(--display);font-size:.68rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--ardoise);margin-bottom:5px}
+/* colonne droite */
+.cote-service{display:flex;flex-direction:column;gap:14px;align-self:stretch;justify-content:space-between}
+.preuve-service{background:var(--brume);border:1.5px solid rgba(27,37,102,.1);border-radius:14px;padding:14px 16px}
+.preuve-service b{font-family:var(--display);font-size:1.2rem;font-weight:800;color:var(--magenta);display:block;line-height:1.15}
+.preuve-service span{font-size:.72rem;color:var(--ardoise)}
+.lien-service{font-family:var(--corps);font-weight:700;font-size:.84rem;color:var(--encre);border-bottom:2px solid var(--magenta);align-self:flex-start;padding-bottom:2px;transition:color .2s}
+.lien-service:hover{color:var(--magenta)}
+
+/* ============================================================
+   MÉTHODE
+   ============================================================ */
+.methode{padding:70px 0;background:var(--brume)}
+.tete-section{max-width:620px;margin-bottom:48px}
+.tete-section h2{font-family:var(--display);font-weight:800;font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:1.15;margin-bottom:13px}
+.tete-section h2 .pt{color:var(--magenta)}
+.tete-section p{color:var(--ardoise);font-size:1.02rem}
+.centre{margin-left:auto;margin-right:auto;text-align:center}
+.etapes{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:etape}
+.etape{position:relative;padding:32px 26px;border-radius:var(--rayon);background:#fff;border:1.5px solid rgba(27,37,102,.08);transition:box-shadow .25s,transform .25s}
+.etape:hover{box-shadow:0 14px 36px rgba(27,37,102,.1);transform:translateY(-4px)}
+.etape::before{counter-increment:etape;content:counter(etape,decimal-leading-zero);font-family:var(--display);font-weight:800;font-size:.95rem;color:var(--magenta);background:var(--magenta-doux);border-radius:999px;padding:6px 14px;display:inline-block;margin-bottom:16px}
+.etape h3{font-family:var(--display);font-size:1.2rem;font-weight:700;margin-bottom:8px}
+.etape p{color:var(--ardoise);font-size:.93rem}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq{padding:70px 0}
+.faq .liste{max-width:780px;margin:0 auto}
+.faq details{background:#fff;border:1.5px solid rgba(27,37,102,.09);border-radius:16px;margin-bottom:11px;overflow:hidden;transition:box-shadow .25s}
+.faq details[open]{box-shadow:0 10px 30px rgba(27,37,102,.09)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 22px;font-family:var(--display);font-weight:700;font-size:1rem;transition:color .2s}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:1.4rem;color:var(--magenta);font-family:var(--display);font-weight:800;transition:transform .25s;flex:none;line-height:1}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details[open] summary{color:var(--magenta)}
+.faq .reponse{padding:0 22px 20px;font-size:.92rem;color:var(--ardoise);line-height:1.7}
+
+/* ============================================================
+   CTA FINAL
+   ============================================================ */
+.cta-final{padding:0 18px 80px}
+.cta-boite{background:linear-gradient(135deg,var(--encre) 0%,var(--encre-fonce) 100%);border-radius:48px;padding:80px 24px;text-align:center;color:#fff;position:relative;overflow:hidden}
+.cta-boite::before{content:"";position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(197,42,142,.4),transparent 70%);top:-140px;right:-100px}
+.cta-boite::after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(197,42,142,.3),transparent 70%);bottom:-120px;left:-80px}
+.cta-boite h2{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,3.6vw,2.8rem);max-width:620px;margin:0 auto 14px;position:relative;z-index:1}
+.cta-boite h2 .pt{color:#FFB8DD}
+.cta-boite p{color:rgba(255,255,255,.8);max-width:480px;margin:0 auto 32px;position:relative;z-index:1;font-size:1.02rem}
+.cta-boite .btn{position:relative;z-index:1}
+.cta-boite .note{position:relative;z-index:1;font-size:.78rem;color:rgba(255,255,255,.6);margin-top:14px}
+
+/* ============================================================
+   PIED DE PAGE
+   ============================================================ */
+footer{border-top:1px solid rgba(27,37,102,.08);padding:44px 0 36px}
+.pied{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.pied img{height:30px;width:auto}
+.pied-liens{display:flex;gap:26px;list-style:none;font-size:.92rem;font-weight:600}
+.pied-liens a:hover{color:var(--magenta)}
+.pied small{color:var(--ardoise);font-size:.85rem;width:100%;text-align:center;margin-top:24px;display:block}
+
+/* révélation */
+.reveler{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.reveler.visible{opacity:1;transform:none}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:960px){
+  .service{grid-template-columns:54px 1fr}
+  .cote-service{grid-column:2;flex-direction:row;flex-wrap:wrap;gap:12px;align-items:center}
+  .etapes{grid-template-columns:1fr 1fr}
+}
+@media(max-width:680px){
+  .service{grid-template-columns:1fr;padding:22px}
+  .nav-liens{position:fixed;inset:76px 0 auto 0;background:var(--papier);flex-direction:column;gap:0;padding:10px 24px 24px;border-bottom:1px solid rgba(27,37,102,.1);display:none}
+  .nav-liens.ouvert{display:flex}
+  .nav-liens li{width:100%}
+  .nav-liens a{display:block;padding:14px 0}
+  .burger{display:block}
+  .etapes{grid-template-columns:1fr}
+  .ancres{gap:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}
+  .reveler{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Navigation ===== -->
+<header class="nav">
+  <div class="conteneur nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="CyMedia — Accueil">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 44'%3E%3Cpath d='M30 8 A18 18 0 1 0 30 36' fill='none' stroke='%231B2566' stroke-width='7' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='22' r='6' fill='%23C52A8E'/%3E%3Ctext x='46' y='30' font-family='Baloo 2,sans-serif' font-weight='800' font-size='20' fill='%231B2566'%3ECyMedia%3C/text%3E%3C/svg%3E" alt="CyMedia">
+    </a>
+    <nav>
+      <ul class="nav-liens" id="menu">
+        <li><a href="preview.html" class="actif" aria-current="page">Services</a></li>
+        <li><a href="index.html#methode">Méthode</a></li>
+        <li><a href="index.html#temoignages">Témoignages</a></li>
+        <li><a href="cymedia-portfolio-v14.html">Portfolio</a></li>
+        <li><a href="mailto:contact@cymedia.ma?subject=Appel%20d%C3%A9couverte" class="btn btn-plein" style="padding:10px 22px;font-size:.92rem">Réserver un appel</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="basculerMenu(this)">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== En-tête ===== -->
+<section class="entete">
+  <div class="conteneur">
+    <p class="eyebrow reveler">Nos services</p>
+    <h1 class="reveler">Huit métiers, un seul but : vos résultats<span class="pt">.</span></h1>
+    <p class="reveler">Pas de jargon, pas de packages opaques. Pour chaque service : le problème qu'il résout, ce qui est inclus et une preuve chiffrée sur de vrais clients.</p>
+    <nav class="ancres reveler" aria-label="Aller à un service">
+      <a href="#ads">🎯 Publicité</a>
+      <a href="#reels">🎬 Réels & UGC</a>
+      <a href="#studio">📸 Production</a>
+      <a href="#branding">✨ Branding</a>
+      <a href="#social">📱 Réseaux sociaux</a>
+      <a href="#seo">🔎 SEO & contenu</a>
+      <a href="#email">✉️ Email & CRM</a>
+      <a href="#leads">🧲 Leads</a>
+    </nav>
+  </div>
+</section>
+
+<!-- ===== Services ===== -->
+<section class="services">
+  <div class="conteneur">
+
+    <article class="service reveler" id="ads">
+      <span class="icone"><svg viewBox="0 0 24 24"><path d="M3 11l18-7-7 18-2.5-7.5L3 11z"/></svg></span>
+      <div>
+        <h2>Publicité sociale & Google</h2>
+        <p class="probleme">« On dépense en pub, mais on ne sait pas ce que ça rapporte. »</p>
+        <p class="inclus"><b>Inclus</b>Campagnes Meta, TikTok et Google de bout en bout : stratégie d'audiences, créas testées, retargeting créatif, et un reporting que vous comprenez. Chaque dirham investi est suivi jusqu'à la vente.</p>
+      </div>
+      <div class="cote-service">
+        <div class="preuve-service"><b>8,7× ROAS</b><span>Virelo — e-commerce, 6 mois</span></div>
+        <a class="lien-service" href="mailto:contact@cymedia.ma?subject=Publicit%C3%A9%20sociale">Parler de mes campagnes →</a>
+      </div>
+    </article>
+
+    <article class="service reveler" id="reels">
+      <span class="icone"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
+      <div>
+        <h2>Réels & contenu UGC</h2>
+        <p class="probleme">« On publie, mais personne ne regarde plus de 2 secondes. »</p>
+        <p class="inclus"><b>Inclus</b>Scripts pensés pour accrocher dans les 3 premières secondes, tournage de formats courts, montage rythmé, déclinaisons par plateforme et collaboration avec des créateurs UGC. L'accroche est un métier — c'est le nôtre.</p>
+      </div>
+      <div class="cote-service">
+        <div class="preuve-service"><b>2,1 M de vues</b><span>Maison Safran — réels food</span></div>
+        <a class="lien-service" href="mailto:contact@cymedia.ma?subject=R%C3%A9els%20%26%20UGC">Parler de mon contenu →</a>
+      </div>
+    </article>
+
+    <article class="service reveler" id="studio">
+      <span class="icone"><svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>
+      <div>
+        <h2>Production studio — photo & vidéo</h2>
+        <p class="probleme">« Nos visuels font amateurs à côté de la concurrence. »</p>
+        <p class="inclus"><b>Inclus</b>Shootings produits et lifestyle dans notre studio de Marrakech, captation vidéo, direction artistique, retouche et livraison aux formats de chaque canal. Vos assets visuels, niveau marque internationale.</p>
+      </div>
+      <div class="cote-service">
+        <div class="preuve-service"><b>+320 %</b><span>engagement — Virelo</span></div>
+        <a class="lien-service" href="mailto:contact@cymedia.ma?subject=Production%20studio">Réserver un shooting →</a>
+      </div>
+    </article>
+
+    <article class="service reveler" id="branding">
+      <span class="icone"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
+      <div>
+        <h2>Branding & identité</h2>
+        <p class="probleme">« On ne se démarque de rien ni de personne. »</p>
+        <p class="inclus"><b>Inclus</b>Positionnement, identité visuelle, ton de voix, charte et templates réseaux sociaux. Une marque qu'on reconnaît en deux secondes dans un feed — parce que c'est exactement le temps dont vous disposez.</p>
+      </div>
+      <div class="cote-service">
+        <div class="preuve-service"><b>0→45k abonnés</b><span>Noor Bijoux — lancement</span></div>
+        <a class="lien-service" href="mailto:contact@cymedia.ma?subject=Branding">Construire ma marque →</a>
+      </div>
+    </article>
+
+    <article class="service reveler" id="social">
+      <span class="icone"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg></span>
+      <div>
+        <h2>Gestion des réseaux sociaux</h2>
+        <p class="probleme">« On n'a ni le temps ni les idées pour publier régulièrement. »</p>
+        <p class="inclus"><b>Inclus</b>Ligne éditoriale, calendrier de publication, création des posts, community management et veille des tendances. Un rythme tenable, une voix cohérente, une communauté qui répond.</p>
+      </div>
+      <div class="cote-service">
+        <div class="preuve-service"><b>×4 abonnés</b><span>Maison Safran — 5 mois</span></div>
+        <a class="lien-service" href="mailto:contact@cymedia.ma?subject=R%C3%A9seaux%20sociaux">Déléguer mes réseaux →</a>
+      </div>
+    </article>
+
+    <article class="service reveler" id="seo">
+      <span class="icone"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
+      <div>
+        <h2>SEO & contenu</h2>
+        <p class="probleme">« On n'existe pas sur Google quand nos clients nous cherchent. »</p>
+        <p class="inclus"><b>Inclus</b>Audit technique, stratégie de mots-clés d'intention (« alternative à », « avis », « prix »), rédaction d'articles et de comparatifs, optimisation des pages. Le trafic qui vient tout seul, mois après mois.</p>
+      </div>
+      <div class="cote-service">
+        <div class="preuve-service"><b>+210 %</b><span>inscriptions — Taskly, SEO en tête</span></div>
+        <a class="lien-service" href="mailto:contact@cymedia.ma?subject=SEO">Être trouvé sur Google →</a>
+      </div>
+    </article>
+
+    <article class="service reveler" id="email">
+      <span class="icone"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+      <div>
+        <h2>Email marketing & CRM</h2>
+        <p class="probleme">« Notre liste de contacts dort dans un fichier Excel. »</p>
+        <p class="inclus"><b>Inclus</b>Séquences de bienvenue, relances de paniers abandonnés, newsletters qui sont attendues (si, si), segmentation et automatisations CRM. Le canal le plus rentable du marketing, enfin exploité.</p>
+      </div>
+      <div class="cote-service">
+        <div class="preuve-service"><b>×2,4 C.A.</b><span>Virelo — email dans le tunnel</span></div>
+        <a class="lien-service" href="mailto:contact@cymedia.ma?subject=Email%20marketing">Réveiller ma liste →</a>
+      </div>
+    </article>
+
+    <article class="service reveler" id="leads">
+      <span class="icone"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+      <div>
+        <h2>Génération de leads & landing pages</h2>
+        <p class="probleme">« Nos commerciaux perdent leur temps avec des curieux. »</p>
+        <p class="inclus"><b>Inclus</b>Landing pages dédiées par offre, aimants à prospects, formulaires intelligents et qualification automatique avant transmission. Moins d'appels, mais des appels qui comptent.</p>
+      </div>
+      <div class="cote-service">
+        <div class="preuve-service"><b>−38 % coût/lead</b><span>Atlas Habitat — immobilier</span></div>
+        <a class="lien-service" href="mailto:contact@cymedia.ma?subject=G%C3%A9n%C3%A9ration%20de%20leads">Remplir mon pipeline →</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ===== Méthode ===== -->
+<section class="methode">
+  <div class="conteneur">
+    <div class="tete-section centre reveler">
+      <p class="eyebrow">Comment on travaille</p>
+      <h2>Simple, transparente, mesurable<span class="pt">.</span></h2>
+      <p>Pas de jargon ni de promesses floues : un processus en quatre étapes, des comptes rendus chaque mois.</p>
+    </div>
+    <div class="etapes">
+      <article class="etape reveler"><h3>Diagnostic</h3><p>Appel découverte gratuit de 30 min. On analyse votre situation et on repart avec trois pistes concrètes — que vous signiez ou non.</p></article>
+      <article class="etape reveler"><h3>Stratégie</h3><p>Plan d'action chiffré, canaux choisis, objectifs définis. Vous validez avant qu'on touche à quoi que ce soit.</p></article>
+      <article class="etape reveler"><h3>Production</h3><p>Création, tournage, lancement. Vous voyez tout passer et gardez le dernier mot à chaque étape.</p></article>
+      <article class="etape reveler"><h3>Pilotage</h3><p>Reporting mensuel lisible, optimisations en continu. Ce qui ne marche pas est coupé, ce qui marche est amplifié.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq">
+  <div class="conteneur">
+    <div class="tete-section centre reveler">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2>Tout ce que vous voulez savoir<span class="pt">.</span></h2>
+    </div>
+    <div class="liste reveler">
+      <details>
+        <summary>Combien ça coûte ?</summary>
+        <p class="reponse">Chaque mission est chiffrée sur mesure après le diagnostic gratuit, selon les services et l'ampleur. Nous travaillons au forfait mensuel transparent — pas de coûts cachés. L'appel découverte vous donne une fourchette claire et sans engagement.</p>
+      </details>
+      <details>
+        <summary>En combien de temps voit-on des résultats ?</summary>
+        <p class="reponse">Cela dépend du canal : la publicité produit des données dès les premières semaines, le contenu et les réseaux sociaux montent en puissance sur 2–3 mois, le SEO sur 4–6 mois. Nos études de cas affichent des missions de 5 à 10 mois — c'est l'horizon honnête d'une vraie transformation.</p>
+      </details>
+      <details>
+        <summary>Travaillez-vous avec les petites structures ?</summary>
+        <p class="reponse">Oui — Noor Bijoux a démarré avec une créatrice seule et son établi. Ce qui compte n'est pas votre taille actuelle mais votre sérieux : un produit solide et l'envie de construire sur la durée.</p>
+      </details>
+      <details>
+        <summary>Peut-on prendre un seul service à la carte ?</summary>
+        <p class="reponse">Un seul service suffit pour démarrer — beaucoup de clients commencent par la publicité ou les réels. Cela dit, les résultats les plus spectaculaires viennent des systèmes complets où chaque canal nourrit le suivant. On vous dira honnêtement ce qui a du sens pour vous.</p>
+      </details>
+      <details>
+        <summary>Comment suit-on les résultats ensemble ?</summary>
+        <p class="reponse">Reporting mensuel avec les indicateurs qui comptent pour VOTRE objectif (pas des métriques de vanité), un point régulier de vive voix et un accès permanent aux tableaux de bord. Vous savez toujours où va votre budget.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA final ===== -->
+<div class="cta-final">
+  <div class="conteneur">
+    <div class="cta-boite reveler">
+      <h2>On commence par le diagnostic<span class="pt">&nbsp;?</span></h2>
+      <p>Appel découverte gratuit de 30 minutes. Trois recommandations concrètes, que vous signiez ou non.</p>
+      <a class="btn btn-plein" href="mailto:contact@cymedia.ma?subject=Diagnostic%20gratuit">Réserver mon appel gratuit</a>
+      <p class="note">Réponse sous 24 h · Sans engagement</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Pied de page ===== -->
+<footer>
+  <div class="conteneur">
+    <div class="pied">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 44'%3E%3Cpath d='M30 8 A18 18 0 1 0 30 36' fill='none' stroke='%231B2566' stroke-width='7' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='22' r='6' fill='%23C52A8E'/%3E%3Ctext x='46' y='30' font-family='Baloo 2,sans-serif' font-weight='800' font-size='20' fill='%231B2566'%3ECyMedia%3C/text%3E%3C/svg%3E" alt="CyMedia">
+      <ul class="pied-liens">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="cymedia-portfolio-v14.html">Portfolio</a></li>
+        <li><a href="mailto:contact@cymedia.ma">contact@cymedia.ma</a></li>
+      </ul>
+    </div>
+    <small>© 2026 CyMedia — Agence marketing · Marrakech</small>
+  </div>
+</footer>
+
+<script>
+function basculerMenu(btn){
+  const menu=document.getElementById('menu');
+  const o=menu.classList.toggle('ouvert');
+  btn.setAttribute('aria-expanded',o);
+  btn.setAttribute('aria-label',o?'Fermer le menu':'Ouvrir le menu');
+}
+document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>document.getElementById('menu').classList.remove('ouvert')));
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll('.reveler').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
