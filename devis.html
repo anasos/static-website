@@ -288,9 +288,9 @@ footer{border-top:1px solid rgba(27,37,102,.08);padding:30px 0}
 const QUESTIONS=[
  {id:'secteur',titre:'Dans quel univers évolue votre marque ?',
   options:[
-   {v:'ecommerce',emo:'\u{1F6CD}\uFE0F',b:'E-commerce',s:'Vous vendez des produits en ligne'},
+   {v:'medecin',emo:'\u{1FA7A}',b:'Cabinet médecin',s:'Praticien, clinique, santé'},
    {v:'coaching',emo:'\u{1F393}',b:'Coaching & formation',s:'Vous vendez votre expertise'},
-   {v:'saas',emo:'\u{1F4BB}',b:'SaaS & tech',s:'Logiciel, app ou service digital'},
+   {v:'formation',emo:'\u{1F3EB}',b:'Centre de formation',s:'Organisme, école, certifiante'},
    {v:'resto',emo:'\u{1F37D}\uFE0F',b:'Restauration & local',s:'Un lieu physique à remplir'},
    {v:'immo',emo:'\u{1F3D7}\uFE0F',b:'Immobilier',s:'Programmes, biens, promotion'},
    {v:'autre',emo:'\u2728',b:'Autre secteur',s:'On s\u2019adapte, promis'}]},
@@ -312,7 +312,7 @@ const QUESTIONS=[
    {v:'seo',emo:'\u{1F50E}',b:'Google & SEO',s:'Être trouvé au bon moment'},
    {v:'sais-pas',emo:'\u{1F937}',b:'Je ne sais pas',s:'Conseillez-moi !'}]}
 ];
-const LIBELLES={ecommerce:'E-commerce',coaching:'Coaching & formation',saas:'SaaS & tech',resto:'Restauration & local',immo:'Immobilier',autre:'Multi-secteurs',
+const LIBELLES={medecin:'Cabinet médecin',coaching:'Coaching & formation',formation:'Centre de formation',resto:'Restauration & local',immo:'Immobilier',autre:'Multi-secteurs',
  vendre:'vendre plus en ligne',leads:'générer des leads',audience:'construire une audience',notoriete:'gagner en notoriété',
  zero:'en phase de lancement',stagne:'en phase de déblocage',accelere:'en phase d\u2019accélération'};
 
@@ -320,13 +320,13 @@ const LIBELLES={ecommerce:'E-commerce',coaching:'Coaching & formation',saas:'Saa
    ÉTUDES DE CAS + correspondances
    ============================================================ */
 const PROJETS=[
- {nom:'Virelo',seed:'virelo7',secteurs:['ecommerce'],objectifs:['vendre'],phases:['stagne','accelere'],canaux:['social'],
+ {nom:'Virelo',seed:'virelo7',secteurs:['medecin'],objectifs:['vendre'],phases:['stagne','accelere'],canaux:['social'],
   pourquoi:{vendre:'Même objectif : transformer l\u2019audience sociale en ventes directes.',defaut:'Un tunnel social-to-sale reconstruit de A à Z.'},
   stats:[['8,7×','ROAS'],['+320\u00a0%','Engagement'],['×2,4','C.A.']]},
  {nom:'Mindset Pro',seed:'mindset3',secteurs:['coaching'],objectifs:['audience','leads'],phases:['stagne','accelere'],canaux:['youtube','social'],
   pourquoi:{audience:'Comme vous : construire une audience fidèle multi-canaux.',defaut:'Un écosystème de contenu où chaque canal nourrit le suivant.'},
   stats:[['+185\u00a0%','Prospects'],['6,3×','C.A.'],['12k','Membres']]},
- {nom:'Taskly',seed:'taskly9',secteurs:['saas'],objectifs:['leads','vendre'],phases:['stagne','accelere'],canaux:['seo'],
+ {nom:'Taskly',seed:'taskly9',secteurs:['formation'],objectifs:['leads','vendre'],phases:['stagne','accelere'],canaux:['seo'],
   pourquoi:{leads:'Même besoin : des inscriptions qualifiées qui se transforment.',defaut:'Croissance pilotée par le produit, organique avant payant.'},
   stats:[['+210\u00a0%','Inscriptions'],['7,2×','Rétention'],['\u221231\u00a0%','CAC']]},
  {nom:'Maison Safran',seed:'safran5',secteurs:['resto'],objectifs:['notoriete','vendre'],phases:['zero','stagne'],canaux:['social'],
@@ -335,7 +335,7 @@ const PROJETS=[
  {nom:'Atlas Habitat',seed:'atlas2',secteurs:['immo'],objectifs:['leads'],phases:['stagne','accelere'],canaux:['seo','social'],
   pourquoi:{leads:'Exactement votre enjeu : des leads qualifiés, pas du volume.',defaut:'Une machine à prospects avec qualification automatique.'},
   stats:[['+95\u00a0%','Leads'],['\u221238\u00a0%','Coût/lead'],['34\u00a0%','Taux RDV']]},
- {nom:'Noor Bijoux',seed:'noor4',secteurs:['ecommerce','autre'],objectifs:['audience','vendre','notoriete'],phases:['zero'],canaux:['social'],
+ {nom:'Noor Bijoux',seed:'noor4',secteurs:['medecin','autre'],objectifs:['audience','vendre','notoriete'],phases:['zero'],canaux:['social'],
   pourquoi:{zero:'Comme vous : partie de zéro, rentable en trois mois.',defaut:'Un lancement de marque orchestré du premier post à la vente.'},
   stats:[['0\u219245k','Abonnés'],['5,4×','ROAS'],['68\u00a0%','Ventes IG']]}
 ];
@@ -420,7 +420,7 @@ function scorer(p){
 
 /* fourchette de budget mensuel estimée (déterministe) */
 function estimerBudget(){
-  const baseSecteur={ecommerce:2500,coaching:1800,saas:3000,resto:1500,immo:2800,autre:2000}[reponses.secteur]||2000;
+  const baseSecteur={medecin:2800,coaching:1800,formation:2200,resto:1500,immo:2800,autre:2000}[reponses.secteur]||2000;
   const multObjectif={vendre:1.2,leads:1.15,audience:1.0,notoriete:1.1}[reponses.objectif]||1;
   const multPhase={zero:0.8,stagne:1.0,accelere:1.35}[reponses.phase]||1;
   const bas=Math.round(baseSecteur*multObjectif*multPhase/100)*100;
