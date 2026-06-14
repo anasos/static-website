@@ -108,11 +108,6 @@ button{font-family:inherit;color:inherit}
 .jauge-score .centre{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .jauge-score .centre b{font-family:var(--display);font-weight:800;font-size:1.7rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
 .jauge-score .centre span{font-size:.6rem;color:var(--ardoise);letter-spacing:.1em;text-transform:uppercase}
-/* fourchette budget */
-.fourchette{display:flex;align-items:baseline;gap:10px;margin-top:4px}
-.fourchette b{font-family:var(--display);font-weight:800;font-size:1.9rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
-.fourchette span{font-size:.82rem;color:var(--ardoise)}
-.note-budget{font-size:.76rem;color:var(--ardoise);margin-top:8px;font-style:italic}
 .recos{list-style:none}
 .recos li{display:flex;gap:12px;padding:10px 0;border-bottom:1px dotted var(--bord);font-size:.92rem;color:var(--encre)}
 .recos li:last-child{border:none}
@@ -176,12 +171,12 @@ footer{border-top:1px solid rgba(27,37,102,.08);padding:30px 0}
     <nav>
       <ul class="nav-liens" id="menu">
         <li><a href="services_clear.html">Services</a></li>
-        <li><a href="portfolio-v3-clair.html">Portfolio</a></li>
-        <li><a href="process_clear.html">Processus</a></li>
-        <li><a href="devis.html" class="actif" aria-current="page">Devis</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="portfolio-v3-clair.html">Portfolio</a></li>        
+        <li><a href="process_clear.html">Process</a></li>
+        <li><a href="devis.html">Devis</a></li>
+        <li><a href="contact.html" class="actif" aria-current="page">Contact</a></li>
         <li><a href="contact_chat.html">Contact Chat</a></li>
-        <li><a href="mailto:contact@cymedia.ma?subject=Appel%20d%C3%A9couverte" class="btn-nav">Réserver un appel</a></li>
+        <li><a href="#contact" class="btn btn-plein" style="padding:10px 22px;font-size:.92rem">Réserver un appel</a></li>
       </ul>
     </nav>
     <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="basculerMenu(this)">
@@ -201,11 +196,11 @@ footer{border-top:1px solid rgba(27,37,102,.08);padding:30px 0}
   <section class="ecran actif" id="ecran-intro">
     <p class="eyebrow">Devis express · 60 secondes</p>
     <h1>Votre projet mérite mieux<br>qu'un <span class="txt-grad">prix au pifomètre.</span></h1>
-    <p class="sous">4 questions, une minute. On analyse votre profil et on vous propose une fourchette de budget réaliste, une approche sur mesure, et les études de cas qui ressemblent à votre projet.</p>
+    <p class="sous">4 questions, une minute. On analyse votre profil et on vous propose une approche sur mesure, ainsi que les études de cas qui ressemblent à votre projet.</p>
     <div class="points-intro">
       <span class="point-intro"><i>&#9889;</i>60 secondes chrono</span>
-      <span class="point-intro"><i>&#128176;</i>Fourchette de budget</span>
-      <span class="point-intro"><i>&#128203;</i>Approche personnalisée</span>
+      <span class="point-intro"><i>&#127919;</i>Approche sur mesure</span>
+      <span class="point-intro"><i>&#128203;</i>Cas qui vous ressemblent</span>
     </div>
     <button class="btn-grad" onclick="demarrer()">Estimer mon projet&nbsp;&rarr;</button>
   </section>
@@ -226,7 +221,7 @@ footer{border-top:1px solid rgba(27,37,102,.08);padding:30px 0}
       <ul class="etapes-analyse" id="etapes-analyse">
         <li><i>&#10003;</i>Lecture de vos réponses</li>
         <li><i>&#10003;</i>Comparaison avec 120+ projets</li>
-        <li><i>&#10003;</i>Estimation de votre fourchette de budget</li>
+        <li><i>&#10003;</i>Identification de vos leviers prioritaires</li>
         <li><i>&#10003;</i>Sélection des cas les plus proches</li>
       </ul>
     </div>
@@ -240,8 +235,6 @@ footer{border-top:1px solid rgba(27,37,102,.08);padding:30px 0}
         <div>
           <div class="profil-titre" id="r-profil"></div>
           <div class="profil-sous" id="r-profil-sous"></div>
-          <div class="fourchette"><b id="r-budget"></b><span id="r-budget-unite">/ mois estimés</span></div>
-          <p class="note-budget" id="r-budget-note"></p>
         </div>
         <div class="jauge-score">
           <svg viewBox="0 0 128 128">
@@ -420,28 +413,11 @@ function scorer(p){
   return s;
 }
 
-/* fourchette de budget mensuel estimée (déterministe) */
-function estimerBudget(){
-  const baseSecteur={medecin:2800,coaching:1800,formation:2200,resto:1500,immo:2800,autre:2000}[reponses.secteur]||2000;
-  const multObjectif={vendre:1.2,leads:1.15,audience:1.0,notoriete:1.1}[reponses.objectif]||1;
-  const multPhase={zero:0.8,stagne:1.0,accelere:1.35}[reponses.phase]||1;
-  const bas=Math.round(baseSecteur*multObjectif*multPhase/100)*100;
-  const haut=Math.round(bas*1.7/100)*100;
-  return [bas,haut];
-}
-
 function afficherResultats(){
   document.getElementById('r-profil').textContent=
     'Projet : '+LIBELLES[reponses.secteur]+' '+LIBELLES[reponses.phase];
   document.getElementById('r-profil-sous').textContent=
-    'Objectif prioritaire : '+LIBELLES[reponses.objectif]+'. Voici l\u2019estimation pour un accompagnement comme le vôtre.';
-
-  /* fourchette budget */
-  const [bas,haut]=estimerBudget();
-  const fmt=n=>n.toLocaleString('fr-FR');
-  document.getElementById('r-budget').textContent=fmt(bas)+' – '+fmt(haut)+'\u00a0DH';
-  document.getElementById('r-budget-note').textContent=
-    'Fourchette indicative pour l\u2019accompagnement mensuel (hors budget publicitaire média). Le devis ferme dépend du périmètre exact.';
+    'Objectif prioritaire : '+LIBELLES[reponses.objectif]+'. Voici ce qu\u2019on recommande pour un accompagnement comme le vôtre.';
 
   /* score de potentiel */
   const basePhase={zero:74,stagne:81,accelere:88}[reponses.phase];
@@ -505,20 +481,15 @@ function afficherResultats(){
     </a>`;
   }).join('');
 
-  /* CTA pré-rempli */
-  const corps=encodeURIComponent(
-`Bonjour CyMedia,
-
-Voici mon estimation express :
-- Secteur : ${LIBELLES[reponses.secteur]}
-- Objectif : ${LIBELLES[reponses.objectif]}
-- Situation : ${LIBELLES[reponses.phase]}
-- Canal : ${reponses.canal}
-- Fourchette estimée : ${fmt(bas)} - ${fmt(haut)} DH/mois
-
-J'aimerais recevoir un devis détaillé / réserver un appel découverte.`);
-  document.getElementById('r-cta').href=
-    'mailto:contact@cymedia.ma?subject='+encodeURIComponent('Demande de devis CyMedia')+'&body='+corps;
+  /* CTA : redirige vers la page contact en passant les réponses du devis */
+  const params=new URLSearchParams({
+    src:'devis',
+    secteur:reponses.secteur||'',
+    objectif:reponses.objectif||'',
+    phase:reponses.phase||'',
+    canal:reponses.canal||''
+  });
+  document.getElementById('r-cta').href='contact.html?'+params.toString();
 
   montrer('ecran-resultats');
 }
